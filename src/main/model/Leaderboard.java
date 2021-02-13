@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-// Stores information about many players
+// Stores information about many players in a list ordered by score
 public class Leaderboard {
 
     private ArrayList<Player> leaderboard;
@@ -11,21 +11,35 @@ public class Leaderboard {
     // MODIFIES :
     // EFFECTS  : Creates an empty Leaderboard
     public Leaderboard() {
-        // STUB
+        this.leaderboard = new ArrayList<Player>();
     }
 
     // REQUIRES :
     // MODIFIES : this.leaderboard
     // EFFECTS  : Adds a player in the correct place on the leaderboard
     public void addPlayer(Player player) {
-        // STUB
+
+        if (leaderboard.size() == 0) {
+            leaderboard.add(player);
+            return;
+        }
+
+        int position = 0;
+        for (Player p: leaderboard) {
+            if (p.getScore() >= player.getScore()) {
+                position++;
+            } else {
+                leaderboard.add(position, player);
+                return;
+            }
+        }
     }
 
-    // REQUIRES :
+    // REQUIRES : position >= 0
     // MODIFIES :
     // EFFECTS  : Returns the player at the specified positions
     public Player getPlayer(int position) {
-        return new Player("player0", 0); // STUB
+        return leaderboard.get(position);
     }
 
 }

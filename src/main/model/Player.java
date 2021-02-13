@@ -9,8 +9,9 @@ public class Player {
     // REQUIRES : score >= 0
     // MODIFIES :
     // EFFECTS  : Creates a new player with a given score and name
-    public Player(String name1, int score1) {
-        // STUB
+    public Player(String name, int score) {
+        this.name = name;
+        this.score = score;
     }
 
     // REQUIRES :
