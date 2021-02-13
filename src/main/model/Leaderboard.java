@@ -15,17 +15,17 @@ public class Leaderboard {
     }
 
     // REQUIRES :
-    // MODIFIES :
-    // EFFECTS  : Creates a Leaderboard using saved data
-    public Leaderboard(String path) {
-        // STUB
-    }
-
-    // REQUIRES :
     // MODIFIES : this.leaderboard
     // EFFECTS  : Adds a player in the correct place on the leaderboard
     public void addPlayer(Player player) {
         // STUB
+    }
+
+    // REQUIRES :
+    // MODIFIES :
+    // EFFECTS  : Returns the player at the specified positions
+    public Player getPlayer(int position) {
+        return new Player("player0", 0); // STUB
     }
 
 }

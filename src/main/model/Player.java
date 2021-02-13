@@ -6,7 +6,7 @@ public class Player {
     private String name;
     private int score;
 
-    // REQUIRES :
+    // REQUIRES : score >= 0
     // MODIFIES :
     // EFFECTS  : Creates a new player with a given score and name
     public Player(String name1, int score1) {
