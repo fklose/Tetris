@@ -9,7 +9,7 @@ public class Player {
     // REQUIRES :
     // MODIFIES :
     // EFFECTS  : Creates a new player with a given score and name
-    public Player(String name, int score1, String name1) {
+    public Player(String name1, int score1) {
         // STUB
     }
 
