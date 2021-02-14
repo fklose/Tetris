@@ -41,7 +41,7 @@ public class TetrominoQueue {
     // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Adds a random Tetromino to the end of the list
-    public static void addRandomTetromino() {
+    private static void addRandomTetromino() {
         Tetromino tetromino = randomTetromino();
         addTetromino(tetromino);
     }
