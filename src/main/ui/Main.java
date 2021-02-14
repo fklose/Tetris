@@ -1,8 +1,5 @@
 package ui;
 
-import model.Leaderboard;
-import model.Queue;
-
 import java.util.Scanner;
 
 public class Main {

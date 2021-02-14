@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 // Used to store Tetrominos and generate a new random Tetromino when one is taken out.
-public class Queue {
+public class TetrominoQueue {
 
     private static final int MAX_SIZE = 5;
     private static LinkedList<Tetromino> queue = new LinkedList<>();
@@ -13,7 +13,7 @@ public class Queue {
     // REQUIRES :
     // MODIFIES :
     // EFFECTS  : Makes a new queue containing a set number of random Tetrominos with a given seed
-    public Queue(long seed) {
+    public TetrominoQueue(long seed) {
         rnd = new Random();
         rnd.setSeed(seed);
 
@@ -56,7 +56,7 @@ public class Queue {
     // REQUIRES :
     // MODIFIES :
     // EFFECTS  : Generates a random Tetromino
-    private static Tetromino randomTetromino() {
+    public static Tetromino randomTetromino() {
         int randInt = rnd.nextInt(7);
 
         switch (randInt) {

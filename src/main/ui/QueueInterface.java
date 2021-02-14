@@ -1,6 +1,6 @@
 package ui;
 
-import model.Queue;
+import model.TetrominoQueue;
 import model.Tetromino;
 
 import java.util.LinkedList;
@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class QueueInterface {
 
     private static Scanner scanInput = new Scanner(System.in);
-    private static Queue queue;
+    private static TetrominoQueue tetrominoQueue;
 
     // REQUIRES :
     // MODIFIES : this
@@ -20,7 +20,7 @@ public class QueueInterface {
         Random seedGenerator = new Random();
         long seed = seedGenerator.nextLong();
 
-        queue = new Queue(seed);
+        tetrominoQueue = new TetrominoQueue(seed);
         userInput();
     }
 
@@ -43,7 +43,7 @@ public class QueueInterface {
     // EFFECTS  : Gets next Tetromino from queue and prints its name
     private static void printNextItem() {
         System.out.println("------------------------------------");
-        Tetromino nextTetromino = Queue.getNextTetromino();
+        Tetromino nextTetromino = TetrominoQueue.getNextTetromino();
         System.out.println("The current item is:    " + nextTetromino.getName());
     }
 
@@ -53,7 +53,7 @@ public class QueueInterface {
     private static void printQueue() {
         System.out.println("------------------------------------");
         System.out.print("The queue is:           ");
-        LinkedList<Tetromino> tetrominos = Queue.getQueue();
+        LinkedList<Tetromino> tetrominos = TetrominoQueue.getQueue();
         for (Tetromino tetromino : tetrominos) {
             System.out.print(tetromino.getName() + "    ");
         }
