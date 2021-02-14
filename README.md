@@ -2,7 +2,7 @@
 
 ## Proposal
 ### What will the application do?
-The application will be a playable version of *Tetris*.
+The application will be a playable version of Tetris.
 The game will have a feature allowing players to track their highscores,
 as well as some different game modes. The plan right now is to have
 a highscore mode where a player has a set number of time to clear as many
@@ -13,21 +13,21 @@ the game mode, a Tetris game ends when the player runs out of space on the board
 This can be avoided by filling in horizontal lines which makes them disappear.
 
 ### Who will use it?
-Really anyone that likes to play *Tetris* and is looking for an offline
+Really anyone that likes to play Tetris and is looking for an offline
 version of the game. The most popular version right now is found on an 
 online website called Jstris, and I have yet to find a good offline
 version of the game for myself.
 
 ### Why is this project of interest to you?
-I enjoy playing *Tetris* and would like to be able to play the game offline,
+I enjoy playing Tetris and would like to be able to play the game offline,
 since there are no good offline versions.
 
 ## Phase 1:
 ### User Stories
 1. As a user I want to be able to see the highscores.
-2. As a user I want to be able to see the next Tetrominos in queue.
-3. As a user I want to be able to have some keyboard controls.
-4. As a user I want to be able to 
+2. As a user I want to be able to add my own score to the list of highscores.
+3. As a user I want to be able to see the next Tetrominos in queue.
+4. As a user I wanto to be able to pull the next Tetramino from the queue.
 
 ## Appendix
 

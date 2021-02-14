@@ -11,7 +11,7 @@ public class Leaderboard {
     // MODIFIES :
     // EFFECTS  : Creates an empty Leaderboard
     public Leaderboard() {
-        this.leaderboard = new ArrayList<Player>();
+        this.leaderboard = new ArrayList<>();
     }
 
     // REQUIRES :
@@ -41,4 +41,10 @@ public class Leaderboard {
         return leaderboard.get(position);
     }
 
+    // REQUIRES :
+    // MODIFIES :
+    // EFFECTS  : Returns the leaderboard
+    public ArrayList<Player> getLeaderboard() {
+        return leaderboard;
+    }
 }
