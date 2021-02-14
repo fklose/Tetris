@@ -19,7 +19,7 @@ public class Board {
 
     // REQUIRES :
     // MODIFIES :
-    // EFFECTS  : Moves falling Tetrominos along the board
+    // EFFECTS  : Moves falling Tetromino along the board
     public void update() {
         // STUB
     }
