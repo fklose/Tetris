@@ -9,7 +9,7 @@ public class Grid {
     private int width;
     private LinkedList<Integer> grid;
 
-    // REQUIRES :
+    // REQUIRES : width > 0, height > 0
     // MODIFIES :
     // EFFECTS  : Creates a grid with a given width and height
     public Grid(int width, int height) {

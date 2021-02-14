@@ -18,19 +18,18 @@ public class Leaderboard {
     // MODIFIES : this.leaderboard
     // EFFECTS  : Adds a player in the correct place on the leaderboard
     public void addPlayer(Player player) {
+        int position = 0;
 
         if (leaderboard.size() == 0) {
             leaderboard.add(player);
             return;
         }
-
-        int position = 0;
         for (Player p: leaderboard) {
             if (p.getScore() >= player.getScore()) {
                 position++;
             } else {
                 leaderboard.add(position, player);
-                return;
+                break;
             }
         }
     }
