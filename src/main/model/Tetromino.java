@@ -40,6 +40,7 @@ public enum Tetromino {
             new Vector2D(1, 1),
             new Vector2D(0, -1));
 
+    // TODO: Maybe store individual blocks as an arraylist from the get go instead of individually
     private Vector2D block1;
     private Vector2D block2;
     private Vector2D block3;
@@ -81,13 +82,30 @@ public enum Tetromino {
     // MODIFIES : this
     // EFFECTS  : Moves Tetromino by adding a direction vector to all position vectors
     public void move(Vector2D direction) {
-        // STUB
+        Vector2D newBlock1 = this.block1.addVector(direction);
+        Vector2D newBlock2 = this.block2.addVector(direction);
+        Vector2D newBlock3 = this.block3.addVector(direction);
+        Vector2D newBlock4 = this.block4.addVector(direction);
+
+        this.block1 = newBlock1;
+        this.block2 = newBlock2;
+        this.block3 = newBlock3;
+        this.block4 = newBlock4;
     }
 
     // REQUIRES :
     // MODIFIES :
     // EFFECTS  : Rotates Tetromino ninety degrees counterclockwise
     public void rotate() {
-        // STUB
+        RotationMatrix2x2 matrix = new RotationMatrix2x2();
+        Vector2D newBlock1 = matrix.matrixVectorProduct(block1);
+        Vector2D newBlock2 = matrix.matrixVectorProduct(block2);
+        Vector2D newBlock3 = matrix.matrixVectorProduct(block3);
+        Vector2D newBlock4 = matrix.matrixVectorProduct(block4);
+
+        this.block1 = newBlock1;
+        this.block2 = newBlock2;
+        this.block3 = newBlock3;
+        this.block4 = newBlock4;
     }
 }
