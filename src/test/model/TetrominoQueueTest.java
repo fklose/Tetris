@@ -30,8 +30,10 @@ class TetrominoQueueTest {
 
     @BeforeEach
     void setUp() {
-        queue1 = new TetrominoQueue(SEED_ONE);
-        queue2 = new TetrominoQueue(SEED_TWO);
+        queue1 = new TetrominoQueue();
+        queue2 = new TetrominoQueue();
+        queue1.setSeed(SEED_ONE);
+        queue2.setSeed(SEED_TWO);
 
         shape0 = Tetromino.shapeLine;
         shape1 = Tetromino.shapeSquare;
@@ -43,20 +45,18 @@ class TetrominoQueueTest {
         shape7 = Tetromino.nullShape;
 
         rng1 = new Random();
-        rng1.setSeed(SEED_ONE);
         rng2 = new Random();
+        rng1.setSeed(SEED_ONE);
         rng2.setSeed(SEED_TWO);
     }
 
     @Test
     void getNextTetromino() {
-        for (int i = 0; i < 5; i++) {
-            rng1.nextInt(7);
-            rng2.nextInt(7);
-        }
+        TetrominoQueue queue3 = new TetrominoQueue();
 
         queue1.initializeQueue();
         queue2.initializeQueue();
+        queue3.initializeQueue();
 
         /*
          * Tried getting a second random number generator with the same seed so I can generate the same blocks
@@ -66,9 +66,11 @@ class TetrominoQueueTest {
 
         for (int i = 0; i < 20; i++) {
             assertNotEquals(shape7, queue1.getNextTetromino());
-            assertNotEquals(shape7, queue2.getNextTetromino());
-            assertEquals(5, queue1.getSize());
-            assertEquals(5, queue2.getSize());
+            assertNotEquals(shape7, queue3.getNextTetromino());
+            assertEquals(5, queue1.getQueue().size());
+            assertEquals(5, queue3.getQueue().size());
+            assertNotEquals(4, queue1.getQueue().size());
+            assertNotEquals(6, queue2.getQueue().size());
         }
     }
 

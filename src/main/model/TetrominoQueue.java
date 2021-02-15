@@ -18,10 +18,9 @@ public class TetrominoQueue {
     }
 
     // REQUIRES :
-    // MODIFIES :
-    // EFFECTS  : Makes a new queue containing a set number of random Tetrominos with a given seed. Used for testing
-    public TetrominoQueue(long seed) {
-        rnd = new Random();
+    // MODIFIES : this
+    // EFFECTS  : Sets the seed for generating random numbers
+    public void setSeed(long seed) {
         rnd.setSeed(seed);
     }
 
@@ -93,12 +92,5 @@ public class TetrominoQueue {
     // EFFECTS  : Generates a random integer in the interval [0, 6]
     public int getRandomInteger() {
         return rnd.nextInt(7);
-    }
-
-    // REQUIRES :
-    // MODIFIES :
-    // EFFECTS  : Returns size of queue
-    public int getSize() {
-        return SIZE;
     }
 }
