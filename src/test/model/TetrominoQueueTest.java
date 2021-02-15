@@ -23,6 +23,9 @@ class TetrominoQueueTest {
     private Tetromino shape6;
     private Tetromino shape7;
 
+    private Random rng1;
+    private Random rng2;
+
 
     @BeforeEach
     void setUp() {
@@ -37,15 +40,15 @@ class TetrominoQueueTest {
         shape5 = Tetromino.shapeLeftL;
         shape6 = Tetromino.shapeRightL;
         shape7 = Tetromino.nullShape;
+
+        rng1 = new Random();
+        rng1.setSeed(SEED_ONE);
+        rng2 = new Random();
+        rng2.setSeed(SEED_TWO);
     }
 
     @Test
     void getNextTetromino() {
-        Random rng1 = new Random();
-        rng1.setSeed(SEED_ONE);
-        Random rng2 = new Random();
-        rng2.setSeed(SEED_TWO);
-
         for (int i = 0; i < 5; i++) {
             rng1.nextInt(7);
             rng2.nextInt(7);
@@ -54,29 +57,18 @@ class TetrominoQueueTest {
         queue1.initializeQueue();
         queue2.initializeQueue();
 
-        assertNotEquals(shape7, queue1.getNextTetromino());
-        assertEquals(5, queue1.getSize());
+        /*
+        * Tried getting a second random number generator with the same seed so I can generate the same blocks
+        * independently. I could not get it to work so I am simply checking that the nullShape is not returned
+        * over 20 trials.
+         */
 
-        assertNotEquals(shape7, queue1.getNextTetromino());
-        assertNotEquals(shape7, queue1.getNextTetromino());
-        assertEquals(5, queue1.getQueue().size());
-
-        assertNotEquals(shape7, queue1.getNextTetromino());
-        assertNotEquals(shape7, queue1.getNextTetromino());
-        assertNotEquals(shape7, queue1.getNextTetromino());
-        assertEquals(5, queue2.getQueue().size());
-    }
-
-    @Test
-    void getQueue() {
-    }
-
-    @Test
-    void addRandomTetromino() {
-    }
-
-    @Test
-    void addTetromino() {
+        for (int i = 0; i < 20; i++) {
+            assertNotEquals(shape7, queue1.getNextTetromino());
+            assertNotEquals(shape7, queue2.getNextTetromino());
+            assertEquals(5, queue1.getSize());
+            assertEquals(5, queue2.getSize());
+        }
     }
 
     @Test
@@ -95,16 +87,6 @@ class TetrominoQueueTest {
 
     @Test
     void getRandomInteger() {
-        Random rng1 = new Random();
-        rng1.setSeed(SEED_ONE);
-        Random rng2 = new Random();
-        rng2.setSeed(SEED_TWO);
-
-//        for (int i = 0; i < 5; i++) {
-//            rng1.nextInt(7);
-//            rng1.nextInt(7);
-//        }
-
         for (int i = 0; i < 10; i++) {
             assertEquals(rng1.nextInt(7), queue1.getRandomInteger());
             assertEquals(rng2.nextInt(7), queue2.getRandomInteger());
