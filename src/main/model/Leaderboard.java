@@ -2,10 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
+import model.Player;
+
 // Stores information about many players in a list ordered by score
 public class Leaderboard {
 
-    private ArrayList<Player> leaderboard;
+    private final ArrayList<Player> leaderboard;
 
     // REQUIRES :
     // MODIFIES :
@@ -20,18 +22,12 @@ public class Leaderboard {
     public void addPlayer(Player player) {
         int position = 0;
 
-        if (leaderboard.size() == 0) {
-            leaderboard.add(player);
-            return;
-        }
         for (Player p: leaderboard) {
             if (p.getScore() >= player.getScore()) {
                 position++;
-            } else {
-                leaderboard.add(position, player);
-                break;
             }
         }
+        leaderboard.add(position, player);
     }
 
     // REQUIRES : position >= 0
@@ -46,5 +42,12 @@ public class Leaderboard {
     // EFFECTS  : Returns the leaderboard
     public ArrayList<Player> getLeaderboard() {
         return leaderboard;
+    }
+
+    // REQUIRES :
+    // MODIFIES :
+    // EFFECTS  : Returns the size of the leaderboard
+    public int getSize() {
+        return leaderboard.size();
     }
 }

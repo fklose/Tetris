@@ -1,5 +1,7 @@
 package ui;
 
+import model.TetrominoQueue;
+
 import java.util.Scanner;
 
 public class Main {
@@ -30,11 +32,11 @@ public class Main {
     private static void handleOptions(String input) {
         switch (input) {
             case "1":
-                new LeaderboardInterface();
+                LeaderboardInterface.userInput();
                 userInput();
                 return;
             case "2":
-                new QueueInterface();
+                QueueInterface.userInput();
                 userInput();
                 return;
             case "3":

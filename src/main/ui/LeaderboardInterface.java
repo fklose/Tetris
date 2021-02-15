@@ -6,19 +6,16 @@ import model.Player;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class LeaderboardInterface {
+// Methods for interacting with a Leaderboard
+public final class LeaderboardInterface {
 
-    private static Scanner scan;
-    private static Leaderboard leaderboard = new Leaderboard();
+    private static final Scanner SCAN_INPUT = new Scanner(System.in);
+    private static final Leaderboard LEADERBOARD = new Leaderboard();
 
     // REQUIRES :
     // MODIFIES :
     // EFFECTS  : Creates a new Leaderboard interface
-    public LeaderboardInterface() {
-        scan = new Scanner(System.in);
-
-        userInput();
-    }
+    private LeaderboardInterface() {}
 
     // REQUIRES :
     // MODIFIES :
@@ -30,7 +27,7 @@ public class LeaderboardInterface {
         System.out.println("3. Exit!");
         System.out.println("Type the number associated with the option you would like to select.");
 
-        String input = scan.nextLine();
+        String input = SCAN_INPUT.nextLine();
         handleOptions(input);
     }
 
@@ -44,12 +41,12 @@ public class LeaderboardInterface {
 
         System.out.println("------------------------------------");
         System.out.println("What's your name?");
-        name = scan.nextLine();
+        name = SCAN_INPUT.nextLine();
         System.out.println("What's your score?");
-        score = scan.nextInt();
+        score = SCAN_INPUT.nextInt();
 
         player = new Player(name, score);
-        leaderboard.addPlayer(player);
+        LEADERBOARD.addPlayer(player);
     }
 
     // REQUIRES :
@@ -57,13 +54,13 @@ public class LeaderboardInterface {
     // EFFECTS  : Prints the queue
     private static void printLeaderboard() {
         System.out.println("------------------------------------");
-        ArrayList<Player> players = leaderboard.getLeaderboard();
+        ArrayList<Player> players = LEADERBOARD.getLeaderboard();
 
         if (players.size() == 0) {
             System.out.println("Leaderboard is empty");
             return;
         }
-        System.out.println("There are " + leaderboard.getLeaderboard().size());
+        System.out.println("There are " + LEADERBOARD.getSize());
         int position = 1;
         for (Player player : players) {
             System.out.print(position + ". ");
@@ -77,7 +74,7 @@ public class LeaderboardInterface {
     // EFFECTS  : Method is done when Enter is pressed. Used to control output
     private static void waitForEnter() {
         System.out.println("----- Press Enter to continue! -----");
-        String input = scan.nextLine();
+        SCAN_INPUT.nextLine();
     }
 
     // REQUIRES : input must be one of "1", "2" or "3"

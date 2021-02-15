@@ -3,8 +3,8 @@ package model;
 // Stores information about a player, such as name and score
 public class Player {
 
-    private String name;
-    private int score;
+    private final String name;
+    private final int score;
 
     // REQUIRES : score >= 0
     // MODIFIES :

@@ -7,15 +7,14 @@ import java.util.Random;
 public class TetrominoQueue {
 
     private static final int MAX_SIZE = 5;
-    private static LinkedList<Tetromino> queue = new LinkedList<>();
-    private static Random rnd = new Random();
+    private LinkedList<Tetromino> queue;
+    private Random rnd;
 
     // REQUIRES :
     // MODIFIES :
     // EFFECTS  : Makes a new queue containing a set number of random Tetrominos with a given seed
-    public TetrominoQueue(long seed) {
+    public TetrominoQueue() {
         rnd = new Random();
-        rnd.setSeed(seed);
 
         queue = new LinkedList<>();
         for (int i = 0; i < MAX_SIZE; i++) {
@@ -25,8 +24,15 @@ public class TetrominoQueue {
 
     // REQUIRES :
     // MODIFIES : this
+    // EFFECTS  : Sets the seed for the random number generator. For testing purposes
+    public void setSeed(long seed) {
+        rnd.setSeed(seed);
+    }
+
+    // REQUIRES :
+    // MODIFIES : this
     // EFFECTS  : Returns the first Tetromino in queue and adds a new one at the end
-    public static Tetromino getNextTetromino() {
+    public Tetromino getNextTetromino() {
         addRandomTetromino();
         return queue.pollFirst();
     }
@@ -34,14 +40,14 @@ public class TetrominoQueue {
     // REQUIRES :
     // MODIFIES :
     // EFFECTS  : Returns the queue
-    public static LinkedList<Tetromino> getQueue() {
+    public LinkedList<Tetromino> getQueue() {
         return queue;
     }
 
     // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Adds a random Tetromino to the end of the list
-    private static void addRandomTetromino() {
+    public void addRandomTetromino() {
         Tetromino tetromino = randomTetromino();
         addTetromino(tetromino);
     }
@@ -49,17 +55,15 @@ public class TetrominoQueue {
     // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Adds a Tetromino to the end of the queue
-    private static void addTetromino(Tetromino tetromino) {
+    public void addTetromino(Tetromino tetromino) {
         queue.addLast(tetromino);
     }
 
     // REQUIRES :
     // MODIFIES :
     // EFFECTS  : Generates a random Tetromino
-    public static Tetromino randomTetromino() {
-        int randInt = rnd.nextInt(7);
-
-        switch (randInt) {
+    public Tetromino randomTetromino() {
+        switch (getRandomInteger()) {
             case 0:
                 return Tetromino.shapeLine;
             case 1:
@@ -76,5 +80,12 @@ public class TetrominoQueue {
                 return Tetromino.shapeRightL;
         }
         return Tetromino.shapeLeftL;
+    }
+
+    // REQUIRES :
+    // MODIFIES :
+    // EFFECTS  : Generates a random integer in the interval [0, 6]
+    public int getRandomInteger() {
+        return rnd.nextInt(7);
     }
 }

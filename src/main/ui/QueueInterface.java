@@ -4,25 +4,18 @@ import model.TetrominoQueue;
 import model.Tetromino;
 
 import java.util.LinkedList;
-import java.util.Random;
 import java.util.Scanner;
 
-// UI for viewing and modifying the Queue of Tetrominos
-public class QueueInterface {
+// Methods for interacting with a Queue
+public final class QueueInterface {
 
-    private static Scanner scanInput = new Scanner(System.in);
-    private static TetrominoQueue tetrominoQueue;
+    private static final Scanner SCAN_INPUT = new Scanner(System.in);
+    private static final TetrominoQueue TETROMINO_QUEUE = new TetrominoQueue();
 
     // REQUIRES :
     // MODIFIES : this
-    // EFFECTS  : Creates a new QueueInterface with a random seed
-    public QueueInterface() {
-        Random seedGenerator = new Random();
-        long seed = seedGenerator.nextLong();
-
-        tetrominoQueue = new TetrominoQueue(seed);
-        userInput();
-    }
+    // EFFECTS  : Creates a new QueueInterface
+    private QueueInterface() {}
 
     // REQUIRES :
     // MODIFIES :
@@ -34,7 +27,7 @@ public class QueueInterface {
         System.out.println("3. Exit!");
         System.out.println("Type the number associated with the option you would like to select.");
 
-        String input = scanInput.nextLine();
+        String input = SCAN_INPUT.nextLine();
         handleOptions(input);
     }
 
@@ -43,7 +36,7 @@ public class QueueInterface {
     // EFFECTS  : Gets next Tetromino from queue and prints its name
     private static void printNextItem() {
         System.out.println("------------------------------------");
-        Tetromino nextTetromino = TetrominoQueue.getNextTetromino();
+        Tetromino nextTetromino = TETROMINO_QUEUE.getNextTetromino();
         System.out.println("The current item is:    " + nextTetromino.getName());
     }
 
@@ -53,7 +46,7 @@ public class QueueInterface {
     private static void printQueue() {
         System.out.println("------------------------------------");
         System.out.print("The queue is:           ");
-        LinkedList<Tetromino> tetrominos = TetrominoQueue.getQueue();
+        LinkedList<Tetromino> tetrominos = TETROMINO_QUEUE.getQueue();
         for (Tetromino tetromino : tetrominos) {
             System.out.print(tetromino.getName() + "    ");
         }
@@ -65,7 +58,7 @@ public class QueueInterface {
     // EFFECTS  : Method is done when Enter is pressed. Used to control output
     private static void waitForEnter() {
         System.out.println("----- Press Enter to continue! -----");
-        String input = scanInput.nextLine();
+        String input = SCAN_INPUT.nextLine();
     }
 
     // REQUIRES : input must be one of "1", "2" or "3"
@@ -89,5 +82,4 @@ public class QueueInterface {
                 Main.main(args);
         }
     }
-
 }

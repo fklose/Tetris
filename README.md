@@ -27,7 +27,7 @@ since there are no good offline versions.
 1. As a user I want to be able to see the highscores.
 2. As a user I want to be able to add my own score to the list of highscores.
 3. As a user I want to be able to see the next Tetrominos in queue.
-4. As a user I wanto to be able to pull the next Tetramino from the queue.
+4. As a user I want to be able to pull the next Tetramino from the queue.
 
 ## Appendix
 

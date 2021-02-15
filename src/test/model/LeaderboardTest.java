@@ -75,4 +75,16 @@ class LeaderboardTest {
             checkCorrectPlayerCorrectPosition(leaderboard, i, player1);
         }
     }
+
+    @Test
+    void getSize() {
+        leaderboard1.addPlayer(player1);
+        leaderboard1.addPlayer(player1);
+        leaderboard1.addPlayer(player2);
+        assertEquals(3, leaderboard1.getSize());
+
+        leaderboard1.addPlayer(player3);
+        leaderboard1.addPlayer(player4);
+        assertEquals(5, leaderboard1.getSize());
+    }
 }
