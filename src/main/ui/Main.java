@@ -1,7 +1,5 @@
 package ui;
 
-import model.TetrominoQueue;
-
 import java.util.Scanner;
 
 public class Main {

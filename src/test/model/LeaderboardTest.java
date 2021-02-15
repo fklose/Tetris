@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LeaderboardTest {
 
@@ -70,7 +70,7 @@ class LeaderboardTest {
 
     private void checkPlayerListsEqual(Leaderboard leaderboard, ArrayList<Player> result) {
         int size = result.size();
-        for (int i = 0 ; i < size ; i++) {
+        for (int i = 0; i < size; i++) {
             Player player1 = result.get(i);
             checkCorrectPlayerCorrectPosition(leaderboard, i, player1);
         }

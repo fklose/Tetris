@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class TetrominoQueueTest {
 
@@ -58,9 +59,9 @@ class TetrominoQueueTest {
         queue2.initializeQueue();
 
         /*
-        * Tried getting a second random number generator with the same seed so I can generate the same blocks
-        * independently. I could not get it to work so I am simply checking that the nullShape is not returned
-        * over 20 trials.
+         * Tried getting a second random number generator with the same seed so I can generate the same blocks
+         * independently. I could not get it to work so I am simply checking that the nullShape is not returned
+         * over 20 trials.
          */
 
         for (int i = 0; i < 20; i++) {

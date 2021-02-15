@@ -15,7 +15,8 @@ public final class LeaderboardInterface {
     // REQUIRES :
     // MODIFIES :
     // EFFECTS  : Creates a new Leaderboard interface
-    private LeaderboardInterface() {}
+    private LeaderboardInterface() {
+    }
 
     // REQUIRES :
     // MODIFIES :

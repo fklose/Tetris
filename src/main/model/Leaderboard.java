@@ -2,8 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-import model.Player;
-
 // Stores information about many players in a list ordered by score
 public class Leaderboard {
 
@@ -22,7 +20,7 @@ public class Leaderboard {
     public void addPlayer(Player player) {
         int position = 0;
 
-        for (Player p: leaderboard) {
+        for (Player p : leaderboard) {
             if (p.getScore() >= player.getScore()) {
                 position++;
             }

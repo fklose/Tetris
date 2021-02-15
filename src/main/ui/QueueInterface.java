@@ -1,7 +1,7 @@
 package ui;
 
-import model.TetrominoQueue;
 import model.Tetromino;
+import model.TetrominoQueue;
 
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -15,7 +15,8 @@ public final class QueueInterface {
     // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Creates a new QueueInterface
-    private QueueInterface() {}
+    private QueueInterface() {
+    }
 
     // REQUIRES :
     // MODIFIES :
