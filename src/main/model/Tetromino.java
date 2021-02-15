@@ -38,7 +38,12 @@ public enum Tetromino {
             new Vector2D(0, 0),
             new Vector2D(0, 1),
             new Vector2D(1, 1),
-            new Vector2D(0, -1));
+            new Vector2D(0, -1)),
+    nullShape("null",
+            new Vector2D(0, 0),
+            new Vector2D(0, 0),
+            new Vector2D(0, 0),
+            new Vector2D(0, 0));
 
     // TODO: Maybe store individual blocks as an arraylist from the get go instead of individually
     private Vector2D block1;
@@ -70,7 +75,7 @@ public enum Tetromino {
     // MODIFIES :
     // EFFECTS  : Returns the positions of the blocks of the Tetrominos
     public ArrayList<Vector2D> getPositions() {
-        ArrayList<Vector2D> positions = new ArrayList<Vector2D>();
+        ArrayList<Vector2D> positions = new ArrayList<>();
         positions.add(block1);
         positions.add(block2);
         positions.add(block3);
