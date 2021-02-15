@@ -3,14 +3,12 @@
 ## Proposal
 ### What will the application do?
 The application will be a playable version of Tetris.
-The game will have a feature allowing players to track their highscores,
-as well as some different game modes. The plan right now is to have
-a highscore mode where a player has a set number of time to clear as many
-lines as possible, a time trial mode where the goal is to clear a set number
-of lines in the shortest possible time, and an endless mode where the game
-does not end until the player runs out of space to put blocks. Regardless of 
-the game mode, a Tetris game ends when the player runs out of space on the board.
-This can be avoided by filling in horizontal lines which makes them disappear.
+The game will have a feature allowing players to track their highscores.
+It will incorporate some standard features of Tetris, such as being able to see
+the next five upcoming Tetrominos, as well as being able to move the Tetrominos
+left and right, as well as rotate them. Initially the plan is to only include an
+endless mode with other gamemodes being an option once the core of the game is
+implemented.
 
 ### Who will use it?
 Really anyone that likes to play Tetris and is looking for an offline

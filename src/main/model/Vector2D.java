@@ -1,9 +1,10 @@
 package model;
 
+// A class containing information and methods relating to a 2d Vector
 public class Vector2D {
 
-    private int componentX;
-    private int componentY;
+    private final int componentX;
+    private final int componentY;
 
     // REQUIRES : x, y need to be Integer
     // MODIFIES : this
@@ -13,7 +14,6 @@ public class Vector2D {
         this.componentY = y;
     }
 
-    // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Returns the sum of this vector and a given vector
     public Vector2D addVector(Vector2D vec) {
@@ -22,15 +22,11 @@ public class Vector2D {
         return new Vector2D(newX, newY);
     }
 
-    // REQUIRES :
-    // MODIFIES :
     // EFFECTS  : Returns x component of a given vector
     public int getComponentX() {
         return this.componentX;
     }
 
-    // REQUIRES :
-    // MODIFIES :
     // EFFECTS  : Returns y component of a given vector
     public int getComponentY() {
         return this.componentY;

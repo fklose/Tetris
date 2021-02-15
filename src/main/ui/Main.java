@@ -2,18 +2,18 @@ package ui;
 
 import java.util.Scanner;
 
-public class Main {
+// Main program
+public final class Main {
 
     private static Scanner scanInput = new Scanner(System.in);
 
     public static void main(String[] args) {
+        QueueInterface.initializeQueue();
         userInput();
     }
 
-    // REQUIRES :
-    // MODIFIES :
     // EFFECTS  : Handles user input
-    private static void userInput() {
+    public static void userInput() {
         System.out.println("Options:");
         System.out.println("1. Leaderboard");
         System.out.println("2. Queue");
@@ -24,18 +24,14 @@ public class Main {
         handleOptions(input);
     }
 
-    // REQUIRES :
-    // MODIFIES :
     // EFFECTS  : Given an input corresponds the corresponding task
     private static void handleOptions(String input) {
         switch (input) {
             case "1":
                 LeaderboardInterface.userInput();
-                userInput();
                 return;
             case "2":
                 QueueInterface.userInput();
-                userInput();
                 return;
             case "3":
         }

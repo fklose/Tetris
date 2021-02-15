@@ -2,19 +2,18 @@ package model;
 
 import java.util.ArrayList;
 
-// Stores information about many players in a list ordered by score
+// Stores information about many players in an ArrayList ordered by score
 public class Leaderboard {
 
+    // Online says this should be CAMEL_CASE but checkstyle says that's an error
     private final ArrayList<Player> leaderboard;
 
-    // REQUIRES :
-    // MODIFIES :
+    // MODIFIES : this
     // EFFECTS  : Creates an empty Leaderboard
     public Leaderboard() {
         this.leaderboard = new ArrayList<>();
     }
 
-    // REQUIRES :
     // MODIFIES : this.leaderboard
     // EFFECTS  : Adds a player in the correct place on the leaderboard
     public void addPlayer(Player player) {
@@ -29,21 +28,16 @@ public class Leaderboard {
     }
 
     // REQUIRES : position >= 0
-    // MODIFIES :
     // EFFECTS  : Returns the player at the specified positions
     public Player getPlayer(int position) {
         return leaderboard.get(position);
     }
 
-    // REQUIRES :
-    // MODIFIES :
     // EFFECTS  : Returns the leaderboard
     public ArrayList<Player> getLeaderboard() {
         return leaderboard;
     }
 
-    // REQUIRES :
-    // MODIFIES :
     // EFFECTS  : Returns the size of the leaderboard
     public int getSize() {
         return leaderboard.size();

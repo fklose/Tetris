@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+// Stores different types of Tetrominos and methods relating to them
 public enum Tetromino {
     shapeLine("Line",
             new Vector2D(0, 1),
@@ -44,14 +45,13 @@ public enum Tetromino {
             new Vector2D(0, 0),
             new Vector2D(0, 0));
 
-    // TODO: Maybe store individual blocks as an arraylist from the get go instead of individually
+    // Maybe store individual blocks as an arraylist from the get go instead of individually
     private Vector2D block1;
     private Vector2D block2;
     private Vector2D block3;
     private Vector2D block4;
-    private String name;
+    private final String name;
 
-    // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Creates a Tetromino given a name and
     //          four vectors describing the positions of the 4 blocks making up the Tetromino
@@ -63,15 +63,11 @@ public enum Tetromino {
         this.block4 = block4;
     }
 
-    // REQUIRES :
-    // MODIFIES :
     // EFFECTS  : Returns the name of this Tetromino
     public String getName() {
         return this.name;
     }
 
-    // REQUIRES :
-    // MODIFIES :
     // EFFECTS  : Returns the positions of the blocks of the Tetrominos
     public ArrayList<Vector2D> getPositions() {
         ArrayList<Vector2D> positions = new ArrayList<>();
@@ -82,7 +78,6 @@ public enum Tetromino {
         return positions;
     }
 
-    // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Moves Tetromino by adding a direction vector to all position vectors
     public void move(Vector2D direction) {
@@ -97,8 +92,7 @@ public enum Tetromino {
         this.block4 = newBlock4;
     }
 
-    // REQUIRES :
-    // MODIFIES :
+    // MODIFIES : this
     // EFFECTS  : Rotates Tetromino ninety degrees counterclockwise
     public void rotate() {
         RotationMatrix2x2 matrix = new RotationMatrix2x2();
