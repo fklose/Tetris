@@ -1,11 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writeable;
+
 import java.util.ArrayList;
 
 // Stores information about many players in an ArrayList ordered by score
-public class Leaderboard {
+public class Leaderboard implements Writeable {
 
-    // Online says this should be CAMEL_CASE but checkstyle says that's an error
     private final ArrayList<Player> leaderboard;
 
     // MODIFIES : this
@@ -41,5 +44,23 @@ public class Leaderboard {
     // EFFECTS  : Returns the size of the leaderboard
     public int getSize() {
         return leaderboard.size();
+    }
+
+    @Override
+    // TODO: DO I NEED REQUIRES, MODIFIES, ... here???
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("players", playersToJson());
+        return json;
+    }
+
+    // EFFECTS  : Returns players in this leaderboard as a JSON array
+    private JSONArray playersToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Player p : leaderboard) {
+            jsonArray.put(p.toJson());
+        }
+        return jsonArray;
     }
 }

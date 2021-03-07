@@ -2,15 +2,22 @@ package ui;
 
 import model.Leaderboard;
 import model.Player;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 // Methods for interacting with a Leaderboard
 public final class LeaderboardInterface {
 
+    private static final String JSON_STORE = "./data/leaderboard.json";
     private static final Scanner SCAN_INPUT = new Scanner(System.in);
-    private static final Leaderboard LEADERBOARD = new Leaderboard();
+    private static final JsonReader JSON_READER = new JsonReader(JSON_STORE);
+    private static final JsonWriter JSON_WRITER = new JsonWriter(JSON_STORE);
+    private static Leaderboard LEADERBOARD = new Leaderboard();
 
     // EFFECTS  : Creates a new Leaderboard interface
     private LeaderboardInterface() {}
@@ -20,7 +27,9 @@ public final class LeaderboardInterface {
         System.out.println("Options:");
         System.out.println("1. View Leaderboard");
         System.out.println("2. Add your score");
-        System.out.println("3. Go back!");
+        System.out.println("3. Save Leaderboard");
+        System.out.println("4. Load Leaderboard");
+        System.out.println("5. Go back!");
         System.out.println("Type the number associated with the option you would like to select. Press ENTER to exit.");
 
         String input = SCAN_INPUT.nextLine();
@@ -83,7 +92,38 @@ public final class LeaderboardInterface {
                 userInput();
                 return;
             case "3":
+                saveLeaderboard();
+                userInput();
+                return;
+            case "4":
+                loadLeaderboard();
+                userInput();
+                return;
+            case "5":
                 Main.userInput();
+        }
+    }
+
+    // EFFECTS: saves the leaderboard to file
+    private static void saveLeaderboard() {
+        try {
+            JSON_WRITER.open();
+            JSON_WRITER.write(LEADERBOARD);
+            JSON_WRITER.close();
+            System.out.println("Saved this leaderboard to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads leaderboard from file
+    private static void loadLeaderboard() {
+        try {
+            LEADERBOARD = JSON_READER.read();
+            System.out.println("Loaded the leaderboard from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 }

@@ -20,12 +20,16 @@ version of the game for myself.
 I enjoy playing Tetris and would like to be able to play the game offline,
 since there are no good offline versions.
 
-## Phase 1:
-### User Stories
+## User Stories
+### Phase 1:
 1. As a user I want to be able to see the highscores.
 2. As a user I want to be able to add my own score to the list of highscores.
 3. As a user I want to be able to see the next Tetrominos in queue.
 4. As a user I want to be able to pull the next Tetramino from the queue.
+
+## Phase 2:
+5. As a user I want to have my scores saved when quitting the application.
+6. As a user I want to load my saved scores when I start the application.
 
 ## Appendix
 
