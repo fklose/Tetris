@@ -3,7 +3,9 @@ package persistence;
 import model.Leaderboard;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 // Represents a writer that writes JSON representation of workroom to file
 public class JsonWriter {
@@ -24,7 +26,7 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of leaderboard to file
+    // EFFECTS: writes JSON representation of workroom to file
     public void write(Leaderboard lb) {
         JSONObject json = lb.toJson();
         saveToFile(json.toString(TAB));
