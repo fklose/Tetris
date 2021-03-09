@@ -1,5 +1,6 @@
 package model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,15 +28,10 @@ class Vector2DTest {
         Vector2D result3 = new Vector2D(-6, 9);
         Vector2D result4 = new Vector2D(-5, 10);
 
-        vectorEquals(result1, vec1.addVector(vec1));
-        vectorEquals(result2, vec2.addVector(vec3));
-        vectorEquals(result2, vec3.addVector(vec2));
-        vectorEquals(result3, vec4.addVector(vec1));
-        vectorEquals(result4, vec2.addVector(vec4));
-    }
-
-    private void vectorEquals(Vector2D vecA, Vector2D vecB) {
-        assertEquals(vecA.getComponentX(), vecB.getComponentX(), "X component not equal");
-        assertEquals(vecA.getComponentY(), vecB.getComponentY(), "Y component not equal");
+        assertEquals(result1, vec1.addVector(vec1));
+        assertEquals(result2, vec2.addVector(vec3));
+        assertEquals(result2, vec3.addVector(vec2));
+        assertEquals(result3, vec4.addVector(vec1));
+        assertEquals(result4, vec2.addVector(vec4));
     }
 }

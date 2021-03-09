@@ -10,8 +10,8 @@ public class RotationMatrix2x2 {
 
     // EFFECTS  : Returns the result of multiplying this matrix by a given vector
     public Vector2D matrixVectorProduct(Vector2D vec) {
-        int newX = this.ENTRY_UPPER_LEFT * vec.getComponentX() + this.ENTRY_UPPER_RIGHT * vec.getComponentY();
-        int newY = this.ENTRY_LOWER_LEFT * vec.getComponentX() + this.ENTRY_LOWER_RIGHT * vec.getComponentY();
+        int newX = this.ENTRY_UPPER_LEFT * vec.getX() + this.ENTRY_UPPER_RIGHT * vec.getY();
+        int newY = this.ENTRY_LOWER_LEFT * vec.getX() + this.ENTRY_LOWER_RIGHT * vec.getY();
         return new Vector2D(newX, newY);
     }
 }

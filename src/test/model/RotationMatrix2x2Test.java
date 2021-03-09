@@ -17,13 +17,8 @@ class RotationMatrix2x2Test {
         Vector2D result2 = new Vector2D(0, -1);
         Vector2D result3 = new Vector2D(-1, -1);
 
-        vectorEquals(result1, matrix.matrixVectorProduct(vec1));
-        vectorEquals(result2, matrix.matrixVectorProduct(vec2));
-        vectorEquals(result3, matrix.matrixVectorProduct(vec3));
-    }
-
-    private void vectorEquals(Vector2D vecA, Vector2D vecB) {
-        assertEquals(vecA.getComponentX(), vecB.getComponentX(), "X component not equal");
-        assertEquals(vecA.getComponentY(), vecB.getComponentY(), "Y component not equal");
+        assertEquals(result1, matrix.matrixVectorProduct(vec1));
+        assertEquals(result2, matrix.matrixVectorProduct(vec2));
+        assertEquals(result3, matrix.matrixVectorProduct(vec3));
     }
 }

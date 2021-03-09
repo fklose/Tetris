@@ -4,6 +4,10 @@
         "name": "Bruno"
     },
     {
+        "score": 1000,
+        "name": "Guido 1000"
+    },
+    {
         "score": 560,
         "name": "Catrin"
     },
@@ -17,6 +21,10 @@
     },
     {
         "score": 100,
+        "name": "Felix"
+    },
+    {
+        "score": 99,
         "name": "Felix"
     }
 ]}

@@ -17,18 +17,31 @@ public class Vector2D {
     // MODIFIES : this
     // EFFECTS  : Returns the sum of this vector and a given vector
     public Vector2D addVector(Vector2D vec) {
-        int newX = this.componentX + vec.getComponentX();
-        int newY = this.componentY + vec.getComponentY();
+        int newX = this.componentX + vec.getX();
+        int newY = this.componentY + vec.getY();
         return new Vector2D(newX, newY);
     }
 
     // EFFECTS  : Returns x component of a given vector
-    public int getComponentX() {
+    public int getX() {
         return this.componentX;
     }
 
     // EFFECTS  : Returns y component of a given vector
-    public int getComponentY() {
+    public int getY() {
         return this.componentY;
+    }
+
+    @Override
+    // REQUIRES :
+    // MODIFIES :
+    // EFFECTS  :
+    public boolean equals(Object o) {
+        if (o instanceof Vector2D) {
+            Vector2D v = (Vector2D) o;
+            return (this.componentX == v.componentX && this.componentY == v.componentY);
+        } else {
+            return false;
+        }
     }
 }
