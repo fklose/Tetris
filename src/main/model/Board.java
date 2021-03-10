@@ -19,17 +19,9 @@ public class Board {
     // EFFECTS  : Creates an empty board with a filled queue and a Tetromino ready to drop and score set to 0.
     public Board() {
         this.score = 0;
+        this.blocks = new LinkedList<>();
         this.tetrominoQueue = new TetrominoQueue();
         this.currentTetromino = this.tetrominoQueue.getNextTetromino();
-    }
-
-    // REQUIRES :
-    // MODIFIES : this
-    // EFFECTS  : Creates an empty board with a given queue and a given current Tetromino and score set to 0.
-    public Board(Tetromino current, TetrominoQueue queue) {
-        this.score = 0;
-        this.tetrominoQueue = queue;
-        this.currentTetromino = current;
     }
 
     // REQUIRES :

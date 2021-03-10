@@ -46,14 +46,14 @@ class TetrominoTest {
             result1.add(vec.addVector(down.getVector()));
         }
         tetromino1.move(down);
-        checkListEquals(result1, tetromino1.getPositions());
+        checkVectorListEquals(result1, tetromino1.getPositions());
 
         ArrayList<Vector2D> result2 = new ArrayList<>();
         for (Vector2D vec : tetromino2.getPositions()) {
             result1.add(vec.addVector(down.getVector()));
         }
         tetromino2.move(down);
-        checkListEquals(result2, tetromino2.getPositions());
+        checkVectorListEquals(result2, tetromino2.getPositions());
     }
 
     @Test
@@ -65,14 +65,14 @@ class TetrominoTest {
             result1.add(vec.addVector(right.getVector()));
         }
         tetromino3.move(right);
-        checkListEquals(result1, tetromino3.getPositions());
+        checkVectorListEquals(result1, tetromino3.getPositions());
 
         ArrayList<Vector2D> result2 = new ArrayList<>();
         for (Vector2D vec : tetromino4.getPositions()) {
             result1.add(vec.addVector(right.getVector()));
         }
         tetromino4.move(right);
-        checkListEquals(result2, tetromino4.getPositions());
+        checkVectorListEquals(result2, tetromino4.getPositions());
     }
 
     @Test
@@ -84,14 +84,14 @@ class TetrominoTest {
             result1.add(vec.addVector(left.getVector()));
         }
         tetromino5.move(left);
-        checkListEquals(result1, tetromino5.getPositions());
+        checkVectorListEquals(result1, tetromino5.getPositions());
 
         ArrayList<Vector2D> result2 = new ArrayList<>();
         for (Vector2D vec : tetromino6.getPositions()) {
             result1.add(vec.addVector(left.getVector()));
         }
         tetromino6.move(left);
-        checkListEquals(result2, tetromino6.getPositions());
+        checkVectorListEquals(result2, tetromino6.getPositions());
     }
 
     @Test
@@ -103,14 +103,14 @@ class TetrominoTest {
             result1.add(matrix.matrixVectorProduct(vec));
         }
         tetromino1.rotate();
-        checkListEquals(result1, tetromino1.getPositions());
+        checkVectorListEquals(result1, tetromino1.getPositions());
 
         ArrayList<Vector2D> result2 = new ArrayList<>();
         for (Vector2D vec : tetromino7.getPositions()) {
             result1.add(matrix.matrixVectorProduct(vec));
         }
         tetromino7.rotate();
-        checkListEquals(result2, tetromino7.getPositions());
+        checkVectorListEquals(result2, tetromino7.getPositions());
     }
 
     @Test
@@ -126,7 +126,7 @@ class TetrominoTest {
         lineBlocks.add(lb3);
         lineBlocks.add(lb4);
 
-        checkListEquals(lineBlocks, Tetromino.shapeLine.getBlocks());
+        checkBlockListEquals(lineBlocks, Tetromino.shapeLine.getBlocks());
 
         Block rsb1 = new Block(0,0, Color.GREEN);
         Block rsb2 = new Block(0,1, Color.GREEN);
@@ -139,12 +139,21 @@ class TetrominoTest {
         rightSkewBlocks.add(rsb3);
         rightSkewBlocks.add(rsb4);
 
-        checkListEquals(rightSkewBlocks, Tetromino.shapeRightSkew.getBlocks());
+        checkBlockListEquals(rightSkewBlocks, Tetromino.shapeRightSkew.getBlocks());
     }
 
-    private void checkListEquals(List listA, List listB) {
+    private void checkVectorListEquals(ArrayList<Vector2D> listA, ArrayList<Vector2D> listB) {
         for (int i = 0; i < listA.size(); i++) {
             assertEquals(listA.get(i), listB.get(i));
+        }
+    }
+
+    private void checkBlockListEquals(ArrayList<Block> listA, ArrayList<Block> listB) {
+        for (int i = 0; i < listA.size(); i++) {
+            Block b1 = listA.get(i);
+            Block b2 = listB.get(i);
+            assertEquals(b1.getColor(), b2.getColor());
+            assertEquals(b1.getPosition(), b2.getPosition());
         }
     }
 }
