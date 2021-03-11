@@ -14,6 +14,7 @@ public class TetrominoQueue {
     // EFFECTS  : Makes a new queue containing a set number of random Tetrominos with a random seed
     public TetrominoQueue() {
         rnd = new Random();
+        initializeQueue();
     }
 
     // MODIFIES : this
@@ -32,10 +33,15 @@ public class TetrominoQueue {
     }
 
     // MODIFIES : this
-    // EFFECTS  : Returns the first Tetromino in queue and adds a new one at the end
+    // EFFECTS  : Returns the first Tetromino in queue with removal and adds a new one at the end
     public Tetromino getNextTetromino() {
         addRandomTetromino();
         return queue.pollFirst();
+    }
+
+    // EFFECTS  : Returns the first tetromino in queue without removing it
+    public Tetromino accessNextTetromino() {
+        return queue.peekFirst();
     }
 
     // EFFECTS  : Returns the queue

@@ -21,6 +21,14 @@ public class Block {
         return position;
     }
 
+    public int getX() {
+        return position.getX();
+    }
+
+    public int getY() {
+        return position.getY();
+    }
+
     // MODIFIES : this
     // EFFECTS  : Sets the position
     public void setPosition(Vector2D newPosition) {

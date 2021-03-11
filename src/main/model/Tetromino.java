@@ -93,6 +93,14 @@ public enum Tetromino {
     }
 
     // MODIFIES : this
+    // EFFECTS  : Places Tetromino at given position
+    public void setPosition(Vector2D pos) {
+        for (Block b : blocks) {
+            b.setPosition(b.getPosition().addVector(pos));
+        }
+    }
+
+    // MODIFIES : this
     // EFFECTS  : Rotates Tetromino ninety degrees counterclockwise
     public void rotate() {
         RotationMatrix2x2 matrix = new RotationMatrix2x2();
