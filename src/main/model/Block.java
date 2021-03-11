@@ -21,6 +21,11 @@ public class Block {
         return position;
     }
 
+    // EFFECTS  : Returns a copy of the position of the block.
+    public Vector2D getPositionCopy() {
+        return new Vector2D(position.getX(), position.getY());
+    }
+
     public int getX() {
         return position.getX();
     }

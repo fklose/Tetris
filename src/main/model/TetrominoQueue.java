@@ -39,8 +39,8 @@ public class TetrominoQueue {
         return queue.pollFirst();
     }
 
-    // EFFECTS  : Returns the first tetromino in queue without removing it
-    public Tetromino accessNextTetromino() {
+    // EFFECTS  : Returns a copy of the first tetromino in queue without removing it
+    public Tetromino viewFirstTetromino() {
         return queue.peekFirst();
     }
 

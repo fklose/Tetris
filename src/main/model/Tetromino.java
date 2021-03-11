@@ -48,6 +48,8 @@ public enum Tetromino {
             new Vector2D(0, 0),
             new Vector2D(0, 0));
 
+    private static final RotationMatrix2x2 COUNTER_CLOCKWISE = new RotationMatrix2x2();
+
     // Maybe store individual blocks as an arraylist from the get go instead of individually
     private final ArrayList<Block> blocks;
     private final String name;
@@ -79,9 +81,29 @@ public enum Tetromino {
         return positions;
     }
 
+    // EFFECTS  : Returns copies of the positions of the blocks of the Tetrominos
+    public ArrayList<Vector2D> getPositionsCopy() {
+        ArrayList<Vector2D> positions = new ArrayList<>();
+
+        for (Block b : blocks) {
+            positions.add(b.getPositionCopy());
+        }
+        return positions;
+    }
+
     // EFFECTS  : Returns the blocks making of the Tetromino
     public ArrayList<Block> getBlocks() {
         return blocks;
+    }
+
+    // EFFECTS  : Returns the blocks making of the Tetromino
+    public ArrayList<Block> getBlocksCopy() {
+        ArrayList<Block> copy = new ArrayList<>();
+
+        for (Block b : blocks) {
+            copy.add(new Block(b.getX(), b.getY(), b.getColor()));
+        }
+        return copy;
     }
 
     // MODIFIES : this
@@ -103,9 +125,8 @@ public enum Tetromino {
     // MODIFIES : this
     // EFFECTS  : Rotates Tetromino ninety degrees counterclockwise
     public void rotate() {
-        RotationMatrix2x2 matrix = new RotationMatrix2x2();
         for (Block b: blocks) {
-            b.setPosition(matrix.matrixVectorProduct(b.getPosition()));
+            b.setPosition(COUNTER_CLOCKWISE.matrixVectorProduct(b.getPosition()));
         }
     }
 }

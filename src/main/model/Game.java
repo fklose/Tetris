@@ -1,8 +1,9 @@
 package model;
 
-import java.lang.reflect.Array;
+import Exceptions.PositionOccupiedException;
+
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 // Stores information and methods needed to simulate the game board
 // NOTE: +Y is down, -X is left and +X is right. Top left corner is (0,0)
@@ -35,20 +36,62 @@ public class Game {
     //          clears lines once the current tetromino has stopped moving
     //          and spawns a new tetromino at the top of the board
     public void update() {
-        if (canMoveDown()) {
-            moveDown();
-        } else if (!canMoveDown() && canSpawn()) {
+        // TODO: RIGHT NOW BLOCKS SEEM TO GET RANDOM POSITIONS AFTER DROPPING. ALSO SOME BLOCKS SEEM TO BE OUT OF BOUNDS
+        if (canMove(Direction.DOWN)) {
+            move(Direction.DOWN);
+        } else if (!canMove(Direction.DOWN) && canSpawn()) {
+            placeTetrominoOnBoard();
             clearLines();
             spawnNextTetromino();
-        } else if (!canMoveDown() && !canSpawn()) {
+        } else if (!canMove(Direction.DOWN) && !canSpawn()) {
             gameOver();
         }
     }
 
+    // REQUIRES :
     // MODIFIES : this
-    // EFFECTS  : Moves the current Tetromino down by one
-    private void moveDown() {
-        this.currentTetro.move(Direction.DOWN);
+    // EFFECTS  : Responds to user key inputs
+    public void keyPressed(int keyCode) {
+        switch (keyCode) {
+            case KeyEvent.VK_UP:
+                if (canRotate()) {
+                    rotate();
+                }
+            case KeyEvent.VK_LEFT:
+                if (canMove(Direction.LEFT)) {
+                    move(Direction.LEFT);
+                }
+            case KeyEvent.VK_RIGHT:
+                if (canMove(Direction.RIGHT)) {
+                    move(Direction.RIGHT);
+                }
+            case KeyEvent.VK_SPACE:
+                drop();
+        }
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : Moves the current Tetromino in the given direction by one
+    private void move(Direction d) {
+        this.currentTetro.move(d);
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : Rotates the Tetromino 90 degrees counterclockwise
+    private void rotate() {
+        this.currentTetro.rotate();
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : Drops the Tetromino on the lowest reachable layer
+    private void drop() {
+        for (int i = 0; i < HEIGHT; i++) {
+            if (canMove(Direction.DOWN)) {
+                this.currentTetro.move(Direction.DOWN);
+            } else {
+                break;
+            }
+        }
     }
 
     // MODIFIES : this
@@ -82,21 +125,36 @@ public class Game {
     }
 
     // EFFECTS  : returns true if the current tetromino can move down, false if not
-    private boolean canMoveDown() {
-        return isThereSpace(Direction.DOWN) && isInsideBoard();
+    private boolean canMove(Direction d) {
+        return isThereSpace(d) && isInsideBoard();
+    }
+
+    private boolean canRotate() {
+        return isThereSpace() && isInsideBoard();
+    }
+
+    // EFFECTS  : returns true if there is space for all blocks of the current Tetromino to rotate 90 degrees ccw,
+    //          else false
+    private boolean isThereSpace() {
+        RotationMatrix2x2 ccw = new RotationMatrix2x2();
+        ArrayList<Vector2D> newTetroPositions = new ArrayList<>();
+
+        for (Vector2D pos: currentTetro.getPositionsCopy()) {
+            newTetroPositions.add(ccw.matrixVectorProduct(pos));
+        }
+
+        return !isAnyPositionOccupied(newTetroPositions);
     }
 
     // EFFECTS  : returns true if there is space for all blocks of the current Tetromino to move one step
     //          in the given direction, else false
     private boolean isThereSpace(Direction d) {
-        currentTetro.setPosition(d.getVector());
-        ArrayList<Vector2D> newTetroPositions = currentTetro.getPositions();
-        ArrayList<Vector2D> blockPositions = new ArrayList<>();
+        ArrayList<Vector2D> newTetroPositions = new ArrayList<>();
 
-        for (Block b: board) {
-            blockPositions.add(b.getPosition());
+        for (Vector2D pos: currentTetro.getPositionsCopy()) {
+            newTetroPositions.add(pos.addVector(d.getVector()));
         }
-        return !blockPositions.contains(newTetroPositions);
+        return !isAnyPositionOccupied(newTetroPositions);
     }
 
     // EFFECTS  : Returns true if current Tetromino is inside the bounds of the board
@@ -112,9 +170,52 @@ public class Game {
         return true;
     }
 
+    // EFFECTS  : Returns true if the position of the given block is already occupied on the board, else false
+    private void isPositionOccupied(Vector2D position) throws PositionOccupiedException {
+        ArrayList<Vector2D> blockPositions = getAllPositions();
+        for (Vector2D pos : blockPositions) {
+            if (position == pos) {
+                throw new PositionOccupiedException();
+            }
+        }
+    }
+
+    // EFFECTS  : Returns true if one of the positions in a given list of positions is already on the board, else false
+    private boolean isAnyPositionOccupied(ArrayList<Vector2D> positions) {
+        try {
+            for (Vector2D pos : positions) {
+                isPositionOccupied(pos);
+            }
+        } catch (PositionOccupiedException poe) {
+            return true;
+        }
+        return false;
+    }
+
     // EFFECTS  : returns true if the next tetromino can be spawned at the top of the board, else false
     private boolean canSpawn() {
-        return false;
+        ArrayList<Vector2D> nextTetrominoPositions = tetroQueue.viewFirstTetromino().getPositionsCopy();
+
+        for (Vector2D pos : nextTetrominoPositions) {
+            pos.addVector(SPAWN);
+        }
+
+        return !isAnyPositionOccupied(nextTetrominoPositions);
+    }
+
+    // EFFECTS  : Returns the positions of all blocks in board
+    private ArrayList<Vector2D> getAllPositions() {
+        ArrayList<Vector2D> blockPositions = new ArrayList<>();
+        for (Block b: board) {
+            blockPositions.add(b.getPositionCopy());
+        }
+        return blockPositions;
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : Places all blocks belonging to the current tetromino on the board
+    private void placeTetrominoOnBoard() {
+        board.addAll(this.currentTetro.getBlocksCopy());
     }
 
     public int getScore() {
