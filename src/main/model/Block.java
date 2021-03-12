@@ -5,6 +5,9 @@ import java.util.LinkedList;
 
 public class Block {
 
+    public static final int SIZE_X = 40;
+    public static final int SIZE_Y = 40;
+
     private Vector2D position;
     private Color color;
 

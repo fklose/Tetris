@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 // Stores information and methods needed to simulate the game board
 // NOTE: +Y is down, -X is left and +X is right. Top left corner is (0,0)
-public class Game {
+public class TetrisGame {
 
     private static final int WIDTH = 10;
     private static final int HEIGHT = 20;
@@ -22,12 +22,12 @@ public class Game {
     // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Constructs a new game with score 0, a queue of Tetrominos and a single Tetromino ready to drop
-    public Game() {
+    public TetrisGame() {
         this.score = 0;
         this.gameStatus = true;
         this.board = new ArrayList<>();
         this.tetroQueue = new TetrominoQueue();
-        this.currentTetro = tetroQueue.getNextTetromino();
+        spawnNextTetromino();
     }
 
     // REQUIRES :
@@ -126,20 +126,20 @@ public class Game {
 
     // EFFECTS  : returns true if the current tetromino can move down, false if not
     private boolean canMove(Direction d) {
-        return isThereSpace(d) && isInsideBoard();
+        return isThereSpaceToMove(d) && isInsideBoard();
     }
 
     private boolean canRotate() {
-        return isThereSpace() && isInsideBoard();
+        return isThereSpaceToRotate() && isInsideBoard();
     }
 
     // EFFECTS  : returns true if there is space for all blocks of the current Tetromino to rotate 90 degrees ccw,
     //          else false
-    private boolean isThereSpace() {
+    private boolean isThereSpaceToRotate() {
         RotationMatrix2x2 ccw = new RotationMatrix2x2();
         ArrayList<Vector2D> newTetroPositions = new ArrayList<>();
 
-        for (Vector2D pos: currentTetro.getPositionsCopy()) {
+        for (Vector2D pos: currentTetro.getPositions()) {
             newTetroPositions.add(ccw.matrixVectorProduct(pos));
         }
 
@@ -148,10 +148,10 @@ public class Game {
 
     // EFFECTS  : returns true if there is space for all blocks of the current Tetromino to move one step
     //          in the given direction, else false
-    private boolean isThereSpace(Direction d) {
+    private boolean isThereSpaceToMove(Direction d) {
         ArrayList<Vector2D> newTetroPositions = new ArrayList<>();
 
-        for (Vector2D pos: currentTetro.getPositionsCopy()) {
+        for (Vector2D pos: currentTetro.getPositions()) {
             newTetroPositions.add(pos.addVector(d.getVector()));
         }
         return !isAnyPositionOccupied(newTetroPositions);
@@ -230,4 +230,7 @@ public class Game {
         return gameStatus;
     }
 
+    public Tetromino getCurrentTetro() {
+        return currentTetro;
+    }
 }

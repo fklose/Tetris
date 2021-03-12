@@ -1,36 +1,35 @@
 package model;
 
 
-import model.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameTest {
+class TetrisGameTest {
 
-    private Game emptyGame;
+    private TetrisGame emptyTetrisGame;
 
     @BeforeEach
     void setup() {
-        emptyGame = new Game();
+        emptyTetrisGame = new TetrisGame();
     }
 
     @Test
     void constructor() {
-        assertEquals(0, emptyGame.getScore());
-        assertTrue(emptyGame.getBoard().isEmpty());
-        assertTrue(emptyGame.getGameStatus());
+        assertEquals(0, emptyTetrisGame.getScore());
+        assertTrue(emptyTetrisGame.getBoard().isEmpty());
+        assertTrue(emptyTetrisGame.getGameStatus());
     }
 
     @Test
     void update() {
         // In theory I should just be able to run update a bunch and by default the game would end at some point
 
-        while (emptyGame.getGameStatus()) {
-            emptyGame.update();
+        while (emptyTetrisGame.getGameStatus()) {
+            emptyTetrisGame.update();
         }
-        assertFalse(emptyGame.getGameStatus());
+        assertFalse(emptyTetrisGame.getGameStatus());
     }
 
     @Test
