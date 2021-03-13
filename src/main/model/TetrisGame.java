@@ -1,14 +1,18 @@
 package model;
 
+import sun.awt.image.ImageWatched;
+
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 // TODO: WRITE METHOD TO SHIFT LINES AFTER CLEARING THEM
-// TODO: MAKE SIDES NOT "STICKY"
 // TODO: TEST
 // TODO: TEST
 // TODO: TEST
+// TODO: OPTIONAL BUT MAYBE MAKE IT SO THAT WHEN A ROTATION COULD BE OUT OF BOUNDS THE GAME JUST ROTATES
+//  AND MOVES THE TETROMINO SO THAT IT WILL NOT BE OUT OF BOUNDS AFTER ROTATING.
 
 // Stores information and methods needed to simulate the game board
 // NOTE: +Y is down, -X is left and +X is right. Top left corner is (0,0)
@@ -43,7 +47,6 @@ public class TetrisGame {
     //          and spawns a new tetromino at the top of the board
     public void update() {
         if (canMove(Direction.DOWN)) {
-            System.out.println("Moving Down");
             move(Direction.DOWN);
         } else if (!canMove(Direction.DOWN) && canSpawn()) {
             placeTetrominoOnBoard();
@@ -51,6 +54,7 @@ public class TetrisGame {
             spawnNextTetromino();
         } else if (!canMove(Direction.DOWN) && !canSpawn()) {
             System.out.println("GAME OVER");
+            System.out.println(score);
             gameOver();
         }
     }
@@ -61,21 +65,19 @@ public class TetrisGame {
     public void keyPressed(int keyCode) {
         if (keyCode == KeyEvent.VK_UP) {
             if (canRotate()) {
-                System.out.println("Spinning!");
                 rotate();
             }
         } else if ((keyCode == KeyEvent.VK_LEFT) || (keyCode == KeyEvent.VK_KP_LEFT)) {
             if (canMove(Direction.LEFT)) {
-                System.out.println("Move left!");
                 move(Direction.LEFT);
             }
         } else if ((keyCode == KeyEvent.VK_RIGHT) || (keyCode == KeyEvent.VK_KP_RIGHT)) {
             if (canMove(Direction.RIGHT)) {
-                System.out.println("Move right!");
                 move(Direction.RIGHT);
             }
         } else if (keyCode == KeyEvent.VK_ESCAPE) {
-            System.out.println("Exit!");
+            System.out.println("EXIT!");
+            System.out.println(score);
             System.exit(0);
         } else if (keyCode == KeyEvent.VK_SPACE) {
             drop();
@@ -111,6 +113,7 @@ public class TetrisGame {
     //          score for each line that was cleared
     private void clearLines() {
         ArrayList<Block> toBeCleared = new ArrayList<>();
+        LinkedList<Integer> lineHeights = new LinkedList<>();
         for (int y = 0; y < HEIGHT; y++) {
             ArrayList<Block> line = new ArrayList<>();
             for (Block b : board) {
@@ -118,12 +121,27 @@ public class TetrisGame {
                     line.add(b);
                 }
                 if (line.size() == WIDTH) {
+                    lineHeights.addLast(y);
                     toBeCleared.addAll(line);
                     score++;
                 }
             }
         }
         board.removeAll(toBeCleared);
+        shiftLines(lineHeights);
+    }
+
+    // TODO: SOMETHING DOES NOT FEEL QUITE RIGHT ABOUT THIS METHOD
+    // MODIFIES : this
+    // EFFECTS  : Given a list of lines to be removed, shift all elements above said line down
+    private void shiftLines(LinkedList<Integer> lineHeights) {
+        for (int y : lineHeights) {
+            for (Block b : board) {
+                if (b.getY() < y) {
+                    b.getPosition().addVectorInPlace(Direction.DOWN.getVector());
+                }
+            }
+        }
     }
 
     // MODIFIES : this
@@ -143,11 +161,11 @@ public class TetrisGame {
 
     // EFFECTS  : returns true if the current tetromino can move down, false if not
     private boolean canMove(Direction d) {
-        return isThereSpaceToMove(d) && isInsideBoard();
+        return isThereSpaceToMove(d) && willItBeInsideBoard(d);
     }
 
     private boolean canRotate() {
-        return isThereSpaceToRotate() && isInsideBoard();
+        return isThereSpaceToRotate() && willItBeInsideBoardAfterRotatingCCW();
     }
 
     // EFFECTS  : returns true if there is space for all blocks of the current Tetromino to rotate 90 degrees ccw,
@@ -173,18 +191,37 @@ public class TetrisGame {
         return true;
     }
 
-    // EFFECTS  : Returns true if current Tetromino is inside the bounds of the board
+    // EFFECTS  : Returns true if current Tetromino will be inside the bounds of the board
+    //          after moving one unit in the given direction.
     //          Only checks Tetromino does not fall through the bottom or the sides, since
     //          upwards movement is not possible anyways and blocks may spawn in above the
     //          board, i.e. at (4, -1), etc.
-    private boolean isInsideBoard() {
+    private boolean willItBeInsideBoard(Direction d) {
         ArrayList<Vector2D> positions = currentTetro.getPositions();
-
         for (Vector2D pos : positions) {
-            if (!((0 <= pos.getX()) && (pos.getX() < WIDTH) && (pos.getY() < HEIGHT))) {
+            Vector2D newPos = pos.addVectorGetNewVector(d.getVector());
+            if (!((0 <= newPos.getX()) && (newPos.getX() < WIDTH) && (newPos.getY() < HEIGHT))) {
                 return false;
             }
         }
+        return true;
+    }
+
+    // EFFECTS  : Returns true if current Tetromino will be inside the bounds of the board
+    //          after performing one counterclockwise rotation.
+    //          Only checks Tetromino does not fall through the bottom or the sides, since
+    //          upwards movement is not possible anyways and blocks may spawn in above the
+    //          board, i.e. at (4, -1), etc.
+    private boolean willItBeInsideBoardAfterRotatingCCW() {
+        currentTetro.rotateCCW();
+        ArrayList<Vector2D> positions = currentTetro.getPositions();
+        for (Vector2D pos : positions) {
+            if (!((0 <= pos.getX()) && (pos.getX() < WIDTH) && (pos.getY() < HEIGHT))) {
+                currentTetro.rotateCW();
+                return false;
+            }
+        }
+        currentTetro.rotateCW();
         return true;
     }
 

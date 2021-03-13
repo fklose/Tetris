@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
     //           updates this with the game to be displayed
     public GamePanel(TetrisGame g) {
         setPreferredSize(new Dimension(400, 800));
-        setBackground(Color.GRAY);
+        setBackground(Color.BLACK);
         this.tetrisGame = g;
     }
 
@@ -84,7 +84,7 @@ public class GamePanel extends JPanel {
     private void drawBlock(Graphics g, Block b) {
         Color savedCol = g.getColor();
         g.setColor(b.getColor());
-        g.fillRect(b.getX() * 40 - Block.SIZE_X / 2, b.getY() * 40 - Block.SIZE_Y / 2, Block.SIZE_X, Block.SIZE_Y);
+        g.fillRect(b.getX() * 40, b.getY() * 40, Block.SIZE_X, Block.SIZE_Y);
         g.setColor(savedCol);
     }
 }
