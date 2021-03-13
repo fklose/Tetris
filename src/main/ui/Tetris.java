@@ -1,6 +1,5 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -13,6 +12,19 @@ import javax.swing.Timer;
 
 import model.TetrisGame;
 
+// TODO: MAKE A PANEL TO KEEP TRACK OF SCORE
+// TODO: MAKE A PANEL TO VIEW HIGHSCORES AFTER GAME IS DONE
+// TODO: AFTER LOSING GAME LET USER CHOOSE TO EXIT DIRECTLY
+//      OR
+//  VIEW THEIR OWN SCORE AND LEADERBOARD AND ADD THEIR SCORE TO LEADERBOARD THEN START AGAIN OR EXIT
+// TODO: MAKE A PANEL TO SEE UPCOMING TETROMINOS
+//  >> FIRST TEXT BASED
+//  >> LATER WITH LITTLE RENDERED TETROMINOS
+// TODO: ADD GRIDLINES ONTO BACKGROUND
+// TODO: MAKE BACKGROUND BLACK OR AT LEAST A BIT DARKER
+// TODO: USE SIMPLE SHAPE PLAYER TO MAKE A PROPER WINDOWS "WINDOW"
+
+
 /*
  * Represents the main window in which the space invaders
  * game is played
@@ -20,14 +32,14 @@ import model.TetrisGame;
 @SuppressWarnings("serial")
 public class Tetris extends JFrame {
 
-    private static final int INTERVAL = 1000;
+    private static final int INTERVAL = 500;
     private TetrisGame game;
     private GamePanel gp;
 
     // Constructs main window
     // effects: sets up window in which Space Invaders game will be played
     public Tetris() {
-        super("Space Invaders");
+        super("TETRIS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
         game = new TetrisGame();

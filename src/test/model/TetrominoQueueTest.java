@@ -96,4 +96,19 @@ class TetrominoQueueTest {
         }
     }
 
+    @Test
+    void viewFirstTetromino() {
+        Tetromino t1 = queue1.viewFirstTetromino();
+        assertEquals(t1, queue1.getNextTetromino());
+        Tetromino t2 = queue1.viewFirstTetromino();
+        assertEquals(t2, queue1.getNextTetromino());
+        Tetromino t3 = queue1.viewFirstTetromino();
+        assertEquals(t3, queue1.getNextTetromino());
+
+        Tetromino t4 = queue2.viewFirstTetromino();
+        assertEquals(t4, queue2.getNextTetromino());
+        Tetromino t5 = queue2.viewFirstTetromino();
+        assertEquals(t5, queue2.getNextTetromino());
+    }
+
 }

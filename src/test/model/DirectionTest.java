@@ -17,4 +17,11 @@ class DirectionTest {
         assertEquals(new Vector2D(-1, 0), left.getVector());
         assertEquals(new Vector2D(1, 0), right.getVector());
     }
+
+    @Test
+    void getOppositeVector() {
+        assertEquals(left.getVector(), right.getOppositeVector());
+        assertEquals(right.getVector(), left.getOppositeVector());
+        assertEquals(new Vector2D(0,-1), down.getOppositeVector());
+    }
 }

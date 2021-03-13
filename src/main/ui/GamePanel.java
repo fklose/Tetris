@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.swing.JPanel;
 
@@ -63,6 +64,15 @@ public class GamePanel extends JPanel {
     // modifies: g
     // effects:  draws the blocks onto g
     private void drawBlocks(Graphics g, ArrayList<Block> blocks) {
+        for (Block b : blocks) {
+            drawBlock(g, b);
+        }
+    }
+
+    // Draw the blocks
+    // modifies: g
+    // effects:  draws the blocks onto g
+    private void drawBlocks(Graphics g, HashSet<Block> blocks) {
         for (Block b : blocks) {
             drawBlock(g, b);
         }

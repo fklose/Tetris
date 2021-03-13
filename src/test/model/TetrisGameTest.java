@@ -22,15 +22,15 @@ class TetrisGameTest {
         assertTrue(emptyTetrisGame.getGameStatus());
     }
 
-    @Test
-    void update() {
-        // In theory I should just be able to run update a bunch and by default the game would end at some point
-
-        while (emptyTetrisGame.getGameStatus()) {
-            emptyTetrisGame.update();
-        }
-        assertFalse(emptyTetrisGame.getGameStatus());
-    }
+//    @Test
+//    void update() {
+//        // In theory I should just be able to run update a bunch and by default the game would end at some point
+//
+//        while (emptyTetrisGame.getGameStatus()) {
+//            emptyTetrisGame.update();
+//        }
+//        assertFalse(emptyTetrisGame.getGameStatus());
+//    }
 
     @Test
     void keyPressed() {
