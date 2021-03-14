@@ -32,7 +32,7 @@ import model.TetrisGame;
 @SuppressWarnings("serial")
 public class Tetris extends JFrame {
 
-    private static final int INTERVAL = 500;
+    private static final int INTERVAL = 5;
     private TetrisGame game;
     private GamePanel gp;
 

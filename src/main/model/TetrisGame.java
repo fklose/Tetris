@@ -23,11 +23,14 @@ public class TetrisGame {
     private static final int SPAWN_X = 5;
     private static final int SPAWN_Y = 0;
 
-    private TetrominoQueue tetroQueue;
+    private final TetrominoQueue tetroQueue;
     private Tetromino currentTetro;
     private int score;
     private final HashSet<Block> board;
     private boolean gameStatus; // true if game is running, false if game is over
+
+    private static final int UPDATE_RATE = 100;
+    private int tick = 0;
 
     // REQUIRES :
     // MODIFIES : this
@@ -46,16 +49,19 @@ public class TetrisGame {
     //          clears lines once the current tetromino has stopped moving
     //          and spawns a new tetromino at the top of the board
     public void update() {
-        if (canMove(Direction.DOWN)) {
-            move(Direction.DOWN);
-        } else if (!canMove(Direction.DOWN) && canSpawn()) {
-            placeTetrominoOnBoard();
-            clearLines();
-            spawnNextTetromino();
-        } else if (!canMove(Direction.DOWN) && !canSpawn()) {
-            System.out.println("GAME OVER");
-            System.out.println(score);
-            gameOver();
+        tick++;
+        if (tick % UPDATE_RATE == 0) {
+            if (canMove(Direction.DOWN)) {
+                move(Direction.DOWN);
+            } else if (!canMove(Direction.DOWN) && canSpawn()) {
+                placeTetrominoOnBoard();
+                clearLines();
+                spawnNextTetromino();
+            } else if (!canMove(Direction.DOWN) && !canSpawn()) {
+                System.out.println("GAME OVER");
+                System.out.println(score);
+                gameOver();
+            }
         }
     }
 
@@ -99,15 +105,14 @@ public class TetrisGame {
     // MODIFIES : this
     // EFFECTS  : Drops the Tetromino on the lowest reachable layer
     private void drop() {
-        for (int i = 0; i < HEIGHT; i++) {
-            if (canMove(Direction.DOWN)) {
-                this.currentTetro.move(Direction.DOWN);
-            } else {
-                break;
-            }
+        while (canMove(Direction.DOWN)) {
+            this.currentTetro.move(Direction.DOWN);
         }
+        placeTetrominoOnBoard();
     }
 
+    // TODO: THERE IS SOMETHING FUNKY GOING ON IN HERE LINES ARE GETTING CLEARED WHEN THEY SHOULD NOT BE,
+    //  THE SCORE IS NOT BEING KEPT TRACK OF PROPERLY, THIS WILL NEED TO BE REWORKED.
     // MODIFIES : this
     // EFFECTS  : Remove any blocks from this.blocks that form an uninterrupted line across the board and increments
     //          score for each line that was cleared
