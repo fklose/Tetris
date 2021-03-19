@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 // A class containing information and methods relating to a 2d Vector
 public class Vector2D {
 
@@ -47,14 +49,20 @@ public class Vector2D {
     }
 
     @Override
-    // TODO: Is there a way to have this throw an exception that tells you what part did not match?
-    // TODO: Also how do I test this, do i even need to?
     public boolean equals(Object o) {
-        if (o instanceof Vector2D) {
-            Vector2D v = (Vector2D) o;
-            return (this.componentX == v.componentX && this.componentY == v.componentY);
-        } else {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
+        Vector2D vector2D = (Vector2D) o;
+        return componentX == vector2D.componentX
+                && componentY == vector2D.componentY;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(componentX, componentY);
     }
 }

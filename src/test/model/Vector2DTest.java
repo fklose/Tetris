@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -51,5 +52,15 @@ class Vector2DTest {
         assertEquals(vec1, new Vector2D(4, -4));
         vec4.addVectorInPlace(vec1);
         assertEquals(vec4, new Vector2D(-2, 5));
+    }
+
+    @Test
+    void equals() {
+        //TODO: IMPLEMENT TESTS
+    }
+
+    @Test
+    void testHashCode() {
+        // TODO: IMPLEMENT TESTS
     }
 }

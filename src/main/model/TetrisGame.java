@@ -1,16 +1,14 @@
 package model;
 
-import sun.awt.image.ImageWatched;
-
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+// TODO: TEST
+// TODO: TEST
+// TODO: TEST
 // TODO: WRITE METHOD TO SHIFT LINES AFTER CLEARING THEM
-// TODO: TEST
-// TODO: TEST
-// TODO: TEST
 // TODO: OPTIONAL BUT MAYBE MAKE IT SO THAT WHEN A ROTATION COULD BE OUT OF BOUNDS THE GAME JUST ROTATES
 //  AND MOVES THE TETROMINO SO THAT IT WILL NOT BE OUT OF BOUNDS AFTER ROTATING.
 
@@ -29,7 +27,7 @@ public class TetrisGame {
     private final HashSet<Block> board;
     private boolean gameStatus; // true if game is running, false if game is over
 
-    private static final int UPDATE_RATE = 100;
+    private static final int UPDATE_RATE = 50;
     private int tick = 0;
 
     // REQUIRES :
@@ -55,8 +53,10 @@ public class TetrisGame {
                 move(Direction.DOWN);
             } else if (!canMove(Direction.DOWN) && canSpawn()) {
                 placeTetrominoOnBoard();
-                clearLines();
                 spawnNextTetromino();
+                // TODO: THIS IS A SMAERTER WAY OF DOING IT
+//            } else if (canLinesBeCleared()) {
+//                clearLines(whatLinesToClear());
             } else if (!canMove(Direction.DOWN) && !canSpawn()) {
                 System.out.println("GAME OVER");
                 System.out.println(score);
@@ -87,6 +87,10 @@ public class TetrisGame {
             System.exit(0);
         } else if (keyCode == KeyEvent.VK_SPACE) {
             drop();
+        } else if ((keyCode == KeyEvent.VK_DOWN) || (keyCode == KeyEvent.VK_KP_DOWN)) {
+            if (canMove(Direction.DOWN)) {
+                move(Direction.DOWN);
+            }
         }
     }
 
@@ -116,33 +120,38 @@ public class TetrisGame {
     // MODIFIES : this
     // EFFECTS  : Remove any blocks from this.blocks that form an uninterrupted line across the board and increments
     //          score for each line that was cleared
-    private void clearLines() {
-        ArrayList<Block> toBeCleared = new ArrayList<>();
-        LinkedList<Integer> lineHeights = new LinkedList<>();
+    private void clearLines(LinkedList<Integer> lineNumbers) {
+        for (int lineNumber : lineNumbers) {
+            board.removeIf(block -> block.getY() == lineNumber);
+        }
+        shiftLines(lineNumbers);
+    }
+
+    // EFFECTS  : Returns a list of blocks that need to be removed from the board
+    private LinkedList<Integer> whatLinesToClear() {
+        LinkedList<Integer> linesToClear = new LinkedList<>();
         for (int y = 0; y < HEIGHT; y++) {
-            ArrayList<Block> line = new ArrayList<>();
+            int blocksInLine = 0;
             for (Block b : board) {
                 if (b.getY() == y) {
-                    line.add(b);
-                }
-                if (line.size() == WIDTH) {
-                    lineHeights.addLast(y);
-                    toBeCleared.addAll(line);
-                    score++;
+                    blocksInLine++;
                 }
             }
+            if (blocksInLine == WIDTH) {
+                linesToClear.addLast(y);
+            }
         }
-        board.removeAll(toBeCleared);
-        shiftLines(lineHeights);
+        return linesToClear;
     }
+
 
     // TODO: SOMETHING DOES NOT FEEL QUITE RIGHT ABOUT THIS METHOD
     // MODIFIES : this
     // EFFECTS  : Given a list of lines to be removed, shift all elements above said line down
     private void shiftLines(LinkedList<Integer> lineHeights) {
-        for (int y : lineHeights) {
+        for (int lineNumber : lineHeights) {
             for (Block b : board) {
-                if (b.getY() < y) {
+                if (b.getY() < lineNumber) {
                     b.getPosition().addVectorInPlace(Direction.DOWN.getVector());
                 }
             }

@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class Block {
 
@@ -10,15 +11,6 @@ public class Block {
     private Vector2D position;
     private final Color color;
 
-    // REQUIRES : 0 <= red, green, blue <= 255
-    // MODIFIES : this
-    // EFFECTS  : Creates a new block at the given position with the given color.
-    public Block(int x, int y, Color color) {
-        this.position = new Vector2D(x, y);
-        this.color = color;
-    }
-
-    // REQUIRES : 0 <= red, green, blue <= 255
     // MODIFIES : this
     // EFFECTS  : Creates a new block at the given position with the given color.
     public Block(Vector2D position, Color color) {
@@ -51,23 +43,19 @@ public class Block {
     }
 
     @Override
-    // TODO: This does not seem to work properly, maybe remove it???
-    // REQUIRES : Object o needs to be a Block
-    // EFFECTS  : Compares a given object to this block
     public boolean equals(Object o) {
-        if (o == this) {
+        if (this == o) {
             return true;
-        } else if (!(o instanceof Block)) {
-            return false;
-        } else {
-            Block b = (Block) o;
-            return ((b.getColor() == this.color) && (b.getPosition().equals(this.position)));
         }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Block block = (Block) o;
+        return position.equals(block.position);
     }
 
     @Override
-    // EFFECTS  : Computes a hashcode for this Block
     public int hashCode() {
-        return position.hashCode() * color.hashCode();
+        return Objects.hash(position);
     }
 }
