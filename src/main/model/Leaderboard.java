@@ -6,6 +6,7 @@ import persistence.Writeable;
 
 import java.util.ArrayList;
 
+// TODO: CHECK TESTS AND MODIFIES REQUIRES EFFECTS
 // Stores information about many players in an ArrayList ordered by score
 public class Leaderboard implements Writeable {
 
@@ -30,31 +31,29 @@ public class Leaderboard implements Writeable {
         leaderboard.add(position, player);
     }
 
-    // REQUIRES : position >= 0
-    // EFFECTS  : Returns the player at the specified positions
+    // REQUIRES : 0 <= position < leaderboard.size()
+    // EFFECTS  : Returns the player at the specified position
     public Player getPlayer(int position) {
         return leaderboard.get(position);
     }
 
-    // EFFECTS  : Returns the leaderboard
     public ArrayList<Player> getLeaderboard() {
         return leaderboard;
     }
 
-    // EFFECTS  : Returns the size of the leaderboard
     public int getSize() {
         return leaderboard.size();
     }
 
     @Override
-    // TODO: DO I NEED REQUIRES, MODIFIES, ... here???
+    // EFFECTS  : Returns a JSONObject containing all relevant information about this leaderboard
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("players", playersToJson());
         return json;
     }
 
-    // EFFECTS  : Returns players in this leaderboard as a JSON array
+    // EFFECTS  : Returns the players in this leaderboard as a JSON array
     private JSONArray playersToJson() {
         JSONArray jsonArray = new JSONArray();
 

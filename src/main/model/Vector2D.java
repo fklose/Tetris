@@ -30,7 +30,6 @@ public class Vector2D {
         this.componentY += vec.getY();
     }
 
-    // EFFECTS  : Returns x component of a given vector
     public int getX() {
         return this.componentX;
     }
@@ -43,7 +42,6 @@ public class Vector2D {
         this.componentY = y;
     }
 
-    // EFFECTS  : Returns y component of a given vector
     public int getY() {
         return this.componentY;
     }

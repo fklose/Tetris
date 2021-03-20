@@ -18,8 +18,8 @@ class TetrominoTest {
     Tetromino tetromino6;
     Tetromino tetromino7;
 
-    RotationMatrix2x2 CCW = RotationMatrix2x2.COUNTERCLOCKWISE;
-    RotationMatrix2x2 CW = RotationMatrix2x2.CLOCKWISE;
+    RotationMatrix2D CCW = RotationMatrix2D.COUNTERCLOCKWISE;
+    RotationMatrix2D CW = RotationMatrix2D.CLOCKWISE;
 
     @BeforeEach
     void setUp() {
@@ -222,6 +222,82 @@ class TetrominoTest {
         tetromino1.rotateCCW();
         tetromino1.rotateCW();
         assertTrue(checkBlockListEquals(resultBlocks1, tetromino1.getBlocks()));
+    }
+
+    @Test
+    void getPositions() {
+        ArrayList<Vector2D> resultPositions3 = new ArrayList<>();
+        Vector2D newCentre3 = new Vector2D(1,8);
+
+        for (Vector2D v : tetromino3.getTemplate()) {
+            resultPositions3.add(v.addVectorGetNewVector(newCentre3));
+        }
+
+        tetromino3.setCentre(newCentre3);
+        assertEquals(resultPositions3, tetromino3.getPositions());
+
+        ArrayList<Vector2D> resultPositions1 = new ArrayList<>();
+        Vector2D newCentre1 = new Vector2D(16,-100);
+
+        for (Vector2D v : tetromino1.getTemplate()) {
+            resultPositions1.add(v.addVectorGetNewVector(newCentre1));
+        }
+
+        tetromino1.setCentre(newCentre1);
+        assertEquals(resultPositions1, tetromino1.getPositions());
+    }
+
+    @Test
+    void getPositionsAfterMoving() {
+        ArrayList<Vector2D> resultPositions3 = new ArrayList<>();
+        Vector2D newCentre3 = new Vector2D(1,8);
+
+        for (Vector2D v : tetromino3.getTemplate()) {
+            resultPositions3.add(v.addVectorGetNewVector(newCentre3));
+        }
+
+        tetromino3.setCentre(newCentre3);
+        assertEquals(resultPositions3, tetromino3.getPositions());
+
+        ArrayList<Vector2D> resultPositions1 = new ArrayList<>();
+        Vector2D newCentre1 = new Vector2D(16,-100);
+
+        for (Vector2D v : tetromino1.getTemplate()) {
+            resultPositions1.add(v.addVectorGetNewVector(newCentre1));
+        }
+
+        tetromino1.setCentre(newCentre1);
+        assertEquals(resultPositions1, tetromino1.getPositions());
+    }
+
+    @Test
+    void getPositionsAfterRotation() {
+        // TODO: CHANGE TO TEST getPositions()
+        ArrayList<Vector2D> resultPositions3 = new ArrayList<>();
+        Vector2D newCentre3 = new Vector2D(1,8);
+
+        for (Vector2D v : tetromino3.getTemplate()) {
+            Vector2D v1 = CCW.matrixVectorProductGetNewVec(v);
+            CCW.matrixVectorProductInPlace(v1);
+            resultPositions3.add(v1.addVectorGetNewVector(newCentre3));
+        }
+
+        tetromino3.setCentre(newCentre3);
+        tetromino3.rotateCCW();
+        tetromino3.rotateCCW();
+        assertEquals(resultPositions3, tetromino3.getPositions());
+
+        ArrayList<Vector2D> resultPositions1 = new ArrayList<>();
+        Vector2D newCentre1 = new Vector2D(16,-100);
+
+        for (Vector2D v : tetromino1.getTemplate()) {
+            resultPositions1.add(v.addVectorGetNewVector(newCentre1));
+        }
+
+        tetromino1.setCentre(newCentre1);
+        tetromino1.rotateCCW();
+        tetromino1.rotateCW();
+        assertEquals(resultPositions1, tetromino1.getPositions());
     }
 
     @Test

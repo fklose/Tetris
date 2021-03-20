@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RotationMatrix2x2Test {
+class RotationMatrix2DTest {
 
-    private static final RotationMatrix2x2 CCW = RotationMatrix2x2.COUNTERCLOCKWISE;
-    private static final RotationMatrix2x2 CW = RotationMatrix2x2.CLOCKWISE;
+    private static final RotationMatrix2D CCW = RotationMatrix2D.COUNTERCLOCKWISE;
+    private static final RotationMatrix2D CW = RotationMatrix2D.CLOCKWISE;
     private Vector2D vec1;
     private Vector2D vec2;
     private Vector2D vec3;

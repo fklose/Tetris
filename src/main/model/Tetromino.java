@@ -1,7 +1,6 @@
 package model;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -45,14 +44,13 @@ public enum Tetromino {
     nullShape("null", Color.BLACK,
             new Vector2D(0, 0));
 
-    // Maybe store individual blocks as an arraylist from the get go instead of individually
     private final ArrayList<Vector2D> template;
     private Vector2D centre;
     private final String name;
     private final Color color;
 
-    private static final RotationMatrix2x2 CCW = RotationMatrix2x2.COUNTERCLOCKWISE;
-    private static final RotationMatrix2x2 CW = RotationMatrix2x2.CLOCKWISE;
+    private static final RotationMatrix2D CCW = RotationMatrix2D.COUNTERCLOCKWISE;
+    private static final RotationMatrix2D CW = RotationMatrix2D.CLOCKWISE;
 
     // REQUIRES : One of the vectors in position needs to be the zero vector i.e. like new Vector2D(0, 0)
     //          which will act as the center of the block
@@ -67,7 +65,6 @@ public enum Tetromino {
         this.template.addAll(Arrays.asList(positions));
     }
 
-    // EFFECTS  : Returns the name of this Tetromino
     public String getName() {
         return this.name;
     }
@@ -76,12 +73,11 @@ public enum Tetromino {
         return centre;
     }
 
-    // EFFECTS  : Returns the positions of the blocks of the Tetrominos
     public ArrayList<Vector2D> getTemplate() {
         return template;
     }
 
-    // EFFECTS  : Creates and returns the blocks of the Tetromino
+    // EFFECTS  : Creates and returns the blocks making up the Tetromino
     public ArrayList<Block> getBlocks() {
         ArrayList<Block> blocks = new ArrayList<>();
 
@@ -119,7 +115,7 @@ public enum Tetromino {
         }
     }
 
-    // EFFECTS : Gets a copy of the positions of the blocks of the Tetromino
+    // EFFECTS : Computes and returns the positions of all blocks of the Tetromino
     public ArrayList<Vector2D> getPositions() {
         ArrayList<Vector2D> positions = new ArrayList<>();
         for (Vector2D pos : this.template) {

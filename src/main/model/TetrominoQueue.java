@@ -33,7 +33,7 @@ public class TetrominoQueue {
     }
 
     // MODIFIES : this
-    // EFFECTS  : Returns the first Tetromino in queue with removal and adds a new one at the end
+    // EFFECTS  : Returns and removes the first Tetromino in queue and adds a random new one at the end
     public Tetromino getNextTetromino() {
         addRandomTetromino();
         return queue.pollFirst();
@@ -44,7 +44,6 @@ public class TetrominoQueue {
         return queue.peekFirst();
     }
 
-    // EFFECTS  : Returns the queue
     public LinkedList<Tetromino> getQueue() {
         return queue;
     }
@@ -53,13 +52,7 @@ public class TetrominoQueue {
     // EFFECTS  : Adds a random Tetromino to the end of the list
     public void addRandomTetromino() {
         Tetromino tetromino = getTetromino(getRandomInteger());
-        addTetromino(tetromino);
-    }
-
-    // MODIFIES : this
-    // EFFECTS  : Adds a Tetromino to the end of the queue
-    public void addTetromino(Tetromino tetromino) {
-        queue.addLast(tetromino);
+        this.queue.addLast(tetromino);
     }
 
     // EFFECTS  : Returns a Tetromino given a number

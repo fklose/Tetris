@@ -3,6 +3,7 @@ package model;
 import java.awt.*;
 import java.util.Objects;
 
+// A class representing a Block with a given position and colour.
 public class Block {
 
     public static final int SIZE_X = 40;

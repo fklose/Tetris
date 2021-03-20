@@ -16,18 +16,16 @@ public class Player implements Writeable {
         this.score = score;
     }
 
-    // EFFECTS  : Returns the players name
     public String getName() {
         return this.name;
     }
 
-    // EFFECTS  : Returns the players score
     public int getScore() {
         return this.score;
     }
 
     @Override
-    // TODO: DO I NEED REQUIRES, MODIFIES, ... here???
+    // EFFECTS  : Creates a JSONObject representing this player
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", this.name);
