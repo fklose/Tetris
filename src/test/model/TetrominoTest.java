@@ -272,7 +272,6 @@ class TetrominoTest {
 
     @Test
     void getPositionsAfterRotation() {
-        // TODO: CHANGE TO TEST getPositions()
         ArrayList<Vector2D> resultPositions3 = new ArrayList<>();
         Vector2D newCentre3 = new Vector2D(1,8);
 

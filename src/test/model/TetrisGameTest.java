@@ -5,28 +5,23 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.event.KeyEvent;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// TODO: TEST CASES WHERE TETROMINO CAN'T MOVE OR ROTATE
 class TetrisGameTest {
 
     private static final int WIDTH = 10;
     private static final int HEIGHT = 20;
 
     TetrisGame game0;
-    TetrisGame game1;
 
     RotationMatrix2D CCW = RotationMatrix2D.COUNTERCLOCKWISE;
-    RotationMatrix2D CW = RotationMatrix2D.CLOCKWISE;
 
     @BeforeEach
     void setup() {
         game0 = new TetrisGame();
-        game1 = new TetrisGame();
     }
 
     @Test
@@ -34,31 +29,24 @@ class TetrisGameTest {
         HashSet<Block> emptyBoard = new HashSet<>(20 * 10);
 
         assertEquals(0, game0.getScore());
-        assertTrue(game0.getGameStatus());
+        assertTrue(game0.getGameActive());
         assertEquals(emptyBoard, game0.getBoard());
         assertNotNull(game0.getCurrentTetro());
     }
 
     @Test
     void update() {
+        // TODO : Write a test to see that tetromino will move when new tetromino can or cannot be spawned
         HashSet<Block> emptyBoard = new HashSet<>(WIDTH * HEIGHT);
 
         // continually ticking with no user input ends the game, as blocks stack up too high
-        while (game0.getGameStatus()) {
+        while (game0.getGameActive()) {
             game0.update();
             assertNotNull(game0.getCurrentTetro());
             assertEquals(0, game0.getScore());
         }
-        assertFalse(game0.getGameStatus());
+        assertFalse(game0.getGameActive());
         assertNotEquals(emptyBoard, game0.getBoard());
-
-        while (game1.getGameStatus()) {
-            game1.update();
-            assertNotNull(game1.getCurrentTetro());
-            assertEquals(0, game1.getScore());
-        }
-        assertFalse(game1.getGameStatus());
-        assertNotEquals(emptyBoard, game1.getBoard());
     }
 
     @Test
@@ -227,7 +215,14 @@ class TetrisGameTest {
         game0.keyPressed(KeyEvent.VK_SPACE);
         assertEquals(4, game0.getBoard().size());
         assertEquals(0, game0.getScore());
-        assertTrue(game0.getGameStatus());
+        assertTrue(game0.getGameActive());
+    }
+
+    @Test
+    void keyPressedESCAPE() {
+        game0.keyPressed(KeyEvent.VK_ESCAPE);
+        assertFalse(game0.getGameActive());
+        assertEquals(0, game0.getScore());
     }
 
     @Test

@@ -3,7 +3,6 @@ package model;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 
 // TODO: TEST
 // TODO: TEST
@@ -12,7 +11,6 @@ import java.util.LinkedList;
 // TODO: OPTIONAL BUT MAYBE MAKE IT SO THAT WHEN A ROTATION COULD BE OUT OF BOUNDS THE GAME JUST ROTATES
 //  AND MOVES THE TETROMINO SO THAT IT WILL NOT BE OUT OF BOUNDS AFTER ROTATING.
 // TODO: CHECK TESTS AND MODIFIES REQUIRES EFFECTS
-
 // Stores information and methods needed to simulate the game board
 // NOTE: +Y is down, -X is left and +X is right. Top left corner is (0,0)
 public class TetrisGame {
@@ -26,7 +24,7 @@ public class TetrisGame {
     private Tetromino currentTetro;
     private int score;
     private final HashSet<Block> board;
-    private boolean gameStatus; // true if game is running, false if game is over
+    private boolean isGameActive; // true if game is running, false if game is over
 
     private int tick = 0;
     private static final int TICK_RATE = 50;
@@ -36,7 +34,7 @@ public class TetrisGame {
     // EFFECTS  : Constructs a new game with score 0, a queue of Tetrominos and a single Tetromino ready to drop
     public TetrisGame() {
         this.score = 0;
-        this.gameStatus = true;
+        this.isGameActive = true;
         this.board = new HashSet<>(WIDTH * HEIGHT);
         this.tetroQueue = new TetrominoQueue();
         spawnNextTetromino();
@@ -51,18 +49,17 @@ public class TetrisGame {
     public void update() {
         tick++;
         if (tick % TICK_RATE == 0) {
-            if (canMove(Direction.DOWN)) {
-                move(Direction.DOWN);
-            } else if (!canMove(Direction.DOWN) && canSpawn()) {
+            if (!canMove(Direction.DOWN) && canSpawn()) {
                 placeTetrominoOnBoard();
                 spawnNextTetromino();
-                // TODO: THIS IS A SMARTER WAY OF DOING IT
-//      } else if (canLinesBeCleared()) {
-//          clearLines(whatLinesToClear());
+//          } else if (canLinesBeCleared()) {
+//              clearLines(whatLinesToClear());
             } else if (!canMove(Direction.DOWN) && !canSpawn()) {
                 System.out.println("GAME OVER");
                 System.out.println(score);
                 gameOver();
+            } else {
+                move(Direction.DOWN);
             }
         }
     }
@@ -84,10 +81,10 @@ public class TetrisGame {
             if (canMove(Direction.RIGHT)) {
                 move(Direction.RIGHT);
             }
-        } else if (keyCode == KeyEvent.VK_ESCAPE) { // TODO: NOT SURE HOW TO TEST THIS
+        } else if (keyCode == KeyEvent.VK_ESCAPE) {
             System.out.println("EXIT!");
             System.out.println(score);
-            System.exit(0);
+            gameOver();
         } else if (keyCode == KeyEvent.VK_SPACE) {
             drop();
         } else if ((keyCode == KeyEvent.VK_DOWN) || (keyCode == KeyEvent.VK_KP_DOWN)) {
@@ -147,7 +144,6 @@ public class TetrisGame {
 //        return linesToClear;
 //    }
 
-
     // TODO: SOMETHING DOES NOT FEEL QUITE RIGHT ABOUT THIS METHOD
     // MODIFIES : this
     // EFFECTS  : Given a list of lines to be removed, shift all elements above said line down
@@ -171,9 +167,8 @@ public class TetrisGame {
     // MODIFIES : this
     // EFFECTS  : Sets game status to false, indicating that the game is over
     private void gameOver() {
-        this.gameStatus = false;
+        this.isGameActive = false;
         System.out.println(score);
-//        System.exit(0); // Need to comment out so update tests can run to completion // TODO maybe move this
     }
 
     // EFFECTS  : returns true if the current tetromino can move down, false if not
@@ -223,7 +218,7 @@ public class TetrisGame {
         }
         return true;
     }
-
+    // TODO : INCREASE COVERAGE
     // EFFECTS  : Returns true if current Tetromino will be inside the bounds of the board
     //          after performing one counterclockwise rotation.
     //          Only checks Tetromino does not fall through the bottom or the sides, since
@@ -292,8 +287,8 @@ public class TetrisGame {
         return board;
     }
 
-    public boolean getGameStatus() {
-        return gameStatus;
+    public boolean getGameActive() {
+        return isGameActive;
     }
 
     public Tetromino getCurrentTetro() {

@@ -6,7 +6,6 @@ import persistence.Writeable;
 
 import java.util.ArrayList;
 
-// TODO: CHECK TESTS AND MODIFIES REQUIRES EFFECTS
 // Stores information about many players in an ArrayList ordered by score
 public class Leaderboard implements Writeable {
 

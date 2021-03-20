@@ -1,7 +1,6 @@
 package ui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -37,19 +36,20 @@ public class Tetris extends JFrame {
     private GamePanel gp;
 
     // Constructs main window
-    // effects: sets up window in which Space Invaders game will be played
+    // EFFECTS  : sets up window in which Space Invaders game will be played
     public Tetris() {
         super("TETRIS");
+        setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setUndecorated(true);
         game = new TetrisGame();
         gp = new GamePanel(game);
         add(gp);
         addKeyListener(new KeyHandler());
         pack();
         centreOnScreen();
-        setVisible(true);
         addTimer();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     // Set up timer
@@ -63,6 +63,10 @@ public class Tetris extends JFrame {
 
                 game.update();
                 gp.repaint();
+
+                if (!game.getGameActive()) {
+                    System.exit(0);
+                }
             }
         });
 
