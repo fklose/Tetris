@@ -14,6 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 // TODO: TEST CASES WHERE TETROMINO CAN'T MOVE OR ROTATE
 class TetrisGameTest {
 
+    private static final int WIDTH = 10;
+    private static final int HEIGHT = 20;
+
     TetrisGame game0;
     TetrisGame game1;
 
@@ -38,7 +41,7 @@ class TetrisGameTest {
 
     @Test
     void update() {
-        HashSet<Block> emptyBoard = new HashSet<>(20 * 10);
+        HashSet<Block> emptyBoard = new HashSet<>(WIDTH * HEIGHT);
 
         // continually ticking with no user input ends the game, as blocks stack up too high
         while (game0.getGameStatus()) {
@@ -225,5 +228,57 @@ class TetrisGameTest {
         assertEquals(4, game0.getBoard().size());
         assertEquals(0, game0.getScore());
         assertTrue(game0.getGameStatus());
+    }
+
+    @Test
+    void willItBeInsideBoard() {
+        for (int i = 0; i < 10; i++) {
+            game0.keyPressed(KeyEvent.VK_RIGHT);
+        }
+        for (Vector2D pos : game0.getCurrentTetro().getPositions()) {
+            assertTrue(pos.getX() < WIDTH, "Position our of bounds on right side!");
+        }
+        game0.keyPressed(KeyEvent.VK_SPACE);
+
+        for (int i = 0; i < 10; i++) {
+            game0.keyPressed(KeyEvent.VK_LEFT);
+        }
+        for (Vector2D pos : game0.getCurrentTetro().getPositions()) {
+            assertTrue(pos.getX() >= 0, "Position our of bounds on left side!");
+        }
+        game0.keyPressed(KeyEvent.VK_SPACE);
+
+        for (Block b : game0.getBoard()) {
+            assertTrue(b.getX() < WIDTH, "Block out of bounds on right side!");
+            assertTrue(b.getX() >= 0, "Block out of bounds on left side!");
+            assertTrue(b.getY() < HEIGHT, "Block out of bounds at the bottom!");
+        }
+    }
+
+    @Test
+    void willItBeInsideBoardAfterRotating() {
+        for (int i = 0; i < 10; i++) {
+            game0.keyPressed(KeyEvent.VK_RIGHT);
+        }
+        game0.keyPressed(KeyEvent.VK_UP);
+        for (Vector2D pos : game0.getCurrentTetro().getPositions()) {
+            assertTrue(pos.getX() < WIDTH, "Position our of bounds on right side!");
+        }
+        game0.keyPressed(KeyEvent.VK_SPACE);
+
+        for (int i = 0; i < 10; i++) {
+            game0.keyPressed(KeyEvent.VK_LEFT);
+        }
+        game0.keyPressed(KeyEvent.VK_UP);
+        for (Vector2D pos : game0.getCurrentTetro().getPositions()) {
+            assertTrue(pos.getX() >= 0, "Position our of bounds on left side!");
+        }
+        game0.keyPressed(KeyEvent.VK_SPACE);
+
+        for (Block b : game0.getBoard()) {
+            assertTrue(b.getX() < WIDTH, "Block out of bounds on right side!");
+            assertTrue(b.getX() >= 0, "Block out of bounds on left side!");
+            assertTrue(b.getY() < HEIGHT, "Block out of bounds at the bottom!");
+        }
     }
 }

@@ -60,6 +60,7 @@ public class Tetris extends JFrame {
         Timer t = new Timer(INTERVAL, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+
                 game.update();
                 gp.repaint();
             }

@@ -28,6 +28,9 @@ public class TetrisGame {
     private final HashSet<Block> board;
     private boolean gameStatus; // true if game is running, false if game is over
 
+    private int tick = 0;
+    private static final int TICK_RATE = 50;
+
     // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Constructs a new game with score 0, a queue of Tetrominos and a single Tetromino ready to drop
@@ -46,18 +49,21 @@ public class TetrisGame {
     //          clears lines once the current tetromino has stopped moving
     //          and spawns a new tetromino at the top of the board
     public void update() {
-        if (canMove(Direction.DOWN)) {
-            move(Direction.DOWN);
-        } else if (!canMove(Direction.DOWN) && canSpawn()) {
-            placeTetrominoOnBoard();
-            spawnNextTetromino();
-            // TODO: THIS IS A SMAERTER WAY OF DOING IT
+        tick++;
+        if (tick % TICK_RATE == 0) {
+            if (canMove(Direction.DOWN)) {
+                move(Direction.DOWN);
+            } else if (!canMove(Direction.DOWN) && canSpawn()) {
+                placeTetrominoOnBoard();
+                spawnNextTetromino();
+                // TODO: THIS IS A SMARTER WAY OF DOING IT
 //      } else if (canLinesBeCleared()) {
 //          clearLines(whatLinesToClear());
-        } else if (!canMove(Direction.DOWN) && !canSpawn()) {
-            System.out.println("GAME OVER");
-            System.out.println(score);
-            gameOver();
+            } else if (!canMove(Direction.DOWN) && !canSpawn()) {
+                System.out.println("GAME OVER");
+                System.out.println(score);
+                gameOver();
+            }
         }
     }
 
@@ -117,43 +123,43 @@ public class TetrisGame {
     // MODIFIES : this
     // EFFECTS  : Remove any blocks from this.blocks that form an uninterrupted line across the board and increments
     //          score for each line that was cleared
-    private void clearLines(LinkedList<Integer> lineNumbers) {
-        for (int lineNumber : lineNumbers) {
-            board.removeIf(block -> block.getY() == lineNumber);
-        }
-        shiftLines(lineNumbers);
-    }
+//    private void clearLines(LinkedList<Integer> lineNumbers) {
+//        for (int lineNumber : lineNumbers) {
+//            board.removeIf(block -> block.getY() == lineNumber);
+//        }
+//        shiftLines(lineNumbers);
+//    }
 
     // EFFECTS  : Returns a list of blocks that need to be removed from the board
-    private LinkedList<Integer> whatLinesToClear() {
-        LinkedList<Integer> linesToClear = new LinkedList<>();
-        for (int y = 0; y < HEIGHT; y++) {
-            int blocksInLine = 0;
-            for (Block b : board) {
-                if (b.getY() == y) {
-                    blocksInLine++;
-                }
-            }
-            if (blocksInLine == WIDTH) {
-                linesToClear.addLast(y);
-            }
-        }
-        return linesToClear;
-    }
+//    private LinkedList<Integer> whatLinesToClear() {
+//        LinkedList<Integer> linesToClear = new LinkedList<>();
+//        for (int y = 0; y < HEIGHT; y++) {
+//            int blocksInLine = 0;
+//            for (Block b : board) {
+//                if (b.getY() == y) {
+//                    blocksInLine++;
+//                }
+//            }
+//            if (blocksInLine == WIDTH) {
+//                linesToClear.addLast(y);
+//            }
+//        }
+//        return linesToClear;
+//    }
 
 
     // TODO: SOMETHING DOES NOT FEEL QUITE RIGHT ABOUT THIS METHOD
     // MODIFIES : this
     // EFFECTS  : Given a list of lines to be removed, shift all elements above said line down
-    private void shiftLines(LinkedList<Integer> lineHeights) {
-        for (int lineNumber : lineHeights) {
-            for (Block b : board) {
-                if (b.getY() < lineNumber) {
-                    b.getPosition().addVectorInPlace(Direction.DOWN.getVector());
-                }
-            }
-        }
-    }
+//    private void shiftLines(LinkedList<Integer> lineHeights) {
+//        for (int lineNumber : lineHeights) {
+//            for (Block b : board) {
+//                if (b.getY() < lineNumber) {
+//                    b.getPosition().addVectorInPlace(Direction.DOWN.getVector());
+//                }
+//            }
+//        }
+//    }
 
     // MODIFIES : this
     // EFFECTS  : Spawn the next Tetromino from the queue at the top of the board
