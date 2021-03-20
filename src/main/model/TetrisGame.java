@@ -28,9 +28,6 @@ public class TetrisGame {
     private final HashSet<Block> board;
     private boolean gameStatus; // true if game is running, false if game is over
 
-    private static final int UPDATE_RATE = 50;
-    private int tick = 0;
-
     // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Constructs a new game with score 0, a queue of Tetrominos and a single Tetromino ready to drop
@@ -42,30 +39,29 @@ public class TetrisGame {
         spawnNextTetromino();
     }
 
+    // TODO: NEEDS TESTING
     // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Updates the game, moves current tetromino down by one, checks if game is over,
     //          clears lines once the current tetromino has stopped moving
     //          and spawns a new tetromino at the top of the board
     public void update() {
-        tick++;
-        if (tick % UPDATE_RATE == 0) {
-            if (canMove(Direction.DOWN)) {
-                move(Direction.DOWN);
-            } else if (!canMove(Direction.DOWN) && canSpawn()) {
-                placeTetrominoOnBoard();
-                spawnNextTetromino();
-                // TODO: THIS IS A SMAERTER WAY OF DOING IT
-//            } else if (canLinesBeCleared()) {
-//                clearLines(whatLinesToClear());
-            } else if (!canMove(Direction.DOWN) && !canSpawn()) {
-                System.out.println("GAME OVER");
-                System.out.println(score);
-                gameOver();
-            }
+        if (canMove(Direction.DOWN)) {
+            move(Direction.DOWN);
+        } else if (!canMove(Direction.DOWN) && canSpawn()) {
+            placeTetrominoOnBoard();
+            spawnNextTetromino();
+            // TODO: THIS IS A SMAERTER WAY OF DOING IT
+//      } else if (canLinesBeCleared()) {
+//          clearLines(whatLinesToClear());
+        } else if (!canMove(Direction.DOWN) && !canSpawn()) {
+            System.out.println("GAME OVER");
+            System.out.println(score);
+            gameOver();
         }
     }
 
+    // TODO: NEEDS TESTING
     // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Responds to user key inputs
@@ -82,7 +78,7 @@ public class TetrisGame {
             if (canMove(Direction.RIGHT)) {
                 move(Direction.RIGHT);
             }
-        } else if (keyCode == KeyEvent.VK_ESCAPE) {
+        } else if (keyCode == KeyEvent.VK_ESCAPE) { // TODO: NOT SURE HOW TO TEST THIS
             System.out.println("EXIT!");
             System.out.println(score);
             System.exit(0);
@@ -171,7 +167,7 @@ public class TetrisGame {
     private void gameOver() {
         this.gameStatus = false;
         System.out.println(score);
-        System.exit(0);
+//        System.exit(0); // Need to comment out so update tests can run to completion // TODO maybe move this
     }
 
     // EFFECTS  : returns true if the current tetromino can move down, false if not
