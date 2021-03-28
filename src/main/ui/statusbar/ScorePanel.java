@@ -21,4 +21,8 @@ public class ScorePanel extends JPanel {
     public void updateScore() {
         scoreLabel.setText("Score: " + tetrisGame.getScore());
     }
+
+    public void changeText(String text) {
+        scoreLabel.setText(text);
+    }
 }

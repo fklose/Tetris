@@ -9,7 +9,7 @@ import java.util.ArrayList;
 // Stores information about many players in an ArrayList ordered by score
 public class Leaderboard implements Writeable {
 
-    private final ArrayList<Player> leaderboard;
+    private ArrayList<Player> leaderboard;
 
     // MODIFIES : this
     // EFFECTS  : Creates an empty Leaderboard
@@ -60,5 +60,9 @@ public class Leaderboard implements Writeable {
             jsonArray.put(p.toJson());
         }
         return jsonArray;
+    }
+
+    public void clear() {
+        leaderboard = new ArrayList<>();
     }
 }

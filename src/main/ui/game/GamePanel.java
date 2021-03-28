@@ -10,10 +10,7 @@ import model.Block;
 import model.TetrisGame;
 import model.Tetromino;
 
-/*
- * The panel in which the game is rendered.
- */
-@SuppressWarnings("serial")
+
 public class GamePanel extends JPanel {
 
     private TetrisGame tetrisGame;
@@ -30,9 +27,7 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         drawGame(g);
-
     }
 
     // Draws the game

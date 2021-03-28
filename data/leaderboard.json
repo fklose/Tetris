@@ -1,38 +1,4 @@
-{"players": [
-    {
-        "score": 12345,
-        "name": "Bruno"
-    },
-    {
-        "score": 1000,
-        "name": "Guido 1000"
-    },
-    {
-        "score": 560,
-        "name": "Catrin"
-    },
-    {
-        "score": 300,
-        "name": "Peter"
-    },
-    {
-        "score": 101,
-        "name": "Jakob"
-    },
-    {
-        "score": 100,
-        "name": "Felix"
-    },
-    {
-        "score": 99,
-        "name": "Felix"
-    },
-    {
-        "score": 0,
-        "name": "Felix"
-    },
-    {
-        "score": 0,
-        "name": "hdjask"
-    }
-]}
+{"players": [{
+    "score": 23,
+    "name": "Felix"
+}]}

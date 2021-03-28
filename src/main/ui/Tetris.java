@@ -11,28 +11,27 @@ import javax.swing.*;
 import model.TetrisGame;
 import ui.game.GamePanel;
 import ui.leaderboard.LeaderboardPanel;
+import ui.queuepanel.QueuePanel;
 import ui.statusbar.ScorePanel;
 
-// TODO: MAKE A PANEL TO SEE UPCOMING TETROMINOS
-//  >> FIRST TEXT BASED
-//  >> LATER WITH LITTLE RENDERED TETROMINOS
+// TODO: HAVE NEXT TETROMINO PANEL SHOW LITTLE RENDERS OF NEXT TETROMINOS
 // TODO: ADD GRIDLINES ONTO BACKGROUND
-// TODO: MAKE BACKGROUND BLACK OR AT LEAST A BIT DARKER
-
 
 public class Tetris extends JFrame {
 
     TetrisGame tetrisGame;
     JPanel centerPanel;
-    JPanel scorePanel;
+    ScorePanel scorePanel;
     JPanel buttons;
+    QueuePanel queuePanel;
+    GamePanel gamePanel;
 
     CardLayout centerLayout;
     Timer timer;
 
     private boolean isGamePaused;
 
-    private static final int INTERVAL = 5;
+    private static final int INTERVAL = 1;
 
     public Tetris() {
         super("TETRIS");
@@ -61,40 +60,44 @@ public class Tetris extends JFrame {
         JPanel buttonPanel = new JPanel();
 
         JButton restart = restartButton();
-
         JButton pause = pauseButton();
+
         buttonPanel.setLayout(new GridLayout(1, 2));
         buttonPanel.add(restart);
         buttonPanel.add(pause);
+
+        restart.setFocusable(false);
+        pause.setFocusable(false);
         return buttonPanel;
     }
 
     private JButton pauseButton() {
         JButton pause = new JButton("Pause");
-        pause.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (isGamePaused) {
-                    isGamePaused = false;
-                    timer.start();
-                } else {
-                    isGamePaused = true;
-                    timer.stop();
-                }
-                centerLayout.next(centerPanel);
+        pause.addActionListener(e -> {
+            if (isGamePaused) {
+                isGamePaused = false;
+                timer.start();
+            } else {
+                isGamePaused = true;
+                timer.stop();
             }
+            centerLayout.next(centerPanel);
+            validate();
+            repaint();
         });
         return pause;
     }
 
     private JButton restartButton() {
         JButton restart = new JButton("Restart");
-        restart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tetrisGame = new TetrisGame();
-                // TODO: this does not work yet
-            }
+        restart.addActionListener(e -> {
+            tetrisGame.resetGame();
+            queuePanel.changeQueue(tetrisGame);
+            queuePanel.update();
+            centerLayout.first(centerPanel);
+            isGamePaused = false;
+            validate();
+            repaint();
         });
         return restart;
     }
@@ -115,22 +118,30 @@ public class Tetris extends JFrame {
     }
 
     private void addTimer() {
-        timer = new Timer(INTERVAL, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tetrisGame.update();
-                centerPanel.repaint();
-                if (!tetrisGame.getGameActive()) {
-                    timer.stop();
-                }
+        timer = new Timer(INTERVAL, e -> {
+            tetrisGame.update();
+            queuePanel.update();
+            scorePanel.updateScore();
+            validate();
+            repaint();
+            if (!tetrisGame.getGameActive()) {
+                timer.stop();
+                centerLayout.next(centerPanel);
+                scorePanel.changeText("GAME OVER!!! Your score is: " + tetrisGame.getScore());
             }
         });
         timer.start();
     }
 
     private JPanel initializeGamePanel() {
+        JPanel gp = new JPanel();
+        gp.setLayout(new BorderLayout());
+        queuePanel = new QueuePanel(tetrisGame);
+        gamePanel = new GamePanel(tetrisGame);
         setFocusable(true);
-        return new GamePanel(tetrisGame);
+        gp.add(gamePanel, BorderLayout.CENTER);
+        gp.add(queuePanel, BorderLayout.EAST);
+        return gp;
     }
 
     private JPanel initializeLeaderboard() {

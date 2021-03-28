@@ -66,19 +66,16 @@ public class LeaderboardPanel extends JPanel {
 
     private JPanel initializeButtons() {
         JPanel buttons = new JPanel();
-        buttons.setLayout(new GridLayout(5,1));
+        buttons.setLayout(new GridLayout(6,1));
 
         status = new JLabel();
         JTextField playerName = new JTextField("Your name");
         JButton addScore = new JButton("Add your score");
 
-        addScore.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LEADERBOARD.addPlayer(new Player(playerName.getText(), tetrisGame.getScore()));
-                updateEntries();
-                status.setText("Added " + playerName.getText() + " with score " + tetrisGame.getScore());
-            }
+        addScore.addActionListener(e -> {
+            LEADERBOARD.addPlayer(new Player(playerName.getText(), tetrisGame.getScore()));
+            updateEntries();
+            status.setText("Added " + playerName.getText() + " with score " + tetrisGame.getScore());
         });
 
         buttons.add(status);
@@ -86,19 +83,28 @@ public class LeaderboardPanel extends JPanel {
         buttons.add(addScore);
         buttons.add(loadButton());
         buttons.add(saveButton());
+        buttons.add(clear());
         return buttons;
+    }
+
+    private JButton clear() {
+        JButton b = new JButton("Clear!");
+
+        b.addActionListener(e -> {
+            LEADERBOARD.clear();
+            updateEntries();
+            status.setText("Leaderboard cleared!");
+        });
+        return b;
     }
 
     private JButton loadButton() {
         JButton b = new JButton("Load Highscores!");
 
-        b.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loadLeaderboard();
-                updateEntries();
-                status.setText("Leaderboard loaded!");
-            }
+        b.addActionListener(e -> {
+            loadLeaderboard();
+            updateEntries();
+            status.setText("Leaderboard loaded!");
         });
         return b;
     }
@@ -106,13 +112,10 @@ public class LeaderboardPanel extends JPanel {
     private JButton saveButton() {
         JButton b = new JButton("Save Highscores!");
 
-        b.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveLeaderboard();
-                updateEntries();
-                status.setText("Leaderboard saved!");
-            }
+        b.addActionListener(e -> {
+            saveLeaderboard();
+            updateEntries();
+            status.setText("Leaderboard saved!");
         });
         return b;
     }
