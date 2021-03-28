@@ -1,8 +1,6 @@
-package ui;
+package ui.game;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 

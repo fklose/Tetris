@@ -6,94 +6,152 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JFrame;
-import javax.swing.Timer;
+import javax.swing.*;
 
 import model.TetrisGame;
+import ui.game.GamePanel;
+import ui.leaderboard.LeaderboardPanel;
+import ui.statusbar.ScorePanel;
 
-// TODO: MAKE A PANEL TO KEEP TRACK OF SCORE
-// TODO: MAKE A PANEL TO VIEW HIGHSCORES AFTER GAME IS DONE
-// TODO: AFTER LOSING GAME LET USER CHOOSE TO EXIT DIRECTLY
-//      OR
-//  VIEW THEIR OWN SCORE AND LEADERBOARD AND ADD THEIR SCORE TO LEADERBOARD THEN START AGAIN OR EXIT
 // TODO: MAKE A PANEL TO SEE UPCOMING TETROMINOS
 //  >> FIRST TEXT BASED
 //  >> LATER WITH LITTLE RENDERED TETROMINOS
 // TODO: ADD GRIDLINES ONTO BACKGROUND
 // TODO: MAKE BACKGROUND BLACK OR AT LEAST A BIT DARKER
-// TODO: USE SIMPLE SHAPE PLAYER TO MAKE A PROPER WINDOWS "WINDOW"
 
 
-/*
- * Represents the main window in which the space invaders
- * game is played
- */
-@SuppressWarnings("serial")
 public class Tetris extends JFrame {
 
-    private static final int INTERVAL = 5;
-    private TetrisGame game;
-    private GamePanel gp;
+    TetrisGame tetrisGame;
+    JPanel centerPanel;
+    JPanel scorePanel;
+    JPanel buttons;
 
-    // Constructs main window
-    // EFFECTS  : sets up window in which Space Invaders game will be played
+    CardLayout centerLayout;
+    Timer timer;
+
+    private boolean isGamePaused;
+
+    private static final int INTERVAL = 5;
+
     public Tetris() {
         super("TETRIS");
-        setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game = new TetrisGame();
-        gp = new GamePanel(game);
-        add(gp);
+
+        tetrisGame = new TetrisGame();
+
+        scorePanel = new ScorePanel(tetrisGame);
+        buttons = initializeButtons();
+        centerPanel = initializeCenterPanel(tetrisGame);
+
+        add(scorePanel, BorderLayout.NORTH);
+        add(centerPanel, BorderLayout.CENTER);
+        add(buttons, BorderLayout.SOUTH);
+
         addKeyListener(new KeyHandler());
-        pack();
-        centreOnScreen();
         addTimer();
-        setLocationRelativeTo(null);
+        centreOnScreen();
+        pack();
         setVisible(true);
+
+        isGamePaused = false;
     }
 
-    // Set up timer
-    // modifies: none
-    // effects:  initializes a timer that updates game each
-    //           INTERVAL milliseconds
-    private void addTimer() {
-        Timer t = new Timer(INTERVAL, new ActionListener() {
+    private JPanel initializeButtons() {
+        JPanel buttonPanel = new JPanel();
+
+        JButton restart = restartButton();
+
+        JButton pause = pauseButton();
+        buttonPanel.setLayout(new GridLayout(1, 2));
+        buttonPanel.add(restart);
+        buttonPanel.add(pause);
+        return buttonPanel;
+    }
+
+    private JButton pauseButton() {
+        JButton pause = new JButton("Pause");
+        pause.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) {
+            public void actionPerformed(ActionEvent e) {
+                if (isGamePaused) {
+                    isGamePaused = false;
+                    timer.start();
+                } else {
+                    isGamePaused = true;
+                    timer.stop();
+                }
+                centerLayout.next(centerPanel);
+            }
+        });
+        return pause;
+    }
 
-                game.update();
-                gp.repaint();
+    private JButton restartButton() {
+        JButton restart = new JButton("Restart");
+        restart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tetrisGame = new TetrisGame();
+                // TODO: this does not work yet
+            }
+        });
+        return restart;
+    }
 
-                if (!game.getGameActive()) {
-                    System.exit(0);
+    private JPanel initializeCenterPanel(TetrisGame tetrisGame) {
+        centerLayout = new CardLayout();
+        JPanel centerPanel = new JPanel();
+
+        JPanel gamePanel = initializeGamePanel();
+        JPanel leaderboard = initializeLeaderboard();
+
+        centerPanel.setLayout(new CardLayout());
+
+        centerPanel.add(gamePanel);
+        centerPanel.add(leaderboard);
+        centerPanel.setLayout(centerLayout);
+        return centerPanel;
+    }
+
+    private void addTimer() {
+        timer = new Timer(INTERVAL, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tetrisGame.update();
+                centerPanel.repaint();
+                if (!tetrisGame.getGameActive()) {
+                    timer.stop();
                 }
             }
         });
+        timer.start();
+    }
 
-        t.start();
+    private JPanel initializeGamePanel() {
+        setFocusable(true);
+        return new GamePanel(tetrisGame);
+    }
+
+    private JPanel initializeLeaderboard() {
+        return new LeaderboardPanel(tetrisGame);
     }
 
     // Centres frame on desktop
     // modifies: this
     // effects:  location of frame is set so frame is centred on desktop
     private void centreOnScreen() {
-        Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((screen.width - getWidth()) / 2 - 200, (screen.height - getHeight()) / 2 - 400);
     }
 
-    /*
-     * A key handler to respond to key events
-     */
     private class KeyHandler extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
-            game.keyPressed(e.getKeyCode());
+            tetrisGame.keyPressed(e.getKeyCode());
         }
     }
 
-    /*
-     * Play the game
-     */
     public static void main(String[] args) {
         new Tetris();
     }

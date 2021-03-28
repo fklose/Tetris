@@ -3,6 +3,7 @@ package model;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 // TODO: TEST
 // TODO: TEST
@@ -52,11 +53,8 @@ public class TetrisGame {
             if (!canMove(Direction.DOWN) && canSpawn()) {
                 placeTetrominoOnBoard();
                 spawnNextTetromino();
-//          } else if (canLinesBeCleared()) {
-//              clearLines(whatLinesToClear());
+//                clearLines(whatLinesToClear());
             } else if (!canMove(Direction.DOWN) && !canSpawn()) {
-                System.out.println("GAME OVER");
-                System.out.println(score);
                 gameOver();
             } else {
                 move(Direction.DOWN);
@@ -81,10 +79,6 @@ public class TetrisGame {
             if (canMove(Direction.RIGHT)) {
                 move(Direction.RIGHT);
             }
-        } else if (keyCode == KeyEvent.VK_ESCAPE) {
-            System.out.println("EXIT!");
-            System.out.println(score);
-            gameOver();
         } else if (keyCode == KeyEvent.VK_SPACE) {
             drop();
         } else if ((keyCode == KeyEvent.VK_DOWN) || (keyCode == KeyEvent.VK_KP_DOWN)) {
@@ -120,16 +114,17 @@ public class TetrisGame {
     // MODIFIES : this
     // EFFECTS  : Remove any blocks from this.blocks that form an uninterrupted line across the board and increments
     //          score for each line that was cleared
-//    private void clearLines(LinkedList<Integer> lineNumbers) {
+//    private void clearLines(HashSet<Integer> lineNumbers) {
 //        for (int lineNumber : lineNumbers) {
 //            board.removeIf(block -> block.getY() == lineNumber);
+//            score++;
 //        }
 //        shiftLines(lineNumbers);
 //    }
 
     // EFFECTS  : Returns a list of blocks that need to be removed from the board
-//    private LinkedList<Integer> whatLinesToClear() {
-//        LinkedList<Integer> linesToClear = new LinkedList<>();
+//    private HashSet<Integer> whatLinesToClear() {
+//        HashSet<Integer> linesToClear = new HashSet<>();
 //        for (int y = 0; y < HEIGHT; y++) {
 //            int blocksInLine = 0;
 //            for (Block b : board) {
@@ -138,7 +133,7 @@ public class TetrisGame {
 //                }
 //            }
 //            if (blocksInLine == WIDTH) {
-//                linesToClear.addLast(y);
+//                linesToClear.add(y);
 //            }
 //        }
 //        return linesToClear;
@@ -147,7 +142,7 @@ public class TetrisGame {
     // TODO: SOMETHING DOES NOT FEEL QUITE RIGHT ABOUT THIS METHOD
     // MODIFIES : this
     // EFFECTS  : Given a list of lines to be removed, shift all elements above said line down
-//    private void shiftLines(LinkedList<Integer> lineHeights) {
+//    private void shiftLines(HashSet<Integer> lineHeights) {
 //        for (int lineNumber : lineHeights) {
 //            for (Block b : board) {
 //                if (b.getY() < lineNumber) {
@@ -168,7 +163,6 @@ public class TetrisGame {
     // EFFECTS  : Sets game status to false, indicating that the game is over
     private void gameOver() {
         this.isGameActive = false;
-        System.out.println(score);
     }
 
     // EFFECTS  : returns true if the current tetromino can move down, false if not
@@ -218,6 +212,7 @@ public class TetrisGame {
         }
         return true;
     }
+
     // TODO : INCREASE COVERAGE
     // EFFECTS  : Returns true if current Tetromino will be inside the bounds of the board
     //          after performing one counterclockwise rotation.
