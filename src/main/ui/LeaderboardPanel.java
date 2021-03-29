@@ -82,7 +82,8 @@ public class LeaderboardPanel extends JPanel {
         addScore.addActionListener(e -> {
             LEADERBOARD.addPlayer(new Player(playerName.getText(), tetrisGame.getScore()));
             updateEntries();
-            status.setText("Added " + playerName.getText() + " with score " + tetrisGame.getScore());
+            status.setText("Added " + playerName.getText() + " with score " + tetrisGame.getScore()
+                    + " --- Leaderboard is not saved!");
         });
 
         buttons.add(status);
@@ -110,7 +111,7 @@ public class LeaderboardPanel extends JPanel {
     // MODIFIES : this
     // EFFECTS  : Returns a button used for loading a leaderboard from a file
     private JButton loadButton() {
-        JButton b = new JButton("Load Highscores!");
+        JButton b = new JButton("Load Leaderboard!");
 
         b.addActionListener(e -> {
             loadLeaderboard();
@@ -123,7 +124,7 @@ public class LeaderboardPanel extends JPanel {
     // MODIFIES : this
     // EFFECTS  : Returns a button used for saving a leaderboard to a file
     private JButton saveButton() {
-        JButton b = new JButton("Save Highscores!");
+        JButton b = new JButton("Save Leaderboard!");
 
         b.addActionListener(e -> {
             saveLeaderboard();

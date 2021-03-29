@@ -1,4 +1,10 @@
-{"players": [{
-    "score": 23,
-    "name": "Felix"
-}]}
+{"players": [
+    {
+        "score": 23,
+        "name": "Felix"
+    },
+    {
+        "score": 7,
+        "name": "Peter"
+    }
+]}

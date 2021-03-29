@@ -28,8 +28,18 @@ since there are no good offline versions.
 4. As a user I want to be able to pull the next Tetramino from the queue.
 
 ## Phase 2:
-5. As a user I want to have my scores saved when quitting the application.
-6. As a user I want to load my saved scores when I start the application.
+1. As a user I want to have my scores saved when quitting the application.
+2. As a user I want to load my saved scores when I start the application.
+
+## Phase 3:
+1. As a user I want to be able to add my score onto a leaderboard after playing a game.
+2. As a user I want to add a Tetromino onto a board and move and rotate it.
+3. As a user I want to stack multiple Tetrominos on top of each other.
+4. As a user I want to see the Tetrominos on the board.
+5. As a user I want to be able to load my leaderboard from a file.
+6. As a user I want to be able to save my leaderboard.
+7. As a user I want to be able to see my score.
+8. As a user I want to be able to see if my leaderboard has been loaded or saved.
 
 ## Appendix
 
