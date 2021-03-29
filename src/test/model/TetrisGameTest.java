@@ -53,8 +53,6 @@ class TetrisGameTest {
         int oldY = game0.getCurrentTetro().getCentre().getY();
         Vector2D oldCenter = new Vector2D(oldX, oldY);
 
-        Vector2D newCenter = oldCenter.addVectorGetNewVector(Direction.NULL.getVector());
-
         ArrayList<Vector2D> oldTemplate = new ArrayList<>();
         for (Vector2D pos : game0.getCurrentTetro().getTemplate()) {
             oldTemplate.add(pos.addVectorGetNewVector(Direction.NULL.getVector()));
