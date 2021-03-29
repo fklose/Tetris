@@ -45,12 +45,14 @@ public class TetrisGame {
     public void update() {
         tick++;
         if (tick % TICK_RATE == 0) {
-            if (!canMove(Direction.DOWN) && canSpawn()) {
-                placeTetrominoOnBoard();
-                spawnNextTetromino();
-                this.score += 1;
-            } else if (!canMove(Direction.DOWN) && !canSpawn()) {
-                gameOver();
+            if (!canMove(Direction.DOWN)) {
+                if (canSpawn()) {
+                    placeTetrominoOnBoard();
+                    spawnNextTetromino();
+                    this.score += 1;
+                } else {
+                    gameOver();
+                }
             } else {
                 move(Direction.DOWN);
             }
@@ -139,6 +141,7 @@ public class TetrisGame {
         return true;
     }
 
+    // TODO: INCREASE COVERAGE
     // EFFECTS  : returns true if there is space for all blocks of the current Tetromino to move one step
     //          in the given direction, else false
     private boolean isThereSpaceToMove(Direction d) {

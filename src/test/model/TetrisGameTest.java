@@ -36,7 +36,6 @@ class TetrisGameTest {
 
     @Test
     void update() {
-        // TODO : Write a test to see that tetromino will move when new tetromino can or cannot be spawned
         HashSet<Block> emptyBoard = new HashSet<>(WIDTH * HEIGHT);
 
         // continually ticking with no user input ends the game, as blocks stack up too high
@@ -270,7 +269,7 @@ class TetrisGameTest {
     }
 
     @Test
-    void willItBeInsideBoardAfterRotating() {
+    void willItBeInsideBoardAfterMovingRightAndRotating() {
         for (int i = 0; i < 10; i++) {
             game0.keyPressed(KeyEvent.VK_RIGHT);
         }
@@ -280,8 +279,35 @@ class TetrisGameTest {
         }
         game0.keyPressed(KeyEvent.VK_SPACE);
 
+        for (Block b : game0.getBoard()) {
+            assertTrue(b.getX() < WIDTH, "Block out of bounds on right side!");
+            assertTrue(b.getX() >= 0, "Block out of bounds on left side!");
+            assertTrue(b.getY() < HEIGHT, "Block out of bounds at the bottom!");
+        }
+    }
+
+    @Test
+    void willItBeInsideBoardAfterMovingLeftAndRotating() {
         for (int i = 0; i < 10; i++) {
             game0.keyPressed(KeyEvent.VK_LEFT);
+        }
+        game0.keyPressed(KeyEvent.VK_UP);
+        for (Vector2D pos : game0.getCurrentTetro().getPositions()) {
+            assertTrue(pos.getX() >= 0, "Position our of bounds on left side!");
+        }
+        game0.keyPressed(KeyEvent.VK_SPACE);
+
+        for (Block b : game0.getBoard()) {
+            assertTrue(b.getX() < WIDTH, "Block out of bounds on right side!");
+            assertTrue(b.getX() >= 0, "Block out of bounds on left side!");
+            assertTrue(b.getY() < HEIGHT, "Block out of bounds at the bottom!");
+        }
+    }
+
+    @Test
+    void willItBeInsideBoardAfterMovingDownAndRotating() {
+        for (int i = 0; i < 20; i++) {
+            game0.keyPressed(KeyEvent.VK_DOWN);
         }
         game0.keyPressed(KeyEvent.VK_UP);
         for (Vector2D pos : game0.getCurrentTetro().getPositions()) {
