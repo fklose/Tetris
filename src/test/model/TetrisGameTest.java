@@ -84,11 +84,6 @@ class TetrisGameTest {
             oldTemplate.add(pos.addVectorGetNewVector(Direction.NULL.getVector()));
         }
 
-        ArrayList<Vector2D> newTemplate = new ArrayList<>();
-        for (Vector2D pos : oldTemplate) {
-            newTemplate.add(CCW.matrixVectorProductGetNewVec(pos));
-        }
-
         game0.keyPressed(KeyEvent.VK_LEFT);
         assertEquals(newCenter, game0.getCurrentTetro().getCentre());
         assertEquals(oldTemplate, game0.getCurrentTetro().getTemplate());
@@ -107,13 +102,27 @@ class TetrisGameTest {
             oldTemplate.add(pos.addVectorGetNewVector(Direction.NULL.getVector()));
         }
 
-        ArrayList<Vector2D> newTemplate = new ArrayList<>();
-        for (Vector2D pos : oldTemplate) {
-            newTemplate.add(CCW.matrixVectorProductGetNewVec(pos));
-        }
-
         game0.keyPressed(KeyEvent.VK_KP_LEFT);
         assertEquals(newCenter, game0.getCurrentTetro().getCentre());
+        assertEquals(oldTemplate, game0.getCurrentTetro().getTemplate());
+    }
+
+    @Test
+    void holdKeyKPLEFT() {
+        ArrayList<Vector2D> oldTemplate = new ArrayList<>();
+        for (Vector2D pos : game0.getCurrentTetro().getTemplate()) {
+            oldTemplate.add(pos.addVectorGetNewVector(Direction.NULL.getVector()));
+        }
+
+        for (int i = 0; i < 40; i++) {
+            game0.keyPressed(KeyEvent.VK_KP_LEFT);
+        }
+
+        for (Vector2D v : game0.getCurrentTetro().getPositions()) {
+            assertTrue(v.getX() < WIDTH);
+            assertTrue(v.getX() >= 0);
+            assertTrue(v.getY() < HEIGHT);
+        }
         assertEquals(oldTemplate, game0.getCurrentTetro().getTemplate());
     }
 
@@ -128,11 +137,6 @@ class TetrisGameTest {
         ArrayList<Vector2D> oldTemplate = new ArrayList<>();
         for (Vector2D pos : game0.getCurrentTetro().getTemplate()) {
             oldTemplate.add(pos.addVectorGetNewVector(Direction.NULL.getVector()));
-        }
-
-        ArrayList<Vector2D> newTemplate = new ArrayList<>();
-        for (Vector2D pos : oldTemplate) {
-            newTemplate.add(CCW.matrixVectorProductGetNewVec(pos));
         }
 
         game0.keyPressed(KeyEvent.VK_RIGHT);
@@ -153,13 +157,27 @@ class TetrisGameTest {
             oldTemplate.add(pos.addVectorGetNewVector(Direction.NULL.getVector()));
         }
 
-        ArrayList<Vector2D> newTemplate = new ArrayList<>();
-        for (Vector2D pos : oldTemplate) {
-            newTemplate.add(CCW.matrixVectorProductGetNewVec(pos));
-        }
-
         game0.keyPressed(KeyEvent.VK_KP_RIGHT);
         assertEquals(newCenter, game0.getCurrentTetro().getCentre());
+        assertEquals(oldTemplate, game0.getCurrentTetro().getTemplate());
+    }
+
+    @Test
+    void holdKeyKPRIGHT() {
+        ArrayList<Vector2D> oldTemplate = new ArrayList<>();
+        for (Vector2D pos : game0.getCurrentTetro().getTemplate()) {
+            oldTemplate.add(pos.addVectorGetNewVector(Direction.NULL.getVector()));
+        }
+
+        for (int i = 0; i < 40; i++) {
+            game0.keyPressed(KeyEvent.VK_KP_RIGHT);
+        }
+
+        for (Vector2D v : game0.getCurrentTetro().getPositions()) {
+            assertTrue(v.getX() < WIDTH);
+            assertTrue(v.getX() >= 0);
+            assertTrue(v.getY() < HEIGHT);
+        }
         assertEquals(oldTemplate, game0.getCurrentTetro().getTemplate());
     }
 
@@ -174,11 +192,6 @@ class TetrisGameTest {
         ArrayList<Vector2D> oldTemplate = new ArrayList<>();
         for (Vector2D pos : game0.getCurrentTetro().getTemplate()) {
             oldTemplate.add(pos.addVectorGetNewVector(Direction.NULL.getVector()));
-        }
-
-        ArrayList<Vector2D> newTemplate = new ArrayList<>();
-        for (Vector2D pos : oldTemplate) {
-            newTemplate.add(CCW.matrixVectorProductGetNewVec(pos));
         }
 
         game0.keyPressed(KeyEvent.VK_DOWN);
@@ -199,13 +212,27 @@ class TetrisGameTest {
             oldTemplate.add(pos.addVectorGetNewVector(Direction.NULL.getVector()));
         }
 
-        ArrayList<Vector2D> newTemplate = new ArrayList<>();
-        for (Vector2D pos : oldTemplate) {
-            newTemplate.add(CCW.matrixVectorProductGetNewVec(pos));
-        }
-
         game0.keyPressed(KeyEvent.VK_KP_DOWN);
         assertEquals(newCenter, game0.getCurrentTetro().getCentre());
+        assertEquals(oldTemplate, game0.getCurrentTetro().getTemplate());
+    }
+
+    @Test
+    void holdKeyKPDOWN() {
+        ArrayList<Vector2D> oldTemplate = new ArrayList<>();
+        for (Vector2D pos : game0.getCurrentTetro().getTemplate()) {
+            oldTemplate.add(pos.addVectorGetNewVector(Direction.NULL.getVector()));
+        }
+
+        for (int i = 0; i < 40; i++) {
+            game0.keyPressed(KeyEvent.VK_KP_DOWN);
+        }
+
+        for (Vector2D v : game0.getCurrentTetro().getPositions()) {
+            assertTrue(v.getX() < WIDTH);
+            assertTrue(v.getX() >= 0);
+            assertTrue(v.getY() < HEIGHT);
+        }
         assertEquals(oldTemplate, game0.getCurrentTetro().getTemplate());
     }
 
