@@ -40,6 +40,7 @@ since there are no good offline versions.
 6. As a user I want to be able to save my leaderboard.
 7. As a user I want to be able to see my score.
 8. As a user I want to be able to see if my leaderboard has been loaded or saved.
+9. As a user I want to see the next five tetrominos.
 
 ## Appendix
 
