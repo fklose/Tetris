@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.event.KeyEvent;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -307,6 +308,34 @@ class TetrisGameTest {
         for (int i = 0; i < 20; i++) {
             game0.keyPressed(KeyEvent.VK_DOWN);
         }
+        game0.keyPressed(KeyEvent.VK_UP);
+        for (Vector2D pos : game0.getCurrentTetro().getPositions()) {
+            assertTrue(pos.getX() >= 0, "Position our of bounds on left side!");
+        }
+        game0.keyPressed(KeyEvent.VK_SPACE);
+
+        for (Block b : game0.getBoard()) {
+            assertTrue(b.getX() < WIDTH, "Block out of bounds on right side!");
+            assertTrue(b.getX() >= 0, "Block out of bounds on left side!");
+            assertTrue(b.getY() < HEIGHT, "Block out of bounds at the bottom!");
+        }
+    }
+
+    @Test
+    void canItRotate() {
+        for (int i = 0; i < 20; i++) {
+            game0.keyPressed(KeyEvent.VK_RIGHT);
+        }
+        game0.keyPressed(KeyEvent.VK_SPACE);
+        game0.update();
+
+        for (int i = 0; i < 20; i++) {
+            game0.keyPressed(KeyEvent.VK_RIGHT);
+        }
+        for (int i = 0; i < 20; i++) {
+            game0.keyPressed(KeyEvent.VK_DOWN);
+        }
+
         game0.keyPressed(KeyEvent.VK_UP);
         for (Vector2D pos : game0.getCurrentTetro().getPositions()) {
             assertTrue(pos.getX() >= 0, "Position our of bounds on left side!");

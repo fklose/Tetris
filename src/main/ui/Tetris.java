@@ -142,6 +142,8 @@ public class Tetris extends JFrame {
         queuePanel = new QueuePanel(tetrisGame);
         gamePanel = new GamePanel(tetrisGame);
         setFocusable(true);
+        gamePanel.setPreferredSize(new Dimension(400, 800));
+        queuePanel.setPreferredSize(new Dimension(200, 800));
         gp.add(gamePanel, BorderLayout.CENTER);
         gp.add(queuePanel, BorderLayout.EAST);
         return gp;
