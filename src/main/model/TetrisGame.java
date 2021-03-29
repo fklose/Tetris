@@ -3,7 +3,6 @@ package model;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 
 // TODO: TEST
 // TODO: IMPLEMENT CLEARING OF LINES
@@ -39,7 +38,6 @@ public class TetrisGame {
     }
 
     // TODO: NEEDS TESTING
-    // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Updates the game, moves current tetromino down by one, checks if game is over,
     //          clears lines once the current tetromino has stopped moving
@@ -60,7 +58,6 @@ public class TetrisGame {
     }
 
     // TODO: NEEDS TESTING
-    // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Responds to user key inputs
     public void keyPressed(int keyCode) {
@@ -106,7 +103,7 @@ public class TetrisGame {
         placeTetrominoOnBoard();
     }
 
-    // MODIFIES : this
+    // MODIFIES : this, TetrominoQueue
     // EFFECTS  : Spawn the next Tetromino from the queue at the top of the board
     private void spawnNextTetromino() {
         this.currentTetro = tetroQueue.getNextTetromino();
@@ -124,10 +121,12 @@ public class TetrisGame {
         return isThereSpaceToMove(d) && willItBeInsideBoard(d);
     }
 
+    // EFFECTS  : returns true if the Tetromino can rotate CCW, false if not
     private boolean canRotate() {
         return isThereSpaceToRotate() && willItBeInsideBoardAfterRotatingCCW();
     }
 
+    // MODIFIES : Tetromino
     // EFFECTS  : returns true if there is space for all blocks of the current Tetromino to rotate 90 degrees ccw,
     //          else false
     private boolean isThereSpaceToRotate() {
@@ -244,6 +243,9 @@ public class TetrisGame {
         return currentTetro;
     }
 
+    // MODIFIES : this
+    // EFFECTS  : Resets the game by setting the score to 0, making a new empty board, making a new queue and setting
+    //          the isGameActive field to true
     public void resetGame() {
         this.score = 0;
         this.isGameActive = true;

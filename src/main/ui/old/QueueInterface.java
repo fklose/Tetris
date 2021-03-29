@@ -2,7 +2,6 @@ package ui.old;
 
 import model.Tetromino;
 import model.TetrominoQueue;
-import ui.old.Main;
 
 import java.util.LinkedList;
 import java.util.Scanner;

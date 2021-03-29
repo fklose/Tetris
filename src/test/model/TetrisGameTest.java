@@ -43,7 +43,6 @@ class TetrisGameTest {
         while (game0.getGameActive()) {
             game0.update();
             assertNotNull(game0.getCurrentTetro());
-            assertEquals(0, game0.getScore());
         }
         assertFalse(game0.getGameActive());
         assertNotEquals(emptyBoard, game0.getBoard());
@@ -219,13 +218,6 @@ class TetrisGameTest {
     }
 
     @Test
-    void keyPressedESCAPE() {
-        game0.keyPressed(KeyEvent.VK_ESCAPE);
-        assertFalse(game0.getGameActive());
-        assertEquals(0, game0.getScore());
-    }
-
-    @Test
     void willItBeInsideBoard() {
         for (int i = 0; i < 10; i++) {
             game0.keyPressed(KeyEvent.VK_RIGHT);
@@ -275,5 +267,25 @@ class TetrisGameTest {
             assertTrue(b.getX() >= 0, "Block out of bounds on left side!");
             assertTrue(b.getY() < HEIGHT, "Block out of bounds at the bottom!");
         }
+    }
+
+    @Test
+    void resetGame() {
+        while (game0.getGameActive()) {
+            game0.update();
+        }
+        assertFalse(game0.getGameActive());
+        assertNotEquals(0, game0.getScore());
+        assertNotEquals(0, game0.getBoard().size());
+
+        game0.resetGame();
+        assertTrue(game0.getGameActive());
+        assertEquals(0, game0.getScore());
+        assertEquals(0, game0.getBoard().size());
+    }
+
+    @Test
+    void getQueue() {
+        assertEquals(TetrominoQueue.class, game0.getQueue().getClass());
     }
 }

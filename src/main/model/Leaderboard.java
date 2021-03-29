@@ -62,6 +62,8 @@ public class Leaderboard implements Writeable {
         return jsonArray;
     }
 
+    // MODIFIES : this
+    // EFFECTS  : Clears the leaderboard by making a new empty list
     public void clear() {
         leaderboard = new ArrayList<>();
     }

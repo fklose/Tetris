@@ -1,23 +1,21 @@
-package ui.game;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import javax.swing.JPanel;
+package ui;
 
 import model.Block;
 import model.TetrisGame;
 import model.Tetromino;
 
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 
+// Methods and data needed to draw the game onto a JPanel
 public class GamePanel extends JPanel {
 
     private TetrisGame tetrisGame;
 
-    // Constructs a game panel
-    // effects:  sets size and background colour of panel,
-    //           updates this with the game to be displayed
+    // MODIFIES : this
+    // EFFECTS  : sets size and background colour of panel, updates this with the game to be displayed
     public GamePanel(TetrisGame g) {
         setPreferredSize(new Dimension(400, 800));
         setBackground(Color.BLACK);
@@ -30,7 +28,6 @@ public class GamePanel extends JPanel {
         drawGame(g);
     }
 
-    // Draws the game
     // modifies: g
     // effects:  draws the game onto g
     private void drawGame(Graphics g) {
@@ -38,7 +35,6 @@ public class GamePanel extends JPanel {
         drawTetromino(g);
     }
 
-    // Draw the current Tetromino
     // modifies: g
     // effects:  draws the current Tetromino onto g
     private void drawTetromino(Graphics g) {
@@ -46,14 +42,12 @@ public class GamePanel extends JPanel {
         drawBlocks(g, t.getBlocks());
     }
 
-    // Draw the board
     // modifies: g
     // effects : draws the board with all blocks currently on it. does nto draw the current tetromino
     private void drawBoard(Graphics g) {
         drawBlocks(g, tetrisGame.getBoard());
     }
 
-    // Draw the blocks
     // modifies: g
     // effects:  draws the blocks onto g
     private void drawBlocks(Graphics g, ArrayList<Block> blocks) {
@@ -62,7 +56,6 @@ public class GamePanel extends JPanel {
         }
     }
 
-    // Draw the blocks
     // modifies: g
     // effects:  draws the blocks onto g
     private void drawBlocks(Graphics g, HashSet<Block> blocks) {
@@ -71,7 +64,6 @@ public class GamePanel extends JPanel {
         }
     }
 
-    // Draw a block
     // modifies: g
     // effects:  draws the block b onto g
     private void drawBlock(Graphics g, Block b) {

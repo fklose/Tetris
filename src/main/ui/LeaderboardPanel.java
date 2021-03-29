@@ -1,4 +1,4 @@
-package ui.leaderboard;
+package ui;
 
 import model.Leaderboard;
 import model.Player;
@@ -8,11 +8,10 @@ import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// Methods and data to make a JPanel showing the leaderboard
 public class LeaderboardPanel extends JPanel {
 
     private static final String JSON_STORE = "./data/leaderboard.json";
@@ -26,12 +25,16 @@ public class LeaderboardPanel extends JPanel {
     private TetrisGame tetrisGame;
     private JLabel status;
 
+    // MODIFIES : this, Leaderboard
+    // EFFECTS  : Constructs a panel with all necessary components to display a leaderboard
     public LeaderboardPanel(TetrisGame tetrisGame) {
         this.tetrisGame = tetrisGame;
         loadLeaderboard();
         drawPanel();
     }
 
+    // MODIFIES : this
+    // EFFECTS  : Draws and places the leaderboard entries, as well as all buttons needed to interact with it
     private void drawPanel() {
         entryPanel = initializeEntries();
         buttons = initializeButtons();
@@ -41,6 +44,8 @@ public class LeaderboardPanel extends JPanel {
         this.add(buttons, BorderLayout.SOUTH);
     }
 
+    // MODIFIES : this
+    // EFFECTS  : updates the entries in the leaderboard and redraws the panel
     private void updateEntries() {
         this.removeAll();
         drawPanel();
@@ -48,6 +53,7 @@ public class LeaderboardPanel extends JPanel {
         this.repaint();
     }
 
+    // EFFECTS  : Creates a new JPanel containing containing the information to be drawn on the leaderboard
     private JPanel initializeEntries() {
         entryLayout = new GridLayout(LEADERBOARD.getSize() + 1, 3);
         JPanel entries = new JPanel();
@@ -64,6 +70,7 @@ public class LeaderboardPanel extends JPanel {
         return entries;
     }
 
+    // EFFECTS  : Creates a JPanel containing all the buttons needed to interact with the leaderboardPanel
     private JPanel initializeButtons() {
         JPanel buttons = new JPanel();
         buttons.setLayout(new GridLayout(6,1));
@@ -87,6 +94,8 @@ public class LeaderboardPanel extends JPanel {
         return buttons;
     }
 
+    // MODIFIES : this, Leaderboard
+    // EFFECTS  : Returns a button for clearing all entries from the leaderboard
     private JButton clear() {
         JButton b = new JButton("Clear!");
 
@@ -98,6 +107,8 @@ public class LeaderboardPanel extends JPanel {
         return b;
     }
 
+    // MODIFIES : this
+    // EFFECTS  : Returns a button used for loading a leaderboard from a file
     private JButton loadButton() {
         JButton b = new JButton("Load Highscores!");
 
@@ -109,6 +120,8 @@ public class LeaderboardPanel extends JPanel {
         return b;
     }
 
+    // MODIFIES : this
+    // EFFECTS  : Returns a button used for saving a leaderboard to a file
     private JButton saveButton() {
         JButton b = new JButton("Save Highscores!");
 
@@ -120,7 +133,6 @@ public class LeaderboardPanel extends JPanel {
         return b;
     }
 
-    // MODIFIES: this
     // EFFECTS: loads leaderboard from file
     private static void loadLeaderboard() {
         try {

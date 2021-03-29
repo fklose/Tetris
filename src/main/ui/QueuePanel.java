@@ -1,19 +1,20 @@
-package ui.queuepanel;
+package ui;
 
 import model.TetrisGame;
 import model.Tetromino;
-import model.TetrominoQueue;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
+// Methods and data to create a JPanel showing the queue of tetrominos
 public class QueuePanel extends JPanel {
 
     TetrisGame tetrisGame;
     LinkedList<Tetromino> tetrominoQueue;
 
+    // MODIFIES : this
+    // EFFECTS  : Constructs a new QueuePanel
     public QueuePanel(TetrisGame tetrisGame) {
         this.tetrisGame = tetrisGame;
         this.tetrominoQueue = tetrisGame.getQueue().getQueue();
@@ -22,6 +23,8 @@ public class QueuePanel extends JPanel {
         update();
     }
 
+    // MODIFIES : this
+    // EFFECTS  : Redraws this QueuePanel
     public void update() {
         this.removeAll();
         int i = 1;
@@ -34,6 +37,8 @@ public class QueuePanel extends JPanel {
         repaint();
     }
 
+    // MODIFIES : this
+    // EFFECTS  : Updates the reference to the games TetrominoQueue, needed when restarting the game
     public void changeQueue(TetrisGame tetrisGame) {
         this.tetrominoQueue = tetrisGame.getQueue().getQueue();
     }

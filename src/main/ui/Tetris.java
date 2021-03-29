@@ -1,27 +1,20 @@
 package ui;
 
+import model.TetrisGame;
+
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.*;
-
-import model.TetrisGame;
-import ui.game.GamePanel;
-import ui.leaderboard.LeaderboardPanel;
-import ui.queuepanel.QueuePanel;
-import ui.statusbar.ScorePanel;
-
 // TODO: HAVE NEXT TETROMINO PANEL SHOW LITTLE RENDERS OF NEXT TETROMINOS
 // TODO: ADD GRIDLINES ONTO BACKGROUND
-
+// UI for the game
 public class Tetris extends JFrame {
 
     TetrisGame tetrisGame;
     JPanel centerPanel;
-    ScorePanel scorePanel;
+    StatusPanel statusPanel;
     JPanel buttons;
     QueuePanel queuePanel;
     GamePanel gamePanel;
@@ -30,20 +23,21 @@ public class Tetris extends JFrame {
     Timer timer;
 
     private boolean isGamePaused;
-
     private static final int INTERVAL = 1;
 
+    // MODIFIES : this
+    // EFFECTS  : Constructs a new window containing the game and its UI
     public Tetris() {
         super("TETRIS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         tetrisGame = new TetrisGame();
 
-        scorePanel = new ScorePanel(tetrisGame);
+        statusPanel = new StatusPanel(tetrisGame);
         buttons = initializeButtons();
-        centerPanel = initializeCenterPanel(tetrisGame);
+        centerPanel = initializeCenterPanel();
 
-        add(scorePanel, BorderLayout.NORTH);
+        add(statusPanel, BorderLayout.NORTH);
         add(centerPanel, BorderLayout.CENTER);
         add(buttons, BorderLayout.SOUTH);
 
@@ -56,6 +50,7 @@ public class Tetris extends JFrame {
         isGamePaused = false;
     }
 
+    // EFFECTS  : Returns a JPanel containing all necessary buttons
     private JPanel initializeButtons() {
         JPanel buttonPanel = new JPanel();
 
@@ -71,6 +66,8 @@ public class Tetris extends JFrame {
         return buttonPanel;
     }
 
+    // MODIFIES : this, Timer
+    // EFFECTS  : Returns a JButton used to pause the game
     private JButton pauseButton() {
         JButton pause = new JButton("Pause");
         pause.addActionListener(e -> {
@@ -88,6 +85,8 @@ public class Tetris extends JFrame {
         return pause;
     }
 
+    // MODIFIES : this, TetrisGame
+    // EFFECTS  : Returns a button used to restart the game
     private JButton restartButton() {
         JButton restart = new JButton("Restart");
         restart.addActionListener(e -> {
@@ -102,7 +101,8 @@ public class Tetris extends JFrame {
         return restart;
     }
 
-    private JPanel initializeCenterPanel(TetrisGame tetrisGame) {
+    // EFFECTS  : Returns a JPanel containing the game and the leaderboard in a card layout
+    private JPanel initializeCenterPanel() {
         centerLayout = new CardLayout();
         JPanel centerPanel = new JPanel();
 
@@ -117,22 +117,25 @@ public class Tetris extends JFrame {
         return centerPanel;
     }
 
+    // MODIFIES : this
+    // EFFECTS  : Starts a timer for updating the UI
     private void addTimer() {
         timer = new Timer(INTERVAL, e -> {
             tetrisGame.update();
             queuePanel.update();
-            scorePanel.updateScore();
+            statusPanel.updateScore();
             validate();
             repaint();
             if (!tetrisGame.getGameActive()) {
                 timer.stop();
                 centerLayout.next(centerPanel);
-                scorePanel.changeText("GAME OVER!!! Your score is: " + tetrisGame.getScore());
+                statusPanel.changeText("GAME OVER!!! Your score is: " + tetrisGame.getScore());
             }
         });
         timer.start();
     }
 
+    // EFFECTS  : Returns a JPanel containing the game
     private JPanel initializeGamePanel() {
         JPanel gp = new JPanel();
         gp.setLayout(new BorderLayout());
@@ -144,18 +147,19 @@ public class Tetris extends JFrame {
         return gp;
     }
 
+    // EFFECTS  : Returns a JPanel containing the leaderboard and its necessary buttons
     private JPanel initializeLeaderboard() {
         return new LeaderboardPanel(tetrisGame);
     }
 
-    // Centres frame on desktop
-    // modifies: this
-    // effects:  location of frame is set so frame is centred on desktop
+    // MODIFIES : this
+    // EFFECTS  : location of frame is set so frame is centred on desktop
     private void centreOnScreen() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((screen.width - getWidth()) / 2 - 200, (screen.height - getHeight()) / 2 - 400);
     }
 
+    // EFFECTS  : Handles user inputs
     private class KeyHandler extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -163,6 +167,7 @@ public class Tetris extends JFrame {
         }
     }
 
+    // EFFECTS  : starts the game
     public static void main(String[] args) {
         new Tetris();
     }
