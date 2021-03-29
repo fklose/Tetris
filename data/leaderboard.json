@@ -1,22 +1,10 @@
 {"players": [
     {
-        "score": 12345,
-        "name": "Bruno"
-    },
-    {
-        "score": 560,
-        "name": "Catrin"
-    },
-    {
-        "score": 300,
-        "name": "Peter"
-    },
-    {
-        "score": 101,
-        "name": "Jakob"
-    },
-    {
-        "score": 100,
+        "score": 23,
         "name": "Felix"
+    },
+    {
+        "score": 7,
+        "name": "Peter"
     }
 ]}

@@ -87,4 +87,22 @@ class LeaderboardTest {
         leaderboard1.addPlayer(player4);
         assertEquals(5, leaderboard1.getSize());
     }
+
+    @Test
+    void clear() {
+        leaderboard1.addPlayer(player1);
+        leaderboard1.addPlayer(player1);
+        leaderboard1.addPlayer(player2);
+        assertEquals(3, leaderboard1.getSize());
+
+        leaderboard1.clear();
+        assertEquals(0, leaderboard1.getSize());
+
+        leaderboard1.addPlayer(player3);
+        leaderboard1.addPlayer(player4);
+        assertEquals(2, leaderboard1.getSize());
+
+        leaderboard1.clear();
+        assertEquals(0, leaderboard1.getSize());
+    }
 }

@@ -1,109 +1,126 @@
 package model;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 // Stores different types of Tetrominos and methods relating to them
 public enum Tetromino {
-    shapeLine("Line",
+    shapeLine("Line", Color.CYAN,
             new Vector2D(0, 1),
             new Vector2D(0, 0),
             new Vector2D(0, -1),
             new Vector2D(0, -2)),
-    shapeSquare("Square",
-            new Vector2D(0, 0),
+    shapeSquare("Square", Color.YELLOW,
             new Vector2D(1, 0),
+            new Vector2D(0, 0),
             new Vector2D(1, -1),
             new Vector2D(0, -1)),
-    shapeT("T Shape",
+    shapeT("T Shape", Color.MAGENTA,
             new Vector2D(0, 0),
             new Vector2D(-1, 0),
             new Vector2D(1, 0),
             new Vector2D(0, -1)),
-    shapeLeftSkew("Left Skew",
+    shapeLeftSkew("Left Skew", Color.PINK,
             new Vector2D(0, 0),
             new Vector2D(0, 1),
             new Vector2D(1, 0),
             new Vector2D(1, -1)),
-    shapeRightSkew("Right Skew",
+    shapeRightSkew("Right Skew", Color.GREEN,
             new Vector2D(0, 0),
             new Vector2D(0, 1),
             new Vector2D(-1, 0),
             new Vector2D(-1, -1)),
-    shapeLeftL("Left L",
+    shapeLeftL("Left L", Color.ORANGE,
             new Vector2D(0, 0),
             new Vector2D(0, 1),
             new Vector2D(-1, 1),
             new Vector2D(0, -1)),
-    shapeRightL("Right L",
+    shapeRightL("Right L", Color.BLUE,
             new Vector2D(0, 0),
             new Vector2D(0, 1),
             new Vector2D(1, 1),
             new Vector2D(0, -1)),
-    nullShape("null",
-            new Vector2D(0, 0),
-            new Vector2D(0, 0),
-            new Vector2D(0, 0),
+    nullShape("null", Color.BLACK,
             new Vector2D(0, 0));
 
-    // Maybe store individual blocks as an arraylist from the get go instead of individually
-    private Vector2D block1;
-    private Vector2D block2;
-    private Vector2D block3;
-    private Vector2D block4;
+    private final ArrayList<Vector2D> template;
+    private Vector2D centre;
     private final String name;
+    private final Color color;
 
+    private static final RotationMatrix2D CCW = RotationMatrix2D.COUNTERCLOCKWISE;
+    private static final RotationMatrix2D CW = RotationMatrix2D.CLOCKWISE;
+
+    // REQUIRES : One of the vectors in position needs to be the zero vector i.e. like new Vector2D(0, 0)
+    //          which will act as the center of the block
     // MODIFIES : this
-    // EFFECTS  : Creates a Tetromino given a name and
-    //          four vectors describing the positions of the 4 blocks making up the Tetromino
-    Tetromino(String name, Vector2D block1, Vector2D block2, Vector2D block3, Vector2D block4) {
+    // EFFECTS  : Creates a Tetromino given a name, a color and the positions of the four blocks that make up the
+    //          Tetromino
+    Tetromino(String name, Color color, Vector2D... positions) {
         this.name = name;
-        this.block1 = block1;
-        this.block2 = block2;
-        this.block3 = block3;
-        this.block4 = block4;
+        this.color = color;
+        this.centre = new Vector2D(0,0);
+        this.template = new ArrayList<>();
+        this.template.addAll(Arrays.asList(positions));
     }
 
-    // EFFECTS  : Returns the name of this Tetromino
     public String getName() {
         return this.name;
     }
 
-    // EFFECTS  : Returns the positions of the blocks of the Tetrominos
-    public ArrayList<Vector2D> getPositions() {
-        ArrayList<Vector2D> positions = new ArrayList<>();
-        positions.add(block1);
-        positions.add(block2);
-        positions.add(block3);
-        positions.add(block4);
-        return positions;
+    public Vector2D getCentre() {
+        return centre;
+    }
+
+    public ArrayList<Vector2D> getTemplate() {
+        return template;
+    }
+
+    // EFFECTS  : Creates and returns the blocks making up the Tetromino
+    public ArrayList<Block> getBlocks() {
+        ArrayList<Block> blocks = new ArrayList<>();
+
+        for (Vector2D pos : template) {
+            blocks.add(new Block(pos.addVectorGetNewVector(centre), this.color));
+        }
+        return blocks;
     }
 
     // MODIFIES : this
     // EFFECTS  : Moves Tetromino by adding a direction vector to all position vectors
-    public void move(Vector2D direction) {
-        Vector2D newBlock1 = this.block1.addVector(direction);
-        Vector2D newBlock2 = this.block2.addVector(direction);
-        Vector2D newBlock3 = this.block3.addVector(direction);
-        Vector2D newBlock4 = this.block4.addVector(direction);
+    public void move(Direction d) {
+        this.centre.addVectorInPlace(d.getVector());
+    }
 
-        this.block1 = newBlock1;
-        this.block2 = newBlock2;
-        this.block3 = newBlock3;
-        this.block4 = newBlock4;
+    // MODIFIES : this
+    // EFFECTS  : Sets the centre of the Tetromino
+    public void setCentre(Vector2D newCentre) {
+        this.centre = newCentre;
     }
 
     // MODIFIES : this
     // EFFECTS  : Rotates Tetromino ninety degrees counterclockwise
-    public void rotate() {
-        RotationMatrix2x2 matrix = new RotationMatrix2x2();
-        Vector2D newBlock1 = matrix.matrixVectorProduct(block1);
-        Vector2D newBlock2 = matrix.matrixVectorProduct(block2);
-        Vector2D newBlock3 = matrix.matrixVectorProduct(block3);
-        Vector2D newBlock4 = matrix.matrixVectorProduct(block4);
+    public void rotateCCW() {
+        for (Vector2D vec : template) {
+            CCW.matrixVectorProductInPlace(vec);
+        }
+    }
 
-        this.block1 = newBlock1;
-        this.block2 = newBlock2;
-        this.block3 = newBlock3;
-        this.block4 = newBlock4;
+    // MODIFIES : this
+    // EFFECTS  : Rotates Tetromino ninety degrees clockwise
+    public void rotateCW() {
+        for (Vector2D vec : template) {
+            CW.matrixVectorProductInPlace(vec);
+        }
+    }
+
+    // EFFECTS : Computes and returns the positions of all blocks of the Tetromino
+    public ArrayList<Vector2D> getPositions() {
+        ArrayList<Vector2D> positions = new ArrayList<>();
+        for (Vector2D pos : this.template) {
+            positions.add(pos.addVectorGetNewVector(this.centre));
+        }
+        return positions;
     }
 }

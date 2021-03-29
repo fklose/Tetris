@@ -1,10 +1,12 @@
 package model;
 
+import java.util.Objects;
+
 // A class containing information and methods relating to a 2d Vector
 public class Vector2D {
 
-    private final int componentX;
-    private final int componentY;
+    private int componentX;
+    private int componentY;
 
     // REQUIRES : x, y need to be Integer
     // MODIFIES : this
@@ -14,21 +16,51 @@ public class Vector2D {
         this.componentY = y;
     }
 
-    // MODIFIES : this
     // EFFECTS  : Returns the sum of this vector and a given vector
-    public Vector2D addVector(Vector2D vec) {
-        int newX = this.componentX + vec.getComponentX();
-        int newY = this.componentY + vec.getComponentY();
+    public Vector2D addVectorGetNewVector(Vector2D vec) {
+        int newX = this.componentX + vec.getX();
+        int newY = this.componentY + vec.getY();
         return new Vector2D(newX, newY);
     }
 
-    // EFFECTS  : Returns x component of a given vector
-    public int getComponentX() {
+    // MODIFIES : this
+    // EFFECTS  : Returns the sum of this vector and a given vector
+    public void addVectorInPlace(Vector2D vec) {
+        this.componentX += vec.getX();
+        this.componentY += vec.getY();
+    }
+
+    public int getX() {
         return this.componentX;
     }
 
-    // EFFECTS  : Returns y component of a given vector
-    public int getComponentY() {
+    public void setX(int x) {
+        this.componentX = x;
+    }
+
+    public void setY(int y) {
+        this.componentY = y;
+    }
+
+    public int getY() {
         return this.componentY;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Vector2D vector2D = (Vector2D) o;
+        return componentX == vector2D.componentX
+                && componentY == vector2D.componentY;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(componentX, componentY);
     }
 }

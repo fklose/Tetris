@@ -1,7 +1,7 @@
 package persistence;
 
-import model.Player;
 import model.Leaderboard;
+import model.Player;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -33,7 +33,7 @@ public class JsonReader {
         StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> contentBuilder.append(s));
+            stream.forEach(contentBuilder::append);
         }
 
         return contentBuilder.toString();
