@@ -25,7 +25,7 @@ public class Tetris extends JFrame {
     Timer timer;
 
     private boolean isGamePaused;
-    private static final int INTERVAL = 1;
+    private static final int INTERVAL = 5;
 
     // MODIFIES : this
     // EFFECTS  : Constructs a new window containing the game and its UI
