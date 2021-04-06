@@ -8,7 +8,7 @@ public class TetrominoQueue {
 
     private static final int SIZE = 5;
     private LinkedList<Tetromino> queue;
-    private Random rnd;
+    private final Random rnd;
 
     // MODIFIES : this
     // EFFECTS  : Makes a new queue containing a set number of random Tetrominos with a random seed

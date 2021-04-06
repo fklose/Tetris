@@ -83,7 +83,7 @@ class BlockTest {
         Block b2CopyDiffColor = new Block(p2, Color.BLUE);
         Block b2CopySameColor = new Block(p2, Color.BLACK);
 
-        assertEquals(b2, b2CopyDiffColor);
+        assertNotEquals(b2, b2CopyDiffColor);
         assertEquals(b2, b2CopySameColor);
     }
 

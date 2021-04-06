@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 // Represents a reader that reads workroom from JSON data stored in file
 public class JsonReader {
-    private String source;
+    private final String source;
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {

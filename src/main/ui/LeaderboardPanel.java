@@ -8,7 +8,6 @@ import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // Methods and data to make a JPanel showing the leaderboard
@@ -22,14 +21,21 @@ public class LeaderboardPanel extends JPanel {
     private JPanel entryPanel;
     private GridLayout entryLayout;
     private JPanel buttons;
-    private TetrisGame tetrisGame;
+    private final TetrisGame tetrisGame;
     private JLabel status;
 
     // MODIFIES : this, Leaderboard
     // EFFECTS  : Constructs a panel with all necessary components to display a leaderboard
     public LeaderboardPanel(TetrisGame tetrisGame) {
         this.tetrisGame = tetrisGame;
-        loadLeaderboard();
+        this.setPreferredSize(new Dimension(TetrisGame.WIDTH * 40, TetrisGame.HEIGHT * 40));
+        drawPanel();
+        try {
+            loadLeaderboard();
+            status.setText("Leaderboard loaded from " + JSON_STORE + "!");
+        } catch (IOException ioe) {
+            status.setText("Unable to load Leaderboard from " + JSON_STORE + "!");
+        }
         drawPanel();
     }
 
@@ -38,7 +44,6 @@ public class LeaderboardPanel extends JPanel {
     private void drawPanel() {
         entryPanel = initializeEntries();
         buttons = initializeButtons();
-
         this.setLayout(new BorderLayout());
         this.add(new JScrollPane(entryPanel), BorderLayout.CENTER);
         this.add(buttons, BorderLayout.SOUTH);
@@ -103,7 +108,7 @@ public class LeaderboardPanel extends JPanel {
         b.addActionListener(e -> {
             LEADERBOARD.clear();
             updateEntries();
-            status.setText("Leaderboard cleared!");
+            status.setText("Leaderboard cleared! --- Leaderboard is not saved!");
         });
         return b;
     }
@@ -114,9 +119,13 @@ public class LeaderboardPanel extends JPanel {
         JButton b = new JButton("Load Leaderboard!");
 
         b.addActionListener(e -> {
-            loadLeaderboard();
+            try {
+                loadLeaderboard();
+                status.setText("Leaderboard loaded from " + JSON_STORE + "!");
+            } catch (IOException ioe) {
+                status.setText("Unable to load Leaderboard from " + JSON_STORE + "!");
+            }
             updateEntries();
-            status.setText("Leaderboard loaded!");
         });
         return b;
     }
@@ -126,35 +135,28 @@ public class LeaderboardPanel extends JPanel {
     private JButton saveButton() {
         JButton b = new JButton("Save Leaderboard!");
 
-        b.addActionListener(e -> {
-            saveLeaderboard();
+        b.addActionListener(ioe -> {
+            try {
+                saveLeaderboard();
+                status.setText("Leaderboard saved to " + JSON_STORE + "!");
+            } catch (IOException e) {
+                status.setText("Unable to write to file " + JSON_STORE + "!");
+            }
             updateEntries();
-            status.setText("Leaderboard saved!");
         });
         return b;
     }
 
     // EFFECTS: loads leaderboard from file
-    private static void loadLeaderboard() {
-        try {
-            LEADERBOARD = JSON_READER.read();
-            System.out.println("Loaded the leaderboard from " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
-        }
-
+    private static void loadLeaderboard() throws IOException {
+        LEADERBOARD = JSON_READER.read();
     }
 
     // EFFECTS: saves the leaderboard to file
-    private static void saveLeaderboard() {
-        try {
-            JSON_WRITER.open();
-            JSON_WRITER.write(LEADERBOARD);
-            JSON_WRITER.close();
-            System.out.println("Saved this leaderboard to " + JSON_STORE);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
-        }
+    private static void saveLeaderboard() throws IOException {
+        JSON_WRITER.open();
+        JSON_WRITER.write(LEADERBOARD);
+        JSON_WRITER.close();
     }
 
 }

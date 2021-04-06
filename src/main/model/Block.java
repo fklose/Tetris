@@ -6,9 +6,6 @@ import java.util.Objects;
 // A class representing a Block with a given position and colour.
 public class Block {
 
-    public static final int SIZE_X = 40;
-    public static final int SIZE_Y = 40;
-
     private Vector2D position;
     private final Color color;
 
@@ -52,7 +49,7 @@ public class Block {
             return false;
         }
         Block block = (Block) o;
-        return position.equals(block.position);
+        return position.equals(block.position) && color.equals(block.getColor());
     }
 
     @Override

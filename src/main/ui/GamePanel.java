@@ -12,14 +12,16 @@ import java.util.HashSet;
 // Methods and data needed to draw the game onto a JPanel
 public class GamePanel extends JPanel {
 
-    private TetrisGame tetrisGame;
+    private final TetrisGame tetrisGame;
+    private static final int BLOCK_WIDTH = 40;
+    private static final int BLOCK_HEIGHT = 40;
 
     // MODIFIES : this
     // EFFECTS  : sets size and background colour of panel, updates this with the game to be displayed
-    public GamePanel(TetrisGame g) {
-        setPreferredSize(new Dimension(400, 800));
+    public GamePanel(TetrisGame game) {
+        setPreferredSize(new Dimension(TetrisGame.WIDTH * BLOCK_WIDTH, TetrisGame.HEIGHT * BLOCK_HEIGHT));
         setBackground(Color.BLACK);
-        this.tetrisGame = g;
+        this.tetrisGame = game;
     }
 
     @Override
@@ -69,7 +71,7 @@ public class GamePanel extends JPanel {
     private void drawBlock(Graphics g, Block b) {
         Color savedCol = g.getColor();
         g.setColor(b.getColor());
-        g.fillRect(b.getX() * 40, b.getY() * 40, Block.SIZE_X, Block.SIZE_Y);
+        g.fillRect(b.getX() * BLOCK_WIDTH, b.getY() * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
         g.setColor(savedCol);
     }
 }

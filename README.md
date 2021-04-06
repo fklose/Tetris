@@ -42,6 +42,29 @@ since there are no good offline versions.
 8. As a user I want to be able to see if my leaderboard has been loaded or saved.
 9. As a user I want to see the next five tetrominos.
 
+## Phase 4:
+
+#### Task 2:
+I used a HashMap to make it easier to keep track of and remove lines that contain more 10 blocks or more.
+In the code the HashMap is called associated with the field `lineMap`. The keys are the line numbers (y-coordinates) of 
+the board and the associated values are ArrayLists containing the blocks which have the same y-coordinate as 
+the corresponding key. The methods that use this map are all found in the TetrisGame class, specifically:
+- `TetrisGame()`, the map is constructed here.
+- `initializeLineMap()`, used to setup the map.
+- `placeTetrominoOnBoard()`, updates the map when a Tetromino is placed on the board.
+- `clearLines()`, the lines that can be cleared are deleted from the map.
+- `linesToBeCleared()`, (helper method in `clearLines()`) a loop over all entries in the map is used to find what 
+lines are full, i.e. what lines contain 10 blocks or more.
+- `boardFromLineMap()`, translates the map into a board.
+- `lineMapFromBoard()`, translates a board into a map.
+
+#### Task 3:
+
+
+#### Additional user stories
+1. As a user I want to clear lines and have my score incremented by the number of lines I clear
+2. As a user I want to see renders of the next five tetrominos
+
 ## Appendix
 
 ### Terminology

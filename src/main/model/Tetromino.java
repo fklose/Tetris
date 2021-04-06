@@ -15,7 +15,16 @@ public enum Tetromino {
             new Vector2D(1, 0),
             new Vector2D(0, 0),
             new Vector2D(1, -1),
-            new Vector2D(0, -1)),
+            new Vector2D(0, -1)) {
+
+        @Override
+        public void rotateCCW() {
+        }
+
+        @Override
+        public void rotateCW() {
+        }
+    },
     shapeT("T Shape", Color.MAGENTA,
             new Vector2D(0, 0),
             new Vector2D(-1, 0),
@@ -122,5 +131,10 @@ public enum Tetromino {
             positions.add(pos.addVectorGetNewVector(this.centre));
         }
         return positions;
+    }
+
+    // TODO: NEEDS TESTING
+    public Color getColor() {
+        return color;
     }
 }

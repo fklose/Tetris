@@ -2,18 +2,19 @@ package model;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
-// TODO: TEST
-// TODO: IMPLEMENT CLEARING OF LINES
+// TODO: NEED TO FIX SOME TESTS
 // TODO: OPTIONAL BUT MAYBE MAKE IT SO THAT WHEN A ROTATION COULD BE OUT OF BOUNDS THE GAME JUST ROTATES
 //  AND MOVES THE TETROMINO SO THAT IT WILL NOT BE OUT OF BOUNDS AFTER ROTATING.
+// TODO: ADD FUNCTIONALITY SO THAT A BLOCK CAN BE STORED
 // Stores information and methods needed to simulate the game board
 // NOTE: +Y is down, -X is left and +X is right. Top left corner is (0,0)
 public class TetrisGame {
 
-    private static final int WIDTH = 10;
-    private static final int HEIGHT = 20;
+    public static final int WIDTH = 10;
+    public static final int HEIGHT = 20;
     private static final int SPAWN_X = 5;
     private static final int SPAWN_Y = 0;
 
@@ -21,20 +22,30 @@ public class TetrisGame {
     private Tetromino currentTetro;
     private int score;
     private HashSet<Block> board;
+    private final HashMap<Integer, HashSet<Block>> lineMap;
     private boolean isGameActive; // true if game is running, false if game is over
 
     private int tick = 0;
     private static final int TICK_RATE = 50;
 
-    // REQUIRES :
     // MODIFIES : this
     // EFFECTS  : Constructs a new game with score 0, a queue of Tetrominos and a single Tetromino ready to drop
     public TetrisGame() {
         this.score = 0;
         this.isGameActive = true;
         this.board = new HashSet<>(WIDTH * HEIGHT);
+        this.lineMap = new HashMap<>();
+        initializeLineMap(this.lineMap);
         this.tetroQueue = new TetrominoQueue();
         spawnNextTetromino();
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : Initializes the line map
+    private void initializeLineMap(HashMap<Integer, HashSet<Block>> lineMap) {
+        for (int i = 0; i < HEIGHT; i++) {
+            lineMap.put(i, new HashSet<>());
+        }
     }
 
     // TODO: NEEDS TESTING
@@ -46,16 +57,87 @@ public class TetrisGame {
         tick++;
         if (tick % TICK_RATE == 0) {
             if (!canMove(Direction.DOWN)) {
+                placeTetrominoOnBoard();
+                clearLines();
                 if (canSpawn()) {
-                    placeTetrominoOnBoard();
                     spawnNextTetromino();
-                    this.score += 1;
                 } else {
                     gameOver();
                 }
             } else {
                 move(Direction.DOWN);
             }
+        }
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : Places all blocks belonging to the current tetromino on the board
+    //          also updates the lineMap by placing each block into the correct line
+    private void placeTetrominoOnBoard() {
+        this.board.addAll(this.currentTetro.getBlocks());
+        for (Block b : this.currentTetro.getBlocks()) {
+            this.lineMap.get(b.getY()).add(b);
+        }
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : clears all lines that are fully filled with blocks along the width
+    private void clearLines() {
+        ArrayList<Integer> lineNumbers = linesToBeCleared();
+        for (int i : lineNumbers) {
+            lineMap.replace(i, new HashSet<>());
+            this.score++;
+        }
+        if (lineNumbers.size() != 0) {
+            boardFromLineMap(lineMap);
+            shiftLines(lineNumbers);
+            lineNumbers.clear();
+        }
+    }
+
+    // EFFECTS  : Returns an array of line numbers (y coordinate) of horizontal lines that need to be cleared.
+    //          A line can be cleared if it contains 10 blocks
+    private ArrayList<Integer> linesToBeCleared() {
+        ArrayList<Integer> toBeCleared = new ArrayList<>();
+        for (int i = 0; i < HEIGHT; i++) {
+            if (lineMap.get(i).size() >= WIDTH) {
+                toBeCleared.add(i);
+            }
+        }
+        return toBeCleared;
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : Shifts horizontal lines down to fill any lines that contain no blocks
+    private void shiftLines(ArrayList<Integer> lineNumbers) {
+        for (int i : lineNumbers) {
+            for (Block b : board) {
+                if (b.getY() < i) {
+                    b.setPosition(new Vector2D(b.getX(), b.getY() + 1));
+                }
+            }
+        }
+        lineMapFromBoard();
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : Translates a lineMap into a board and updates this board with the translation
+    private void boardFromLineMap(HashMap<Integer, HashSet<Block>> lineMap) {
+        board.clear();
+        for (int y = 0; y < HEIGHT; y++) {
+            for (Block b : lineMap.get(y)) {
+                b.setPosition(new Vector2D(b.getX(), y));
+                board.add(b);
+            }
+        }
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : Translates a board into a line map and updates the lineMap of this
+    private void lineMapFromBoard() {
+        initializeLineMap(this.lineMap);
+        for (Block b : board) {
+            lineMap.get(b.getY()).add(b);
         }
     }
 
@@ -102,7 +184,7 @@ public class TetrisGame {
         while (canMove(Direction.DOWN)) {
             this.currentTetro.move(Direction.DOWN);
         }
-        placeTetrominoOnBoard();
+//        placeTetrominoOnBoard();
     }
 
     // MODIFIES : this, TetrominoQueue
@@ -224,12 +306,6 @@ public class TetrisGame {
         return blockPositions;
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Places all blocks belonging to the current tetromino on the board and spawns next tetromino
-    private void placeTetrominoOnBoard() {
-        board.addAll(this.currentTetro.getBlocks());
-    }
-
     public int getScore() {
         return score;
     }
@@ -254,6 +330,7 @@ public class TetrisGame {
         this.isGameActive = true;
         this.board = new HashSet<>(WIDTH * HEIGHT);
         this.tetroQueue = new TetrominoQueue();
+        initializeLineMap(this.lineMap);
         spawnNextTetromino();
     }
 

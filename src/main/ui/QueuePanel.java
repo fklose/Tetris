@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
 
+// TODO: MAKE IT LOOK NICER
 // Methods and data to create a JPanel showing the queue of tetrominos
 public class QueuePanel extends JPanel {
 
@@ -18,8 +19,8 @@ public class QueuePanel extends JPanel {
     public QueuePanel(TetrisGame tetrisGame) {
         this.tetrisGame = tetrisGame;
         this.tetrominoQueue = tetrisGame.getQueue().getQueue();
-
-        this.setLayout(new GridLayout(5, 2));
+        this.setPreferredSize(new Dimension(TetrisGame.WIDTH * 10, TetrisGame.HEIGHT * 40));
+        this.setLayout(new GridLayout(5, 1));
         update();
     }
 
@@ -27,11 +28,14 @@ public class QueuePanel extends JPanel {
     // EFFECTS  : Redraws this QueuePanel
     public void update() {
         this.removeAll();
-        int i = 1;
+//        int i = 1;
         for (Tetromino t : tetrominoQueue) {
-            this.add(new JLabel(Integer.toString(i)));
+//            JLabel jl = new JLabel(Integer.toString(i));
+//            jl.setBackground(Color.BLACK);
+//            this.add(jl);
             this.add(new JLabel(t.getName()));
-            i++;
+            this.add(new PreviewPanel(t.getTemplate(), t.getColor()));
+//            i++;
         }
         validate();
         repaint();

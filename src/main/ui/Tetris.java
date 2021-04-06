@@ -7,8 +7,10 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-// TODO: HAVE NEXT TETROMINO PANEL SHOW LITTLE RENDERS OF NEXT TETROMINOS
 // TODO: ADD GRIDLINES ONTO BACKGROUND
+// TODO: MAKE UI LOOK GOOD
+// TODO: FIX BUG WHERE ROTATING A TETROMINO ROTATES EVERY TETROMINO OF ITS KIND
+// TODO: ADD FUNCTION TO SAVE THE CURRENT TETROMINO FOR LATER AND HAVE A LITTLE PREVIEW WINDOW FOR IT.
 // UI for the game
 public class Tetris extends JFrame {
 
@@ -95,6 +97,7 @@ public class Tetris extends JFrame {
             queuePanel.update();
             centerLayout.first(centerPanel);
             isGamePaused = false;
+            timer.start();
             validate();
             repaint();
         });
