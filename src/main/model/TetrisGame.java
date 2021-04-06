@@ -15,7 +15,7 @@ public class TetrisGame {
 
     public static final int WIDTH = 10;
     public static final int HEIGHT = 20;
-    private static final int SPAWN_X = 5;
+    private static final int SPAWN_X = 4;
     private static final int SPAWN_Y = 0;
 
     private TetrominoQueue tetroQueue;
@@ -24,6 +24,7 @@ public class TetrisGame {
     private HashSet<Block> board;
     private final HashMap<Integer, HashSet<Block>> lineMap;
     private boolean isGameActive; // true if game is running, false if game is over
+    private Tetromino savedTetromino;
 
     private int tick = 0;
     private static final int TICK_RATE = 50;
@@ -38,6 +39,7 @@ public class TetrisGame {
         initializeLineMap(this.lineMap);
         this.tetroQueue = new TetrominoQueue();
         spawnNextTetromino();
+        savedTetromino = Tetromino.nullShape;
     }
 
     // MODIFIES : this
@@ -76,7 +78,11 @@ public class TetrisGame {
     private void placeTetrominoOnBoard() {
         this.board.addAll(this.currentTetro.getBlocks());
         for (Block b : this.currentTetro.getBlocks()) {
-            this.lineMap.get(b.getY()).add(b);
+            if (b.getY() < 0) {
+                gameOver();
+            } else {
+                this.lineMap.get(b.getY()).add(b);
+            }
         }
     }
 
@@ -163,6 +169,40 @@ public class TetrisGame {
             if (canMove(Direction.DOWN)) {
                 move(Direction.DOWN);
             }
+        } else if (keyCode == KeyEvent.VK_C) {
+            if (canTetrominosBeSwapped()) {
+                swapTetrominos();
+            }
+        }
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : Returns true if the saved Tetromino can be swapped with the current tetromino, false otherwise
+    private boolean canTetrominosBeSwapped() {
+        savedTetromino.setCentre(new Vector2D(SPAWN_X, SPAWN_Y));
+        if (!areGivenPositionsOccupied(savedTetromino.getPositions())) {
+            savedTetromino.setCentre(new Vector2D(0, 0));
+            return true;
+        } else {
+            savedTetromino.setCentre(new Vector2D(0, 0));
+            return false;
+        }
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : Swaps the current Tetromino with the saved one, spawning the saved one at the top of the board.
+    private void swapTetrominos() {
+        if (savedTetromino == Tetromino.nullShape) {
+            savedTetromino = currentTetro.copy();
+            spawnNextTetromino();
+        } else {
+            Tetromino currentCopy = currentTetro.copy();
+
+            currentTetro = savedTetromino.copy();
+            savedTetromino = currentCopy;
+
+            savedTetromino.setCentre(new Vector2D(0,0));
+            spawnTetromino(currentTetro);
         }
     }
 
@@ -184,13 +224,18 @@ public class TetrisGame {
         while (canMove(Direction.DOWN)) {
             this.currentTetro.move(Direction.DOWN);
         }
-//        placeTetrominoOnBoard();
     }
 
     // MODIFIES : this, TetrominoQueue
     // EFFECTS  : Spawn the next Tetromino from the queue at the top of the board
     private void spawnNextTetromino() {
-        this.currentTetro = tetroQueue.getNextTetromino();
+        spawnTetromino(tetroQueue.getNextTetromino());
+    }
+
+    // MODIFIES : this
+    // EFFECTS  : spawns the given Tetromino at the top of the board
+    private void spawnTetromino(Tetromino t) {
+        this.currentTetro = t;
         this.currentTetro.setCentre(new Vector2D(SPAWN_X, SPAWN_Y));
     }
 
@@ -332,9 +377,14 @@ public class TetrisGame {
         this.tetroQueue = new TetrominoQueue();
         initializeLineMap(this.lineMap);
         spawnNextTetromino();
+        this.savedTetromino = Tetromino.nullShape;
     }
 
     public TetrominoQueue getQueue() {
         return tetroQueue;
+    }
+
+    public Tetromino getSavedTetromino() {
+        return savedTetromino;
     }
 }

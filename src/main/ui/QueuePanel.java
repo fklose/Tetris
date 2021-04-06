@@ -19,8 +19,9 @@ public class QueuePanel extends JPanel {
     public QueuePanel(TetrisGame tetrisGame) {
         this.tetrisGame = tetrisGame;
         this.tetrominoQueue = tetrisGame.getQueue().getQueue();
-        this.setPreferredSize(new Dimension(TetrisGame.WIDTH * 10, TetrisGame.HEIGHT * 40));
-        this.setLayout(new GridLayout(5, 1));
+        this.setPreferredSize(new Dimension(TetrisGame.WIDTH * 5, TetrisGame.HEIGHT * 40));
+        this.setLayout(new GridLayout(7, 1));
+        this.setBackground(Color.DARK_GRAY);
         update();
     }
 
@@ -28,15 +29,15 @@ public class QueuePanel extends JPanel {
     // EFFECTS  : Redraws this QueuePanel
     public void update() {
         this.removeAll();
-//        int i = 1;
         for (Tetromino t : tetrominoQueue) {
-//            JLabel jl = new JLabel(Integer.toString(i));
-//            jl.setBackground(Color.BLACK);
-//            this.add(jl);
-            this.add(new JLabel(t.getName()));
             this.add(new PreviewPanel(t.getTemplate(), t.getColor()));
-//            i++;
         }
+        JLabel jl = new JLabel("Saved Tetromino");
+        jl.setBackground(Color.BLACK);
+        jl.setForeground(Color.WHITE);
+        this.add(jl);
+        this.add(new PreviewPanel(tetrisGame.getSavedTetromino().getTemplate(),
+                tetrisGame.getSavedTetromino().getColor()));
         validate();
         repaint();
     }

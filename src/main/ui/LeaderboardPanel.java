@@ -28,7 +28,7 @@ public class LeaderboardPanel extends JPanel {
     // EFFECTS  : Constructs a panel with all necessary components to display a leaderboard
     public LeaderboardPanel(TetrisGame tetrisGame) {
         this.tetrisGame = tetrisGame;
-        this.setPreferredSize(new Dimension(TetrisGame.WIDTH * 40, TetrisGame.HEIGHT * 40));
+        this.setPreferredSize(new Dimension(TetrisGame.WIDTH * 45, TetrisGame.HEIGHT * 40));
         drawPanel();
         try {
             loadLeaderboard();

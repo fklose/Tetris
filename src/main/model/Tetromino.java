@@ -50,7 +50,7 @@ public enum Tetromino {
             new Vector2D(0, 1),
             new Vector2D(1, 1),
             new Vector2D(0, -1)),
-    nullShape("null", Color.BLACK,
+    nullShape("null", Color.DARK_GRAY,
             new Vector2D(0, 0));
 
     private final ArrayList<Vector2D> template;
@@ -136,5 +136,27 @@ public enum Tetromino {
     // TODO: NEEDS TESTING
     public Color getColor() {
         return color;
+    }
+
+    // EFFECTS  : Returns a copy of the Tetromino
+    public Tetromino copy() {
+        switch (this) {
+            case shapeLine:
+                return shapeLine;
+            case shapeSquare:
+                return shapeSquare;
+            case shapeT:
+                return shapeT;
+            case shapeLeftSkew:
+                return shapeLeftSkew;
+            case shapeRightSkew:
+                return shapeRightSkew;
+            case shapeLeftL:
+                return shapeLeftL;
+            case shapeRightL:
+                return shapeRightL;
+            default:
+                return nullShape;
+        }
     }
 }

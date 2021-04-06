@@ -62,8 +62,10 @@ lines are full, i.e. what lines contain 10 blocks or more.
 
 
 #### Additional user stories
-1. As a user I want to clear lines and have my score incremented by the number of lines I clear
-2. As a user I want to see renders of the next five tetrominos
+1. As a user I want to clear lines and have my score incremented by the number of lines I clear.
+2. As a user I want to see renders of the next five tetrominos.
+3. As a user I want to save my current Tetromino for later and jump right to the next one in the queue.
+4. As a user I want to see a render of my saved Tetromino.
 
 ## Appendix
 

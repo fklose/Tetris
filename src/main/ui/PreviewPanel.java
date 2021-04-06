@@ -19,8 +19,8 @@ public class PreviewPanel extends JPanel {
         for (Vector2D pos : template) {
             blocks.add(new Block(pos, color));
         }
-        setPreferredSize(new Dimension(100,100));
-//        setBackground(Color.BLACK);
+        setPreferredSize(new Dimension(50,50));
+        setBackground(Color.DARK_GRAY);
     }
 
     @Override
