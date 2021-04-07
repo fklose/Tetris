@@ -58,8 +58,14 @@ lines are full, i.e. what lines contain 10 blocks or more.
 - `boardFromLineMap()`, translates the map into a board.
 - `lineMapFromBoard()`, translates a board into a map.
 
-#### Task 3:
-
+#### Task 3: Ideas for refactoring
+![image](UML_Design_Diagram.png)
+* Refactor the UI package. A lot of the classes largely share the same code, as an example, `GamePanel` 
+and `PreviewPanel` both are responsible for rendering blocks and as such they both use the same methods.
+I would want to create an abstract class that extends `JPanel`, containing the common methods and then have `GamePanel`
+and `PreviewPanel` extend said abstract class.
+* The `LeaderboardPanel` class, has a lot of methods contained in it, some of which would be better of in a separate
+class for better readability.
 
 #### Additional user stories
 1. As a user I want to clear lines and have my score incremented by the number of lines I clear.
