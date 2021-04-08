@@ -66,9 +66,9 @@ I would want to create an abstract class that extends `JPanel`, containing the c
 and `PreviewPanel` extend said abstract class.
 * The `LeaderboardPanel` class, has a lot of methods contained in it, some of which would be better of in a separate
 class for better readability.
-* I think that inside `TetrisGame` the board could really be it's own class, since it has a good number of methods
+* I think that inside `TetrisGame` the board could really be its own class, since it has a good number of methods
 that only do stuff to the board. I would make a new class called `TetrisBoard` and at least move the methods for
-initializing the board and translating between the board and the line map into the class.
+initializing the board and translating between the board, and the line map into the class.
 
 #### Additional user stories
 1. As a user I want to clear lines and have my score incremented by the number of lines I clear.
