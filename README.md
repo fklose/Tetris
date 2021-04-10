@@ -1,4 +1,4 @@
-# CPSC210 Personal Project - Tetris
+# Tetris
 
 ## Proposal
 ### What will the application do?
