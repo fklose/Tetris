@@ -2,6 +2,7 @@ package model;
 
 // Represents a matrix and its product with a vector to compute counterclockwise rotations
 public enum RotationMatrix2D {
+    // TODO a lil test thing you know
     CLOCKWISE(0,1, -1, 0),
     COUNTERCLOCKWISE(0, -1, 1, 0);
 
