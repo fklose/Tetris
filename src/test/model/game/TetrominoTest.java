@@ -1,4 +1,4 @@
-package model;
+package model.game;
 
 import model.game.*;
 import org.junit.jupiter.api.BeforeEach;

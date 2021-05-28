@@ -1,4 +1,4 @@
-package model;
+package model.leaderboard;
 
 import model.leaderboard.Leaderboard;
 import model.leaderboard.Player;

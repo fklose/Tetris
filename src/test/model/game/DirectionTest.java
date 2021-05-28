@@ -1,4 +1,4 @@
-package model;
+package model.game;
 
 import model.game.Direction;
 import model.game.Vector2D;
