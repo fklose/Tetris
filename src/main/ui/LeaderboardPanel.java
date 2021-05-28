@@ -1,8 +1,8 @@
 package ui;
 
-import model.Leaderboard;
-import model.Player;
-import model.TetrisGame;
+import model.leaderboard.Leaderboard;
+import model.leaderboard.Player;
+import model.game.TetrisGame;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 

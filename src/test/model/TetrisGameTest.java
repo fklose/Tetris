@@ -1,11 +1,11 @@
 package model;
 
 
+import model.game.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.event.KeyEvent;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashSet;
 

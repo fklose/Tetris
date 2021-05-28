@@ -1,6 +1,6 @@
 package ui;
 
-import model.TetrisGame;
+import model.game.TetrisGame;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,7 +1,7 @@
 package persistence;
 
-import model.Leaderboard;
-import model.Player;
+import model.leaderboard.Leaderboard;
+import model.leaderboard.Player;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

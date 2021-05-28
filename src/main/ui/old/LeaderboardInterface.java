@@ -1,7 +1,7 @@
 package ui.old;
 
-import model.Leaderboard;
-import model.Player;
+import model.leaderboard.Leaderboard;
+import model.leaderboard.Player;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 

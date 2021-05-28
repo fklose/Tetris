@@ -1,4 +1,4 @@
-package model;
+package model.leaderboard;
 
 import org.json.JSONObject;
 import persistence.Writeable;

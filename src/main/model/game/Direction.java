@@ -1,4 +1,4 @@
-package model;
+package model.game;
 
 // Enumerates all possible directions needed for the game
 public enum Direction {

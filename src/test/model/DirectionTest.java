@@ -1,5 +1,7 @@
 package model;
 
+import model.game.Direction;
+import model.game.Vector2D;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

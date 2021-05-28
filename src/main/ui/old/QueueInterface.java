@@ -1,7 +1,7 @@
 package ui.old;
 
-import model.Tetromino;
-import model.TetrominoQueue;
+import model.game.Tetromino;
+import model.game.TetrominoQueue;
 
 import java.util.LinkedList;
 import java.util.Scanner;

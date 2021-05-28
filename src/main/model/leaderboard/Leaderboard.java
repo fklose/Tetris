@@ -1,4 +1,4 @@
-package model;
+package model.leaderboard;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

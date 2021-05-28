@@ -1,6 +1,6 @@
 package persistence;
 
-import model.Leaderboard;
+import model.leaderboard.Leaderboard;
 import org.json.JSONObject;
 
 import java.io.File;
