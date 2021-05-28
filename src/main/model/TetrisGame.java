@@ -2,13 +2,13 @@ package model;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
 // TODO: NEED TO FIX SOME TESTS
 // TODO: OPTIONAL BUT MAYBE MAKE IT SO THAT WHEN A ROTATION COULD BE OUT OF BOUNDS THE GAME JUST ROTATES
 //  AND MOVES THE TETROMINO SO THAT IT WILL NOT BE OUT OF BOUNDS AFTER ROTATING.
-// TODO: ADD FUNCTIONALITY SO THAT A BLOCK CAN BE STORED
 // Stores information and methods needed to simulate the game board
 // NOTE: +Y is down, -X is left and +X is right. Top left corner is (0,0)
 public class TetrisGame {
@@ -29,8 +29,9 @@ public class TetrisGame {
     private int tick = 0;
     private static final int TICK_RATE = 50;
 
-    // MODIFIES : this
-    // EFFECTS  : Constructs a new game with score 0, a queue of Tetrominos and a single Tetromino ready to drop
+    /**
+     * Constructs a new game with score 0, a queue of Tetrominos and a single Tetromino ready to drop
+     */
     public TetrisGame() {
         this.score = 0;
         this.isGameActive = true;
@@ -42,19 +43,21 @@ public class TetrisGame {
         savedTetromino = Tetromino.nullShape;
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Initializes the line map
+    /**
+     * Initializes a HashMap with the Key being the y-coordinate of some line and the value being a Collection,
+     * in this case a HashSet of Blocks that are located in that line.
+     * @param lineMap An empty HashMap.
+     */
     private void initializeLineMap(HashMap<Integer, HashSet<Block>> lineMap) {
         for (int i = 0; i < HEIGHT; i++) {
             lineMap.put(i, new HashSet<>());
         }
     }
 
-    // TODO: NEEDS TESTING
-    // MODIFIES : this
-    // EFFECTS  : Updates the game, moves current tetromino down by one, checks if game is over,
-    //          clears lines once the current tetromino has stopped moving
-    //          and spawns a new tetromino at the top of the board
+    /**
+     * Updates the game, moves current tetromino down by one, checks if game is over, clears lines once the current
+     * tetromino has stopped moving and spawns a new tetromino at the top of the board
+     */
     public void update() {
         tick++;
         if (tick % TICK_RATE == 0) {
@@ -72,9 +75,10 @@ public class TetrisGame {
         }
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Places all blocks belonging to the current tetromino on the board
-    //          also updates the lineMap by placing each block into the correct line
+    /**
+     * Places all blocks belonging to the current tetromino on the board also updates the lineMap
+     * by placing each block into the correct line
+     */
     private void placeTetrominoOnBoard() {
         this.board.addAll(this.currentTetro.getBlocks());
         for (Block b : this.currentTetro.getBlocks()) {
@@ -86,8 +90,9 @@ public class TetrisGame {
         }
     }
 
-    // MODIFIES : this
-    // EFFECTS  : clears all lines that are fully filled with blocks along the width
+    /**
+     * Clears all lines that are fully filled with blocks along the width
+     */
     private void clearLines() {
         ArrayList<Integer> lineNumbers = linesToBeCleared();
         for (int i : lineNumbers) {
@@ -101,8 +106,10 @@ public class TetrisGame {
         }
     }
 
-    // EFFECTS  : Returns an array of line numbers (y coordinate) of horizontal lines that need to be cleared.
-    //          A line can be cleared if it contains 10 blocks
+    /**
+     * Determines what lines need to be cleared. A line can be cleared if it contains 10 blocks.
+     * @return Array of line numbers to be cleared
+     */
     private ArrayList<Integer> linesToBeCleared() {
         ArrayList<Integer> toBeCleared = new ArrayList<>();
         for (int i = 0; i < HEIGHT; i++) {
@@ -113,9 +120,11 @@ public class TetrisGame {
         return toBeCleared;
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Shifts horizontal lines down to fill any lines that contain no blocks
-    private void shiftLines(ArrayList<Integer> lineNumbers) {
+    /**
+     * Shifts horizontal lines down to fill any lines that contain no blocks.
+     * @param lineNumbers A collection of y-coordinates of lines that were cleared.
+     */
+    private void shiftLines(Collection<Integer> lineNumbers) {
         for (int i : lineNumbers) {
             for (Block b : board) {
                 if (b.getY() < i) {
@@ -126,8 +135,10 @@ public class TetrisGame {
         lineMapFromBoard();
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Translates a lineMap into a board and updates this board with the translation
+    /**
+     * Translates a lineMap into a board and updates this board with the translation.
+     * @param lineMap The LineMap to be translated.
+     */
     private void boardFromLineMap(HashMap<Integer, HashSet<Block>> lineMap) {
         board.clear();
         for (int y = 0; y < HEIGHT; y++) {
@@ -138,8 +149,9 @@ public class TetrisGame {
         }
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Translates a board into a line map and updates the lineMap of this
+    /**
+     * Translates a board into a line map and updates the lineMap of this game.
+     */
     private void lineMapFromBoard() {
         initializeLineMap(this.lineMap);
         for (Block b : board) {
@@ -147,9 +159,10 @@ public class TetrisGame {
         }
     }
 
-    // TODO: NEEDS TESTING
-    // MODIFIES : this
-    // EFFECTS  : Responds to user key inputs
+    /**
+     * Defines the actions taken upon pressing any key associated to the given keyCode.
+     * @param keyCode Code assigned to a keyEvent
+     */
     public void keyPressed(int keyCode) {
         if (keyCode == KeyEvent.VK_UP) {
             if (canRotate()) {
@@ -176,8 +189,10 @@ public class TetrisGame {
         }
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Returns true if the saved Tetromino can be swapped with the current tetromino, false otherwise
+    /**
+     * Checks if the current Tetromino can be swapped with the stored one.
+     * @return true if the saved Tetromino can be swapped with the current tetromino, false otherwise
+     */
     private boolean canTetrominosBeSwapped() {
         savedTetromino.setCentre(new Vector2D(SPAWN_X, SPAWN_Y));
         if (!areGivenPositionsOccupied(savedTetromino.getPositions())) {
@@ -189,8 +204,9 @@ public class TetrisGame {
         }
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Swaps the current Tetromino with the saved one, spawning the saved one at the top of the board.
+    /**
+     * Swaps the current Tetromino with the saved one, spawning the saved one at the top of the board.
+     */
     private void swapTetrominos() {
         if (savedTetromino == Tetromino.nullShape) {
             savedTetromino = currentTetro.copy();
@@ -206,58 +222,74 @@ public class TetrisGame {
         }
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Moves the current Tetromino in the given direction by one
+    /**
+     * Moves the current Tetromino in the given direction by one
+     * @param d the direction in which the Tetromino should move
+     */
     private void move(Direction d) {
         this.currentTetro.move(d);
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Rotates the Tetromino 90 degrees counterclockwise
+    /**
+     * Rotates the Tetromino 90 degrees counterclockwise
+     */
     private void rotate() {
         this.currentTetro.rotateCCW();
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Drops the Tetromino on the lowest reachable layer
+    /**
+     * Drops the Tetromino on the lowest reachable layer
+     */
     private void drop() {
         while (canMove(Direction.DOWN)) {
             this.currentTetro.move(Direction.DOWN);
         }
     }
 
-    // MODIFIES : this, TetrominoQueue
-    // EFFECTS  : Spawn the next Tetromino from the queue at the top of the board
+    /**
+     * Spawn the next Tetromino from the queue at the top of the board. Modifies the TetroMinoQueue in the process
+     */
     private void spawnNextTetromino() {
         spawnTetromino(tetroQueue.getNextTetromino());
     }
 
-    // MODIFIES : this
-    // EFFECTS  : spawns the given Tetromino at the top of the board
+    /**
+     * Spawns the given Tetromino at the top of the board
+     * @param t the Tetromino to be spawned in
+     */
     private void spawnTetromino(Tetromino t) {
         this.currentTetro = t;
         this.currentTetro.setCentre(new Vector2D(SPAWN_X, SPAWN_Y));
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Sets game status to false, indicating that the game is over
+    /**
+     * Sets the game status to false, indicating that the game is over.
+     */
     private void gameOver() {
         this.isGameActive = false;
     }
 
-    // EFFECTS  : returns true if the current tetromino can move down, false if not
+    /**
+     * Checks if the current Tetromino can be moved in the given direction
+     * @param d the direction to check
+     * @return True if tetromino can move in given direction, false if not
+     */
     private boolean canMove(Direction d) {
         return isThereSpaceToMove(d) && willItBeInsideBoard(d);
     }
 
-    // EFFECTS  : returns true if the Tetromino can rotate CCW, false if not
+    /**
+     * Checks if Tetromino can rotate counterclockwise.
+     * @return True if rotation is possible, false if not.
+     */
     private boolean canRotate() {
         return isThereSpaceToRotate() && willItBeInsideBoardAfterRotatingCCW();
     }
 
-    // MODIFIES : Tetromino
-    // EFFECTS  : returns true if there is space for all blocks of the current Tetromino to rotate 90 degrees ccw,
-    //          else false
+    /**
+     * Checks if there is space to rotate, specifically that no other Blocks are blocking the rotation.
+     * @return True if rotation is not blocked, false if not.
+     */
     private boolean isThereSpaceToRotate() {
         this.currentTetro.rotateCCW();
         if (areGivenPositionsOccupied(this.currentTetro.getPositions())) {
@@ -268,9 +300,11 @@ public class TetrisGame {
         return true;
     }
 
-    // TODO: INCREASE COVERAGE
-    // EFFECTS  : returns true if there is space for all blocks of the current Tetromino to move one step
-    //          in the given direction, else false
+    /**
+     * Checks if the direction of movement is blocked by other Blocks.
+     * @param d The direction of movement to check.
+     * @return True if movement is not blocked, false if not.
+     */
     private boolean isThereSpaceToMove(Direction d) {
         for (Vector2D pos: this.currentTetro.getPositions()) {
             if (isPositionOccupied(pos.addVectorGetNewVector(d.getVector()))) {
@@ -280,11 +314,11 @@ public class TetrisGame {
         return true;
     }
 
-    // EFFECTS  : Returns true if current Tetromino will be inside the bounds of the board
-    //          after moving one unit in the given direction.
-    //          Only checks Tetromino does not fall through the bottom or the sides, since
-    //          upwards movement is not possible anyways and blocks may spawn in above the
-    //          board, i.e. at (4, -1), etc.
+    /**
+     * Checks if Tetromino will be inside the board after moving in the given direction. Only checks bottom and sides.
+     * @param d The direction to be checked.
+     * @return True if the current Tetromino will be inside the board, false if not.
+     */
     private boolean willItBeInsideBoard(Direction d) {
         ArrayList<Vector2D> positions = currentTetro.getPositions();
         for (Vector2D pos : positions) {
@@ -296,31 +330,35 @@ public class TetrisGame {
         return true;
     }
 
-    // TODO : INCREASE COVERAGE
-    // EFFECTS  : Returns true if current Tetromino will be inside the bounds of the board
-    //          after performing one counterclockwise rotation.
-    //          Only checks Tetromino does not fall through the bottom or the sides, since
-    //          upwards movement is not possible anyways and blocks may spawn in above the
-    //          board, i.e. at (4, -1), etc.
+    /**
+     * Checks if the current Tetromino will be inside the board after rotating counterclockwise.
+     * @return True if current Tetromino will be inside board, false if not.
+     */
     private boolean willItBeInsideBoardAfterRotatingCCW() {
         currentTetro.rotateCCW();
-        ArrayList<Vector2D> positions = currentTetro.getPositions();
-        for (Vector2D pos : positions) {
-            if (!((0 <= pos.getX()) && (pos.getX() < WIDTH) && (pos.getY() < HEIGHT))) {
-                currentTetro.rotateCW();
-                return false;
-            }
+        if (willItBeInsideBoard(Direction.NULL)) {
+            currentTetro.rotateCW();
+            return true;
+        } else {
+            currentTetro.rotateCW();
+            return false;
         }
-        currentTetro.rotateCW();
-        return true;
     }
 
-    // EFFECTS  : Returns true if the position of the given block is already on the board, else false
+    /**
+     * Checks if the given position is occupied.
+     * @param position the position to be checked.
+     * @return True if position is occupied, false if not.
+     */
     private boolean isPositionOccupied(Vector2D position) {
         return getAllPositions().contains(position);
     }
 
-    // EFFECTS  : Returns true if one of the positions in a given list of positions is already on the board, else false
+    /**
+     * Checks if the given positions are occupied.
+     * @param positions the positions to be checked.
+     * @return True if positions are occupied, false if not.
+     */
     private boolean areGivenPositionsOccupied(ArrayList<Vector2D> positions) {
         for (Vector2D pos : positions) {
             if (isPositionOccupied(pos)) {
@@ -330,7 +368,10 @@ public class TetrisGame {
         return false;
     }
 
-    // EFFECTS  : returns true if the next tetromino can be spawned at the top of the board, else false
+    /**
+     * Checks if there is space to spawn the next Tetromino in the queue.
+     * @return True if next Tetromino can be spawned, false if not.
+     */
     private boolean canSpawn() {
         ArrayList<Vector2D> nextTemplate = tetroQueue.viewFirstTetromino().getTemplate();
         ArrayList<Vector2D> nextTetrominoPositions = new ArrayList<>();
@@ -342,7 +383,6 @@ public class TetrisGame {
         return !areGivenPositionsOccupied(nextTetrominoPositions);
     }
 
-    // EFFECTS  : Returns the positions of all blocks in board
     private ArrayList<Vector2D> getAllPositions() {
         ArrayList<Vector2D> blockPositions = new ArrayList<>();
         for (Block b: board) {
@@ -367,9 +407,10 @@ public class TetrisGame {
         return currentTetro;
     }
 
-    // MODIFIES : this
-    // EFFECTS  : Resets the game by setting the score to 0, making a new empty board, making a new queue and setting
-    //          the isGameActive field to true
+    /**
+     * Resets the game. This sets the score to 0, makes a new empty board, a new queue and sets the isGameActiveField to
+     * true.
+     */
     public void resetGame() {
         this.score = 0;
         this.isGameActive = true;
