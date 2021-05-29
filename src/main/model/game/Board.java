@@ -13,14 +13,10 @@ public class Board {
     private HashMap<Integer, HashSet<Block>> lineMap;
 
     public Board(int width, int height) {
-        initializeBoard(width, height);
         initializeLineMap(width, height);
+        this.board = new HashSet<>(width * height);
         this.width = width;
         this.height = height;
-    }
-
-    private void initializeBoard(int width, int height) {
-        board = new HashSet<>(width * height);
     }
 
     /**

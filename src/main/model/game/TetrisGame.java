@@ -2,8 +2,6 @@ package model.game;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 
 // TODO: NEED TO FIX SOME TESTS
@@ -50,10 +48,10 @@ public class TetrisGame {
         if (tick % TICK_RATE == 0) {
             if (!canMove(Direction.DOWN)) {
                 board.placeTetrominoOnBoard(currentTetro);
-                if (!areAllBlocksWithinBounds()) {
-                    gameOver();
+                if (areAllBlocksWithinBounds()) {
+                    clearLines();
                 } else {
-                    board.clearLines(linesToBeCleared());
+                    gameOver();
                 }
                 if (canSpawn()) {
                     spawnNextTetromino();
@@ -64,6 +62,15 @@ public class TetrisGame {
                 move(Direction.DOWN);
             }
         }
+    }
+
+    /**
+     * Finds lines that need to be cleared, adjusts the score and clears the lines.
+     */
+    private void clearLines() {
+        ArrayList<Integer> linesToBeCleared = linesToBeCleared();
+        score += linesToBeCleared.size();
+        board.clearLines(linesToBeCleared);
     }
 
     /**
