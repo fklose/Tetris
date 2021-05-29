@@ -375,9 +375,16 @@ class TetrisGameTest {
 
     @Test
     void getSavedTetromino() {
+        // Saved Tetromino is null
         Tetromino initialTetro = game0.getCurrentTetro();
         assertEquals(Tetromino.nullShape, game0.getSavedTetromino());
         game0.keyPressed(KeyEvent.VK_C);
         assertEquals(initialTetro, game0.getSavedTetromino());
+
+        // Saved Tetromino is not null
+        Tetromino nextTetro = game0.getCurrentTetro();
+        game0.keyPressed(KeyEvent.VK_C);
+        assertEquals(nextTetro, game0.getSavedTetromino());
+        assertEquals(initialTetro, game0.getCurrentTetro());
     }
 }

@@ -102,12 +102,9 @@ public class TetrisGame {
             lineMap.replace(i, new HashSet<>());
             this.score++;
         }
-        if (lineNumbers.size() != 0) {
-            // TODO: Test this branch
-            boardFromLineMap(lineMap);
-            shiftLines(lineNumbers);
-            lineNumbers.clear();
-        }
+        boardFromLineMap(lineMap);
+        shiftLines(lineNumbers);
+        lineNumbers.clear();
     }
 
     /**
@@ -223,10 +220,8 @@ public class TetrisGame {
         } else {
             // TODO: Test this branch
             Tetromino currentCopy = currentTetro.copy();
-
             currentTetro = savedTetromino.copy();
             savedTetromino = currentCopy;
-
             savedTetromino.setCentre(new Vector2D(0,0));
             spawnTetromino(currentTetro);
         }
