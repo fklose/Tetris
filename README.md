@@ -1,80 +1,17 @@
 # Tetris
 
-## Proposal
-### What will the application do?
-The application will be a playable version of Tetris.
-The game will have a feature allowing players to track their highscores.
-It will incorporate some standard features of Tetris, such as being able to see
-the next five upcoming Tetrominos, as well as being able to move the Tetrominos
-left and right, as well as rotate them. Initially the plan is to only include an
-endless mode with other gamemodes being an option once the core of the game is
-implemented.
+This project was part of a course I took as part of my undergrad.
 
-### Who will use it?
-Really anyone that likes to play Tetris and is looking for an offline
-version of the game. The most popular version right now is found on an 
-online website called Jstris, and I have yet to find a good offline
-version of the game for myself.
+### What does it do?
+This is an unpolished, but playable version of Tetris. The game is controlled using the keyboard:
+* `left-arrow` and `right-arrow`: move the Tetromino to the left and right respectively.
+* `down-arrow`: move the Tetromino down.
+* `up-arrow`: rotates the Tetromino counter-clockwise.
+* `space`: drops the Tetromino straight down. Shortcut for holding down `down-arrow`.
+* `c`: puts the Tetromino in storage. If the storage is empty, the next Tetromino is called. If the storage already
+contains a Tetromino, then the current and the stored Tetromino are swapped.
 
-### Why is this project of interest to you?
-I enjoy playing Tetris and would like to be able to play the game offline,
-since there are no good offline versions.
-
-## User Stories
-### Phase 1:
-1. As a user I want to be able to see the highscores.
-2. As a user I want to be able to add my own score to the list of highscores.
-3. As a user I want to be able to see the next Tetrominos in queue.
-4. As a user I want to be able to pull the next Tetramino from the queue.
-
-## Phase 2:
-1. As a user I want to have my scores saved when quitting the application.
-2. As a user I want to load my saved scores when I start the application.
-
-## Phase 3:
-1. As a user I want to be able to add my score onto a leaderboard after playing a game.
-2. As a user I want to add a Tetromino onto a board and move and rotate it.
-3. As a user I want to stack multiple Tetrominos on top of each other.
-4. As a user I want to see the Tetrominos on the board.
-5. As a user I want to be able to load my leaderboard from a file.
-6. As a user I want to be able to save my leaderboard.
-7. As a user I want to be able to see my score.
-8. As a user I want to be able to see if my leaderboard has been loaded or saved.
-9. As a user I want to see the next five tetrominos.
-
-## Phase 4:
-
-#### Task 2:
-I used a HashMap to make it easier to keep track of and remove lines that contain more 10 blocks or more.
-In the code the HashMap is called associated with the field `lineMap`. The keys are the line numbers (y-coordinates) of 
-the board and the associated values are ArrayLists containing the blocks which have the same y-coordinate as 
-the corresponding key. The methods that use this map are all found in the TetrisGame class, specifically:
-- `TetrisGame()`, the map is constructed here.
-- `initializeLineMap()`, used to setup the map.
-- `placeTetrominoOnBoard()`, updates the map when a Tetromino is placed on the board.
-- `clearLines()`, the lines that can be cleared are deleted from the map.
-- `linesToBeCleared()`, (helper method in `clearLines()`) a loop over all entries in the map is used to find what 
-lines are full, i.e. what lines contain 10 blocks or more.
-- `boardFromLineMap()`, translates the map into a board.
-- `lineMapFromBoard()`, translates a board into a map.
-
-#### Task 3: Ideas for refactoring
-![image](UML_Design_Diagram.png)
-* Refactor the UI package. A lot of the classes largely share the same code, as an example, `GamePanel` 
-and `PreviewPanel` both are responsible for rendering blocks and as such they both use the same methods.
-I would want to create an abstract class that extends `JPanel`, containing the common methods and then have `GamePanel`
-and `PreviewPanel` extend said abstract class.
-* The `LeaderboardPanel` class, has a lot of methods contained in it, some of which would be better of in a separate
-class for better readability.
-* I think that inside `TetrisGame` the board could really be its own class, since it has a good number of methods
-that only do stuff to the board. I would make a new class called `TetrisBoard` and at least move the methods for
-initializing the board and translating between the board, and the line map into the class.
-
-#### Additional user stories
-1. As a user I want to clear lines and have my score incremented by the number of lines I clear.
-2. As a user I want to see renders of the next five tetrominos.
-3. As a user I want to save my current Tetromino for later and jump right to the next one in the queue.
-4. As a user I want to see a render of my saved Tetromino.
+After finishing a round, the player has the option to save their score in a leaderboard.
 
 ## Appendix
 
