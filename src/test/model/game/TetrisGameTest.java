@@ -1,7 +1,6 @@
 package model.game;
 
 
-import model.game.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,6 +36,7 @@ class TetrisGameTest {
 
     @Test
     void update() {
+        // TODO: FAILS OCCASIONALLY
         HashSet<Block> emptyBoard = new HashSet<>(WIDTH * HEIGHT);
 
         // continually ticking with no user input ends the game, as blocks stack up too high
@@ -50,6 +50,7 @@ class TetrisGameTest {
 
     @Test
     void keyPressedUP() {
+        // TODO: FAILS OCCASIONALLY
         int oldX = game0.getCurrentTetro().getCentre().getX();
         int oldY = game0.getCurrentTetro().getCentre().getY();
         Vector2D oldCenter = new Vector2D(oldX, oldY);
@@ -354,6 +355,7 @@ class TetrisGameTest {
 
     @Test
     void resetGame() {
+        // TODO: FAILS OCCASIONALLY
         while (game0.getGameActive()) {
             game0.update();
         }
