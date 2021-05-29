@@ -63,4 +63,9 @@ public class Vector2D {
     public int hashCode() {
         return Objects.hash(componentX, componentY);
     }
+
+    @Override
+    public String toString() {
+        return "[" + componentX + ", " + componentY + ']';
+    }
 }
