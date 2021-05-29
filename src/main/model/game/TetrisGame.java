@@ -77,7 +77,8 @@ public class TetrisGame {
 
     /**
      * Places all blocks belonging to the current tetromino on the board also updates the lineMap
-     * by placing each block into the correct line
+     * by placing each block into the correct line. If any Block that is part of the Tetromino is
+     * over the top of the board, the gameOver() method is called, effectively ending the game.
      */
     private void placeTetrominoOnBoard() {
         this.board.addAll(this.currentTetro.getBlocks());
