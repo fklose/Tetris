@@ -111,4 +111,11 @@ class Vector2DTest {
         assertNotEquals(vec1.hashCode(), vec1CopyDiffY.hashCode());
         assertNotEquals(vec2.hashCode(), vec3.hashCode());
     }
+
+    @Test
+    void testToString() {
+        assertEquals("Vector2D{"
+                + "x=" + 0
+                + ", y=" + 0 + "}", vec1.toString());
+    }
 }

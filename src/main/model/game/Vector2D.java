@@ -66,6 +66,8 @@ public class Vector2D {
 
     @Override
     public String toString() {
-        return "[" + componentX + ", " + componentY + ']';
+        return "Vector2D{"
+                + "x=" + componentX
+                + ", y=" + componentY + "}";
     }
 }

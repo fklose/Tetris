@@ -133,7 +133,6 @@ public enum Tetromino {
         return positions;
     }
 
-    // TODO: NEEDS TESTING
     public Color getColor() {
         return color;
     }

@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class TetrominoTest {
 
@@ -368,5 +367,23 @@ class TetrominoTest {
         }
         t.rotateCCW();
         checkVectorListEquals(result, t.getTemplate());
+    }
+
+    @Test
+    void getColor() {
+        assertEquals(Color.ORANGE, tetromino1.getColor());
+    }
+
+    @Test
+    // Not really satisfied with this test
+    void copy() {
+        assertEquals(Tetromino.shapeLine, Tetromino.shapeLine.copy());
+        assertEquals(Tetromino.shapeSquare, Tetromino.shapeSquare.copy());
+        assertEquals(Tetromino.shapeT, Tetromino.shapeT.copy());
+        assertEquals(Tetromino.shapeLeftSkew, Tetromino.shapeLeftSkew.copy());
+        assertEquals(Tetromino.shapeRightSkew, Tetromino.shapeRightSkew.copy());
+        assertEquals(Tetromino.shapeLeftL, Tetromino.shapeLeftL.copy());
+        assertEquals(Tetromino.shapeRightL, Tetromino.shapeRightL.copy());
+        assertEquals(Tetromino.nullShape, Tetromino.nullShape.copy());
     }
 }

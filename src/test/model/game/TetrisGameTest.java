@@ -237,7 +237,9 @@ class TetrisGameTest {
     @Test
     void keyPressedSPACE() {
         game0.keyPressed(KeyEvent.VK_SPACE);
-        game0.update();
+        for (int i = 0; i < game0.getTickRate(); i++) {
+            game0.update();
+        }
         assertEquals(4, game0.getBoard().size());
         assertEquals(0, game0.getScore());
         assertTrue(game0.getGameActive());
@@ -369,5 +371,13 @@ class TetrisGameTest {
     @Test
     void getQueue() {
         assertEquals(TetrominoQueue.class, game0.getQueue().getClass());
+    }
+
+    @Test
+    void getSavedTetromino() {
+        Tetromino initialTetro = game0.getCurrentTetro();
+        assertEquals(Tetromino.nullShape, game0.getSavedTetromino());
+        game0.keyPressed(KeyEvent.VK_C);
+        assertEquals(initialTetro, game0.getSavedTetromino());
     }
 }

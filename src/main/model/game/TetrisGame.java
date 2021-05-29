@@ -78,15 +78,16 @@ public class TetrisGame {
     /**
      * Places all blocks belonging to the current tetromino on the board also updates the lineMap
      * by placing each block into the correct line. If any Block that is part of the Tetromino is
-     * over the top of the board, the gameOver() method is called, effectively ending the game.
+     * over the top of the board, the gameOver() method is called ending the game.
      */
     private void placeTetrominoOnBoard() {
-        this.board.addAll(this.currentTetro.getBlocks());
+//        this.board.addAll(this.currentTetro.getBlocks());
         for (Block b : this.currentTetro.getBlocks()) {
             if (b.getY() < 0) {
                 gameOver();
             } else {
                 this.lineMap.get(b.getY()).add(b);
+                this.board.add(b);
             }
         }
     }
@@ -97,10 +98,12 @@ public class TetrisGame {
     private void clearLines() {
         ArrayList<Integer> lineNumbers = linesToBeCleared();
         for (int i : lineNumbers) {
+            // TODO: Test this branch
             lineMap.replace(i, new HashSet<>());
             this.score++;
         }
         if (lineNumbers.size() != 0) {
+            // TODO: Test this branch
             boardFromLineMap(lineMap);
             shiftLines(lineNumbers);
             lineNumbers.clear();
@@ -115,6 +118,7 @@ public class TetrisGame {
         ArrayList<Integer> toBeCleared = new ArrayList<>();
         for (int i = 0; i < HEIGHT; i++) {
             if (lineMap.get(i).size() >= WIDTH) {
+                // TODO: Test this branch
                 toBeCleared.add(i);
             }
         }
@@ -125,6 +129,7 @@ public class TetrisGame {
      * Shifts horizontal lines down to fill any lines that contain no blocks.
      * @param lineNumbers A collection of y-coordinates of lines that were cleared.
      */
+    // TODO: TEST
     private void shiftLines(Collection<Integer> lineNumbers) {
         for (int i : lineNumbers) {
             for (Block b : board) {
@@ -140,6 +145,7 @@ public class TetrisGame {
      * Translates a lineMap into a board and updates this board with the translation.
      * @param lineMap The LineMap to be translated.
      */
+    // TODO: Test
     private void boardFromLineMap(HashMap<Integer, HashSet<Block>> lineMap) {
         board.clear();
         for (int y = 0; y < HEIGHT; y++) {
@@ -153,6 +159,7 @@ public class TetrisGame {
     /**
      * Translates a board into a line map and updates the lineMap of this game.
      */
+    // TODO: Test
     private void lineMapFromBoard() {
         initializeLineMap(this.lineMap);
         for (Block b : board) {
@@ -200,6 +207,7 @@ public class TetrisGame {
             savedTetromino.setCentre(new Vector2D(0, 0));
             return true;
         } else {
+            // TODO: Test this branch
             savedTetromino.setCentre(new Vector2D(0, 0));
             return false;
         }
@@ -213,6 +221,7 @@ public class TetrisGame {
             savedTetromino = currentTetro.copy();
             spawnNextTetromino();
         } else {
+            // TODO: Test this branch
             Tetromino currentCopy = currentTetro.copy();
 
             currentTetro = savedTetromino.copy();
@@ -294,6 +303,7 @@ public class TetrisGame {
     private boolean isThereSpaceToRotate() {
         this.currentTetro.rotateCCW();
         if (areGivenPositionsOccupied(this.currentTetro.getPositions())) {
+            // TODO: Increase coverage
             this.currentTetro.rotateCW();
             return false;
         }
@@ -428,5 +438,9 @@ public class TetrisGame {
 
     public Tetromino getSavedTetromino() {
         return savedTetromino;
+    }
+
+    public int getTickRate() {
+        return TICK_RATE;
     }
 }
