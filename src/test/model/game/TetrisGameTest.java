@@ -358,8 +358,8 @@ class TetrisGameTest {
             game0.update();
         }
         assertFalse(game0.getGameActive());
-//        So far I do not have an option of automatically generating a score that is non-zero
-//        assertNotEquals(0, game0.getScore());
+        // So far I do not have an option of automatically generating a score that is non-zero
+        // assertNotEquals(0, game0.getScore());
         assertNotEquals(0, game0.getBoard().size());
 
         game0.resetGame();
