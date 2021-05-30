@@ -41,7 +41,9 @@ public class Board {
      */
     public void placeTetrominoOnBoard(Tetromino t) throws GameOverException {
         for (Block b : t.getBlocks()) {
-            if (b.getY() < 0) throw new GameOverException();
+            if (b.getY() < 0) {
+                throw new GameOverException();
+            }
             lineMap.get(b.getY()).add(b);
             board.add(b);
         }
@@ -114,5 +116,13 @@ public class Board {
 
     public HashSet<Block> getBoard() {
         return board;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }
