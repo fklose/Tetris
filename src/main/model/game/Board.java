@@ -7,9 +7,9 @@ import java.util.HashSet;
 // Manages the Blocks that are placed on the board
 public class Board {
 
-    private int width;
-    private int height;
-    private HashSet<Block> board;
+    private final int width;
+    private final int height;
+    private final HashSet<Block> board;
     private HashMap<Integer, HashSet<Block>> lineMap;
 
     public Board(int width, int height) {

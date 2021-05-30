@@ -38,7 +38,7 @@ class TetrisGameTest {
     void update() {
         // TODO: FAILS OCCASIONALLY
         HashSet<Block> emptyBoard = new HashSet<>(WIDTH * HEIGHT);
-
+        game0.setTickRate(1);
         // continually ticking with no user input ends the game, as blocks stack up too high
         while (game0.getGameActive()) {
             game0.update();
@@ -50,7 +50,6 @@ class TetrisGameTest {
 
     @Test
     void keyPressedUP() {
-        // TODO: FAILS OCCASIONALLY
         int oldX = game0.getCurrentTetro().getCentre().getX();
         int oldY = game0.getCurrentTetro().getCentre().getY();
         Vector2D oldCenter = new Vector2D(oldX, oldY);
@@ -61,8 +60,14 @@ class TetrisGameTest {
         }
 
         ArrayList<Vector2D> newTemplate = new ArrayList<>();
-        for (Vector2D pos : oldTemplate) {
-            newTemplate.add(CCW.matrixVectorProductGetNewVec(pos));
+        if (game0.getCurrentTetro() != Tetromino.shapeSquare) {
+            // The square Tetromino does not actually rotate so this loop produces the wrong result in that case
+            for (Vector2D pos : oldTemplate) {
+                newTemplate.add(CCW.matrixVectorProductGetNewVec(pos));
+            }
+        } else {
+            // newTemplate is just the same as the old one, since shapeSquare does not have a rotate method
+            newTemplate = oldTemplate;
         }
 
         game0.keyPressed(KeyEvent.VK_UP);

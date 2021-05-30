@@ -25,7 +25,7 @@ public class TetrisGame {
     private Board board;
 
     private int tick = 0;
-    private static final int TICK_RATE = 50;
+    private int tickRate = 50;
 
     /**
      * Constructs a new game with score 0, a queue of Tetrominos and a single Tetromino ready to drop
@@ -45,14 +45,10 @@ public class TetrisGame {
      */
     public void update() {
         tick++;
-        if (tick % TICK_RATE == 0) {
+        if (tick % tickRate == 0) {
             if (!canMove(Direction.DOWN)) {
                 board.placeTetrominoOnBoard(currentTetro);
-                if (areAllBlocksWithinBounds()) {
-                    clearLines();
-                } else {
-                    gameOver();
-                }
+                clearLines();
                 if (canSpawn()) {
                     spawnNextTetromino();
                 } else {
@@ -367,6 +363,10 @@ public class TetrisGame {
     }
 
     public int getTickRate() {
-        return TICK_RATE;
+        return tickRate;
+    }
+
+    public void setTickRate(int newRate) {
+        tickRate = newRate;
     }
 }
