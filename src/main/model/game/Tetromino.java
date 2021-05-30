@@ -4,6 +4,13 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/*
+TODO: The Tetromino enum needs to become an abstract class and the different Tetrominos need to become
+      classes that extend the abstract Tetromino class. On a surface level this should fix the issue of like
+      Tetrominos in the preview Panel rotating with the current Tetromino. The abstract class should contain
+      all of these methods in this enum. The rotation methods should be abstract since different blocks may have
+      different rotation behaviour.
+ */
 // Stores different types of Tetrominos and methods relating to them
 public enum Tetromino {
     shapeLine("Line", Color.CYAN,
