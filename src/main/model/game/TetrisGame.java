@@ -1,10 +1,11 @@
 package model.game;
 
+import model.exceptions.GameOverException;
+
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-// TODO: NEED TO FIX SOME TESTS
 // TODO: OPTIONAL BUT MAYBE MAKE IT SO THAT WHEN A ROTATION COULD BE OUT OF BOUNDS THE GAME JUST ROTATES
 //  AND MOVES THE TETROMINO SO THAT IT WILL NOT BE OUT OF BOUNDS AFTER ROTATING.
 // Stores information and methods needed to simulate the game board
@@ -35,7 +36,12 @@ public class TetrisGame {
         this.score = 0;
         this.isGameActive = true;
         this.tetroQueue = new TetrominoQueue();
-        spawnNextTetromino();
+        // Not so nice having the try catch here, since there is no way this will ever be triggered
+        try {
+            spawnNextTetromino();
+        } catch (Exception e) {
+            resetGame();
+        }
         savedTetromino = Tetromino.nullShape;
     }
 
@@ -47,11 +53,11 @@ public class TetrisGame {
         tick++;
         if (tick % tickRate == 0) {
             if (!canMove(Direction.DOWN)) {
-                board.placeTetrominoOnBoard(currentTetro);
-                clearLines();
-                if (canSpawn()) {
+                try {
+                    board.placeTetrominoOnBoard(currentTetro);
+                    clearLines();
                     spawnNextTetromino();
-                } else {
+                } catch (GameOverException goe) {
                     gameOver();
                 }
             } else {
@@ -67,22 +73,6 @@ public class TetrisGame {
         ArrayList<Integer> linesToBeCleared = linesToBeCleared();
         score += linesToBeCleared.size();
         board.clearLines(linesToBeCleared);
-    }
-
-    /**
-     * Checks if all blocks are within the bounds of the board.
-     * @return True if all Blocks are in the board, false if any block is not.
-     */
-    private boolean areAllBlocksWithinBounds() {
-        for (Vector2D pos : board.getBlockPositions()) {
-            if (!(pos.getX() >= 0
-                    && pos.getX() < WIDTH
-                    && pos.getY() >= 0
-                    && pos.getY() < HEIGHT)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**
@@ -151,7 +141,9 @@ public class TetrisGame {
     private void swapTetrominos() {
         if (savedTetromino == Tetromino.nullShape) {
             savedTetromino = currentTetro.copy();
-            spawnNextTetromino();
+            try {
+                spawnNextTetromino();
+            } catch (Exception ignored) { }
         } else {
             // TODO: Test this branch
             Tetromino currentCopy = currentTetro.copy();
@@ -189,7 +181,10 @@ public class TetrisGame {
     /**
      * Spawn the next Tetromino from the queue at the top of the board. Modifies the TetroMinoQueue in the process
      */
-    private void spawnNextTetromino() {
+    private void spawnNextTetromino() throws GameOverException {
+        if (!canSpawn()) {
+            throw new GameOverException();
+        }
         spawnTetromino(tetroQueue.getNextTetromino());
     }
 
@@ -349,7 +344,9 @@ public class TetrisGame {
         this.isGameActive = true;
         this.tetroQueue = new TetrominoQueue();
         board = new Board(WIDTH, HEIGHT);
-        spawnNextTetromino();
+        try {
+            spawnNextTetromino();
+        } catch (Exception ignored) { }
         this.savedTetromino = Tetromino.nullShape;
 
     }

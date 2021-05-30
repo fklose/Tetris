@@ -1,5 +1,7 @@
 package model.game;
 
+import model.exceptions.GameOverException;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,8 +39,9 @@ public class Board {
      * by placing each block into the correct line.
      * @param t the Tetromino to be placed on the board
      */
-    public void placeTetrominoOnBoard(Tetromino t) {
+    public void placeTetrominoOnBoard(Tetromino t) throws GameOverException {
         for (Block b : t.getBlocks()) {
+            if (b.getY() < 0) throw new GameOverException();
             lineMap.get(b.getY()).add(b);
             board.add(b);
         }
