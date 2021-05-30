@@ -1,6 +1,7 @@
 package model.game;
 
 import model.exceptions.GameOverException;
+import model.tetromino.NewTetromino;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -39,6 +40,16 @@ public class Board {
      * by placing each block into the correct line.
      * @param t the Tetromino to be placed on the board
      */
+    public void placeTetrominoOnBoard(NewTetromino t) throws GameOverException {
+        for (Block b : t.getBlocks()) {
+            if (b.getY() < 0) {
+                throw new GameOverException();
+            }
+            lineMap.get(b.getY()).add(b);
+            board.add(b);
+        }
+    }
+    /*
     public void placeTetrominoOnBoard(Tetromino t) throws GameOverException {
         for (Block b : t.getBlocks()) {
             if (b.getY() < 0) {
@@ -48,6 +59,7 @@ public class Board {
             board.add(b);
         }
     }
+     */
 
     /**
      * Clears all lines that are fully filled, i.e. contain a number of blocks greater than or equal to the width of the

@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Line extends NewTetromino {
 
-    Line() {
+    public Line() {
         super("Line", Color.CYAN,
                 new Vector2D(0, 1),
                 new Vector2D(0, 0),

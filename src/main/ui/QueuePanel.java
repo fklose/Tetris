@@ -1,7 +1,7 @@
 package ui;
 
 import model.game.TetrisGame;
-import model.game.Tetromino;
+import model.tetromino.NewTetromino;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,8 @@ import java.util.LinkedList;
 public class QueuePanel extends JPanel {
 
     TetrisGame tetrisGame;
-    LinkedList<Tetromino> tetrominoQueue;
+//    LinkedList<Tetromino> tetrominoQueue;
+    LinkedList<NewTetromino> tetrominoQueue;
 
     // MODIFIES : this
     // EFFECTS  : Constructs a new QueuePanel
@@ -29,9 +30,14 @@ public class QueuePanel extends JPanel {
     // EFFECTS  : Redraws this QueuePanel
     public void update() {
         this.removeAll();
+        for (NewTetromino t : tetrominoQueue) {
+            this.add(new PreviewPanel(t.getTemplate(), t.getColor()));
+        }
+        /*
         for (Tetromino t : tetrominoQueue) {
             this.add(new PreviewPanel(t.getTemplate(), t.getColor()));
         }
+         */
         JLabel jl = new JLabel("Saved Tetromino");
         jl.setBackground(Color.BLACK);
         jl.setForeground(Color.WHITE);

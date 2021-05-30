@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class RightL extends NewTetromino {
 
-    RightL() {
+    public RightL() {
         super("RightL", Color.BLUE,
                 new Vector2D(0, 0),
                 new Vector2D(0, 1),

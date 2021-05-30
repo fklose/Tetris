@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class LeftSkew extends NewTetromino {
 
-    LeftSkew() {
+    public LeftSkew() {
         super("LeftSkew", Color.PINK,
                 new Vector2D(0, 0),
                 new Vector2D(0, 1),

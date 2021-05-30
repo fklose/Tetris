@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class RightSkew extends NewTetromino {
 
-    RightSkew() {
+    public RightSkew() {
         super("RightSkew", Color.GREEN,
                 new Vector2D(0, 0),
                 new Vector2D(0, 1),

@@ -1,7 +1,6 @@
 package model.game;
 
-import model.game.Tetromino;
-import model.game.TetrominoQueue;
+import model.tetromino.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,14 +16,14 @@ class TetrominoQueueTest {
     private static final int SEED_ONE = 12345;
     private static final int SEED_TWO = 98765;
 
-    private Tetromino shape0;
-    private Tetromino shape1;
-    private Tetromino shape2;
-    private Tetromino shape3;
-    private Tetromino shape4;
-    private Tetromino shape5;
-    private Tetromino shape6;
-    private Tetromino shape7;
+    private NewTetromino shape0;
+    private NewTetromino shape1;
+    private NewTetromino shape2;
+    private NewTetromino shape3;
+    private NewTetromino shape4;
+    private NewTetromino shape5;
+    private NewTetromino shape6;
+    private NewTetromino shape7;
 
     private Random rng1;
     private Random rng2;
@@ -37,6 +36,15 @@ class TetrominoQueueTest {
         queue1.setSeed(SEED_ONE);
         queue2.setSeed(SEED_TWO);
 
+        shape0 = new Line();
+        shape1 = new Square();
+        shape2 = new TShape();
+        shape3 = new LeftSkew();
+        shape4 = new RightSkew();
+        shape5 = new LeftL();
+        shape6 = new RightL();
+        shape7 = new SingleBlock();
+        /*
         shape0 = Tetromino.shapeLine;
         shape1 = Tetromino.shapeSquare;
         shape2 = Tetromino.shapeT;
@@ -45,6 +53,7 @@ class TetrominoQueueTest {
         shape5 = Tetromino.shapeLeftL;
         shape6 = Tetromino.shapeRightL;
         shape7 = Tetromino.nullShape;
+         */
 
         rng1 = new Random();
         rng2 = new Random();
@@ -100,6 +109,18 @@ class TetrominoQueueTest {
 
     @Test
     void viewFirstTetromino() {
+        NewTetromino t1 = queue1.viewFirstTetromino();
+        assertEquals(t1, queue1.getNextTetromino());
+        NewTetromino t2 = queue1.viewFirstTetromino();
+        assertEquals(t2, queue1.getNextTetromino());
+        NewTetromino t3 = queue1.viewFirstTetromino();
+        assertEquals(t3, queue1.getNextTetromino());
+
+        NewTetromino t4 = queue2.viewFirstTetromino();
+        assertEquals(t4, queue2.getNextTetromino());
+        NewTetromino t5 = queue2.viewFirstTetromino();
+        assertEquals(t5, queue2.getNextTetromino());
+        /*
         Tetromino t1 = queue1.viewFirstTetromino();
         assertEquals(t1, queue1.getNextTetromino());
         Tetromino t2 = queue1.viewFirstTetromino();
@@ -111,6 +132,7 @@ class TetrominoQueueTest {
         assertEquals(t4, queue2.getNextTetromino());
         Tetromino t5 = queue2.viewFirstTetromino();
         assertEquals(t5, queue2.getNextTetromino());
+         */
     }
 
 }

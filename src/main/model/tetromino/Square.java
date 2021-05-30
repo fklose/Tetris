@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Square extends NewTetromino {
 
-    Square() {
+    public Square() {
         super("Square", Color.YELLOW,
                 new Vector2D(1, 0),
                 new Vector2D(0, 0),

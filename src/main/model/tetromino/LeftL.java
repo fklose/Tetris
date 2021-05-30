@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class LeftL extends NewTetromino {
 
-    LeftL() {
+    public LeftL() {
         super("LeftL", Color.ORANGE,
                 new Vector2D(0, 0),
                 new Vector2D(0, 1),

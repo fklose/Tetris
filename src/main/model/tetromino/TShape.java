@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class TShape extends NewTetromino {
 
-    TShape() {
+    public TShape() {
         super("TShape", Color.MAGENTA,
                 new Vector2D(0, 0),
                 new Vector2D(-1, 0),
