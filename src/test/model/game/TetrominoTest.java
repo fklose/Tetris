@@ -378,13 +378,15 @@ class TetrominoTest {
     @Test
     // Not really satisfied with this test
     void copy() {
-        assertEquals(Tetromino.shapeLine, Tetromino.shapeLine.copy());
-        assertEquals(Tetromino.shapeSquare, Tetromino.shapeSquare.copy());
-        assertEquals(Tetromino.shapeT, Tetromino.shapeT.copy());
-        assertEquals(Tetromino.shapeLeftSkew, Tetromino.shapeLeftSkew.copy());
-        assertEquals(Tetromino.shapeRightSkew, Tetromino.shapeRightSkew.copy());
-        assertEquals(Tetromino.shapeLeftL, Tetromino.shapeLeftL.copy());
-        assertEquals(Tetromino.shapeRightL, Tetromino.shapeRightL.copy());
-        assertEquals(Tetromino.nullShape, Tetromino.nullShape.copy());
+        NewTetromino tetromino8 = new SingleBlock();
+
+        assertEquals(new LeftL(), tetromino1.copy());
+        assertEquals(new LeftSkew(), tetromino2.copy());
+        assertEquals(new Line(), tetromino3.copy());
+        assertEquals(new RightL(), tetromino4.copy());
+        assertEquals(new RightSkew(), tetromino5.copy());
+        assertEquals(new Square(), tetromino6.copy());
+        assertEquals(new TShape(), tetromino7.copy());
+        assertEquals(new SingleBlock(), tetromino8.copy());
     }
 }
