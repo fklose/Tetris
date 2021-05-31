@@ -1,7 +1,0 @@
-*.class
-workspace.xml
-\out\
-\.idea\
-checkstyle.xml
-UML_Design_Diagram.png
-UML_Design_Diagram.uxf
