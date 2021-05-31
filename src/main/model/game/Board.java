@@ -1,7 +1,7 @@
 package model.game;
 
 import model.exceptions.GameOverException;
-import model.tetromino.NewTetromino;
+import model.tetromino.Tetromino;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -40,7 +40,7 @@ public class Board {
      * by placing each block into the correct line.
      * @param t the Tetromino to be placed on the board
      */
-    public void placeTetrominoOnBoard(NewTetromino t) throws GameOverException {
+    public void placeTetrominoOnBoard(Tetromino t) throws GameOverException {
         for (Block b : t.getBlocks()) {
             if (b.getY() < 0) {
                 throw new GameOverException();

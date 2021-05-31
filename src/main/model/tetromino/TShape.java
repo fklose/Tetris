@@ -4,7 +4,7 @@ import model.game.Vector2D;
 
 import java.awt.*;
 
-public class TShape extends NewTetromino {
+public class TShape extends Tetromino {
 
     public TShape() {
         super("TShape", Color.MAGENTA,

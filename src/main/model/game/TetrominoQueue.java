@@ -10,7 +10,7 @@ public class TetrominoQueue {
 
     private static final int SIZE = 5;
 //    private LinkedList<Tetromino> queue;
-    private LinkedList<NewTetromino> queue;
+    private LinkedList<Tetromino> queue;
     private final Random rnd;
 
     // MODIFIES : this
@@ -37,29 +37,29 @@ public class TetrominoQueue {
 
     // MODIFIES : this
     // EFFECTS  : Returns and removes the first Tetromino in queue and adds a random new one at the end
-    public NewTetromino getNextTetromino() {
+    public Tetromino getNextTetromino() {
         addRandomTetromino();
         return queue.pollFirst();
     }
 
     // EFFECTS  : Returns a copy of the first tetromino in queue without removing it
-    public NewTetromino viewFirstTetromino() {
+    public Tetromino viewFirstTetromino() {
         return queue.peekFirst();
     }
 
-    public LinkedList<NewTetromino> getQueue() {
+    public LinkedList<Tetromino> getQueue() {
         return queue;
     }
 
     // MODIFIES : this
     // EFFECTS  : Adds a random Tetromino to the end of the list
     public void addRandomTetromino() {
-        NewTetromino tetromino = getTetromino(getRandomInteger());
+        Tetromino tetromino = getTetromino(getRandomInteger());
         this.queue.addLast(tetromino);
     }
 
     // EFFECTS  : Returns a Tetromino given a number
-    public NewTetromino getTetromino(int n) {
+    public Tetromino getTetromino(int n) {
         switch (n) {
             case 0:
                 return new Line();

@@ -2,7 +2,7 @@ package ui;
 
 import model.game.Block;
 import model.game.TetrisGame;
-import model.tetromino.NewTetromino;
+import model.tetromino.Tetromino;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +40,7 @@ public class GamePanel extends JPanel {
     // modifies: g
     // effects:  draws the current Tetromino onto g
     private void drawTetromino(Graphics g) {
-        NewTetromino t = tetrisGame.getCurrentTetro();
+        Tetromino t = tetrisGame.getCurrentTetro();
         drawBlocks(g, t.getBlocks());
     }
 

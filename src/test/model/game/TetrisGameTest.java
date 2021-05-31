@@ -1,9 +1,9 @@
 package model.game;
 
 
-import model.tetromino.NewTetromino;
 import model.tetromino.SingleBlock;
 import model.tetromino.Square;
+import model.tetromino.Tetromino;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -386,13 +386,13 @@ class TetrisGameTest {
     @Test
     void getSavedTetromino() {
         // Saved Tetromino is null
-        NewTetromino initialTetro = game0.getCurrentTetro();
+        Tetromino initialTetro = game0.getCurrentTetro();
         assertEquals(new SingleBlock(), game0.getSavedTetromino());
         game0.keyPressed(KeyEvent.VK_C);
         assertEquals(initialTetro, game0.getSavedTetromino());
 
         // Saved Tetromino is not null
-        NewTetromino nextTetro = game0.getCurrentTetro();
+        Tetromino nextTetro = game0.getCurrentTetro();
         game0.keyPressed(KeyEvent.VK_C);
         assertEquals(nextTetro, game0.getSavedTetromino());
         assertEquals(initialTetro, game0.getCurrentTetro());

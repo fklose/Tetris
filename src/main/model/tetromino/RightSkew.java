@@ -4,7 +4,7 @@ import model.game.Vector2D;
 
 import java.awt.*;
 
-public class RightSkew extends NewTetromino {
+public class RightSkew extends Tetromino {
 
     public RightSkew() {
         super("RightSkew", Color.GREEN,

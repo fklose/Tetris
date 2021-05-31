@@ -4,7 +4,7 @@ import model.game.Vector2D;
 
 import java.awt.*;
 
-public class Line extends NewTetromino {
+public class Line extends Tetromino {
 
     public Line() {
         super("Line", Color.CYAN,

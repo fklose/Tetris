@@ -16,14 +16,14 @@ class TetrominoQueueTest {
     private static final int SEED_ONE = 12345;
     private static final int SEED_TWO = 98765;
 
-    private NewTetromino shape0;
-    private NewTetromino shape1;
-    private NewTetromino shape2;
-    private NewTetromino shape3;
-    private NewTetromino shape4;
-    private NewTetromino shape5;
-    private NewTetromino shape6;
-    private NewTetromino shape7;
+    private Tetromino shape0;
+    private Tetromino shape1;
+    private Tetromino shape2;
+    private Tetromino shape3;
+    private Tetromino shape4;
+    private Tetromino shape5;
+    private Tetromino shape6;
+    private Tetromino shape7;
 
     private Random rng1;
     private Random rng2;
@@ -99,16 +99,16 @@ class TetrominoQueueTest {
 
     @Test
     void viewFirstTetromino() {
-        NewTetromino t1 = queue1.viewFirstTetromino();
+        Tetromino t1 = queue1.viewFirstTetromino();
         assertEquals(t1, queue1.getNextTetromino());
-        NewTetromino t2 = queue1.viewFirstTetromino();
+        Tetromino t2 = queue1.viewFirstTetromino();
         assertEquals(t2, queue1.getNextTetromino());
-        NewTetromino t3 = queue1.viewFirstTetromino();
+        Tetromino t3 = queue1.viewFirstTetromino();
         assertEquals(t3, queue1.getNextTetromino());
 
-        NewTetromino t4 = queue2.viewFirstTetromino();
+        Tetromino t4 = queue2.viewFirstTetromino();
         assertEquals(t4, queue2.getNextTetromino());
-        NewTetromino t5 = queue2.viewFirstTetromino();
+        Tetromino t5 = queue2.viewFirstTetromino();
         assertEquals(t5, queue2.getNextTetromino());
     }
 

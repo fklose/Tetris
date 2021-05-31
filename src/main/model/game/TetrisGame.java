@@ -1,8 +1,8 @@
 package model.game;
 
 import model.exceptions.GameOverException;
-import model.tetromino.NewTetromino;
 import model.tetromino.SingleBlock;
+import model.tetromino.Tetromino;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -20,10 +20,10 @@ public class TetrisGame {
     private static final int SPAWN_Y = 0;
 
     private TetrominoQueue tetroQueue;
-    private NewTetromino currentTetro;
+    private Tetromino currentTetro;
     private int score;
     private boolean isGameActive; // true if game is running, false if game is over
-    private NewTetromino savedTetromino;
+    private Tetromino savedTetromino;
 
     private Board board;
 
@@ -148,7 +148,7 @@ public class TetrisGame {
             } catch (Exception ignored) { }
         } else {
             // TODO: Test this branch
-            NewTetromino currentCopy = currentTetro.copy();
+            Tetromino currentCopy = currentTetro.copy();
             currentTetro = savedTetromino.copy();
             savedTetromino = currentCopy;
             savedTetromino.setCentre(new Vector2D(0,0));
@@ -194,7 +194,7 @@ public class TetrisGame {
      * Spawns the given Tetromino at the top of the board
      * @param t the Tetromino to be spawned in
      */
-    private void spawnTetromino(NewTetromino t) {
+    private void spawnTetromino(Tetromino t) {
         this.currentTetro = t;
         this.currentTetro.setCentre(new Vector2D(SPAWN_X, SPAWN_Y));
     }
@@ -333,7 +333,7 @@ public class TetrisGame {
         return isGameActive;
     }
 
-    public NewTetromino getCurrentTetro() {
+    public Tetromino getCurrentTetro() {
         return currentTetro;
     }
 
@@ -357,7 +357,7 @@ public class TetrisGame {
         return tetroQueue;
     }
 
-    public NewTetromino getSavedTetromino() {
+    public Tetromino getSavedTetromino() {
         return savedTetromino;
     }
 

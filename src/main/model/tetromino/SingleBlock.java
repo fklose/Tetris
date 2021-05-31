@@ -4,7 +4,7 @@ import model.game.Vector2D;
 
 import java.awt.*;
 
-public class SingleBlock extends NewTetromino {
+public class SingleBlock extends Tetromino {
 
     public SingleBlock() {
         super("null", Color.DARK_GRAY,

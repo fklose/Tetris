@@ -1,9 +1,9 @@
 package model.game;
 
 import model.exceptions.GameOverException;
-import model.tetromino.NewTetromino;
 import model.tetromino.SingleBlock;
 import model.tetromino.Square;
+import model.tetromino.Tetromino;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ class BoardTest {
 
     @Test
     void placeTetrominoOnBoardNoGameOver() {
-        NewTetromino square = new Square();
+        Tetromino square = new Square();
         square.setCentre(new Vector2D(0, 18));
         try {
             board0.placeTetrominoOnBoard(square);
@@ -36,7 +36,7 @@ class BoardTest {
 
     @Test
     void placeTetrominoOnBoardGameOver() {
-        NewTetromino square = new Square();
+        Tetromino square = new Square();
         square.setCentre(new Vector2D(4, -1));
         try {
             board0.placeTetrominoOnBoard(square);
@@ -95,7 +95,7 @@ class BoardTest {
 
     private void makeLine(Board board, int lineNumber) {
         for (int x = 0; x < board.getWidth(); x++) {
-            NewTetromino nullShape = new SingleBlock();
+            Tetromino nullShape = new SingleBlock();
             nullShape.setCentre(new Vector2D(x, lineNumber));
             try {
                 board.placeTetrominoOnBoard(nullShape);
@@ -105,8 +105,8 @@ class BoardTest {
         }
     }
 
-    private NewTetromino placeNullShape(Board board, int x, int y) {
-        NewTetromino nullShape = new SingleBlock();
+    private Tetromino placeNullShape(Board board, int x, int y) {
+        Tetromino nullShape = new SingleBlock();
         nullShape.setCentre(new Vector2D(x, y));
         try {
             board.placeTetrominoOnBoard(nullShape);
@@ -116,7 +116,7 @@ class BoardTest {
         return nullShape;
     }
 
-    private void moveDown(NewTetromino t) {
+    private void moveDown(Tetromino t) {
         t.move(Direction.DOWN);
     }
 }

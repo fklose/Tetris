@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class NewTetromino {
+public abstract class Tetromino {
 
     protected ArrayList<Vector2D> template = new ArrayList<>();
     private Vector2D center = new Vector2D(0, 0);
@@ -20,7 +20,7 @@ public abstract class NewTetromino {
     private static final RotationMatrix2D CCW = RotationMatrix2D.COUNTERCLOCKWISE;
     private static final RotationMatrix2D CW = RotationMatrix2D.CLOCKWISE;
 
-    NewTetromino(String name, Color color, Vector2D... positions) {
+    Tetromino(String name, Color color, Vector2D... positions) {
         this.name = name;
         this.color = color;
         this.template.addAll(Arrays.asList(positions));
@@ -89,7 +89,7 @@ public abstract class NewTetromino {
         return color;
     }
 
-    public NewTetromino copy() {
+    public Tetromino copy() {
         switch (name) {
             case "LeftL":
                 return new LeftL();
@@ -115,10 +115,10 @@ public abstract class NewTetromino {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof NewTetromino)) {
+        if (!(o instanceof Tetromino)) {
             return false;
         }
-        NewTetromino that = (NewTetromino) o;
+        Tetromino that = (Tetromino) o;
         return getName().equals(that.getName());
     }
 

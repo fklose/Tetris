@@ -4,7 +4,7 @@ import model.game.Vector2D;
 
 import java.awt.*;
 
-public class Square extends NewTetromino {
+public class Square extends Tetromino {
 
     public Square() {
         super("Square", Color.YELLOW,

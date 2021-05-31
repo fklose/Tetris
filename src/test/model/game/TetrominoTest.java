@@ -12,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TetrominoTest {
 
-    NewTetromino tetromino1;
-    NewTetromino tetromino2;
-    NewTetromino tetromino3;
-    NewTetromino tetromino4;
-    NewTetromino tetromino5;
-    NewTetromino tetromino6;
-    NewTetromino tetromino7;
+    Tetromino tetromino1;
+    Tetromino tetromino2;
+    Tetromino tetromino3;
+    Tetromino tetromino4;
+    Tetromino tetromino5;
+    Tetromino tetromino6;
+    Tetromino tetromino7;
 
     RotationMatrix2D CCW = RotationMatrix2D.COUNTERCLOCKWISE;
     RotationMatrix2D CW = RotationMatrix2D.CLOCKWISE;
@@ -351,7 +351,7 @@ class TetrominoTest {
     }
 
     // EFFECTS  : Rotates the given Tetromino CW and checks if the rotation was complete
-    private void checkCWRotation(NewTetromino t) {
+    private void checkCWRotation(Tetromino t) {
         ArrayList<Vector2D> result = new ArrayList<>();
         for (Vector2D vec : t.getTemplate()) {
             result.add(CW.matrixVectorProductGetNewVec(vec));
@@ -361,7 +361,7 @@ class TetrominoTest {
     }
 
     // EFFECTS  : Rotates the given Tetromino CCW and checks if the rotation was complete
-    private void checkCCWRotation(NewTetromino t) {
+    private void checkCCWRotation(Tetromino t) {
         ArrayList<Vector2D> result = new ArrayList<>();
         for (Vector2D vec : t.getTemplate()) {
             result.add(CCW.matrixVectorProductGetNewVec(vec));
@@ -378,7 +378,7 @@ class TetrominoTest {
     @Test
     // Not really satisfied with this test
     void copy() {
-        NewTetromino tetromino8 = new SingleBlock();
+        Tetromino tetromino8 = new SingleBlock();
 
         assertEquals(new LeftL(), tetromino1.copy());
         assertEquals(new LeftSkew(), tetromino2.copy());
