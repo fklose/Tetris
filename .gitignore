@@ -5,3 +5,4 @@ workspace.xml
 checkstyle.xml
 UML_Design_Diagram.png
 UML_Design_Diagram.uxf
+.gitignore
