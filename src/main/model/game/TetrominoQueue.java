@@ -42,30 +42,10 @@ public class TetrominoQueue {
         return queue.pollFirst();
     }
 
-    /*
-    // MODIFIES : this
-    // EFFECTS  : Returns and removes the first Tetromino in queue and adds a random new one at the end
-    public Tetromino getNextTetromino() {
-        addRandomTetromino();
-        return queue.pollFirst();
-    }
-     */
-
     // EFFECTS  : Returns a copy of the first tetromino in queue without removing it
     public NewTetromino viewFirstTetromino() {
         return queue.peekFirst();
     }
-
-    /*
-    // EFFECTS  : Returns a copy of the first tetromino in queue without removing it
-    public Tetromino viewFirstTetromino() {
-        return queue.peekFirst();
-    }
-     */
-
-//    public LinkedList<Tetromino> getQueue() {
-//        return queue;
-//    }
 
     public LinkedList<NewTetromino> getQueue() {
         return queue;
@@ -77,38 +57,6 @@ public class TetrominoQueue {
         NewTetromino tetromino = getTetromino(getRandomInteger());
         this.queue.addLast(tetromino);
     }
-
-    /*
-    // MODIFIES : this
-    // EFFECTS  : Adds a random Tetromino to the end of the list
-    public void addRandomTetromino() {
-        Tetromino tetromino = getTetromino(getRandomInteger());
-        this.queue.addLast(tetromino);
-    }
-     */
-
-    /*
-    // EFFECTS  : Returns a Tetromino given a number
-    public Tetromino getTetromino(int n) {
-        switch (n) {
-            case 0:
-                return Tetromino.shapeLine;
-            case 1:
-                return Tetromino.shapeSquare;
-            case 2:
-                return Tetromino.shapeT;
-            case 3:
-                return Tetromino.shapeLeftSkew;
-            case 4:
-                return Tetromino.shapeRightSkew;
-            case 5:
-                return Tetromino.shapeLeftL;
-            case 6:
-                return Tetromino.shapeRightL;
-        }
-        return Tetromino.nullShape;
-    }
-    */
 
     // EFFECTS  : Returns a Tetromino given a number
     public NewTetromino getTetromino(int n) {

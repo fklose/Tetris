@@ -49,17 +49,6 @@ public class Board {
             board.add(b);
         }
     }
-    /*
-    public void placeTetrominoOnBoard(Tetromino t) throws GameOverException {
-        for (Block b : t.getBlocks()) {
-            if (b.getY() < 0) {
-                throw new GameOverException();
-            }
-            lineMap.get(b.getY()).add(b);
-            board.add(b);
-        }
-    }
-     */
 
     /**
      * Clears all lines that are fully filled, i.e. contain a number of blocks greater than or equal to the width of the

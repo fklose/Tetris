@@ -63,7 +63,7 @@ class TetrisGameTest {
         }
 
         ArrayList<Vector2D> newTemplate = new ArrayList<>();
-        if (/* game0.getCurrentTetro() != Tetromino.shapeSquare */ game0.getCurrentTetro().equals(new Square())) {
+        if (!game0.getCurrentTetro().equals(new Square())) {
             // The square Tetromino does not actually rotate so this loop produces the wrong result in that case
             for (Vector2D pos : oldTemplate) {
                 newTemplate.add(CCW.matrixVectorProductGetNewVec(pos));
@@ -396,18 +396,5 @@ class TetrisGameTest {
         game0.keyPressed(KeyEvent.VK_C);
         assertEquals(nextTetro, game0.getSavedTetromino());
         assertEquals(initialTetro, game0.getCurrentTetro());
-
-        /*
-        Tetromino initialTetro = game0.getCurrentTetro();
-        assertEquals(Tetromino.nullShape, game0.getSavedTetromino());
-        game0.keyPressed(KeyEvent.VK_C);
-        assertEquals(initialTetro, game0.getSavedTetromino());
-
-        // Saved Tetromino is not null
-        Tetromino nextTetro = game0.getCurrentTetro();
-        game0.keyPressed(KeyEvent.VK_C);
-        assertEquals(nextTetro, game0.getSavedTetromino());
-        assertEquals(initialTetro, game0.getCurrentTetro());
-         */
     }
 }

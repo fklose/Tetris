@@ -1,36 +1,37 @@
 package model.game;
 
-import model.game.*;
+import model.tetromino.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TetrominoTest {
 
-    Tetromino tetromino1;
-    Tetromino tetromino2;
-    Tetromino tetromino3;
-    Tetromino tetromino4;
-    Tetromino tetromino5;
-    Tetromino tetromino6;
-    Tetromino tetromino7;
+    NewTetromino tetromino1;
+    NewTetromino tetromino2;
+    NewTetromino tetromino3;
+    NewTetromino tetromino4;
+    NewTetromino tetromino5;
+    NewTetromino tetromino6;
+    NewTetromino tetromino7;
 
     RotationMatrix2D CCW = RotationMatrix2D.COUNTERCLOCKWISE;
     RotationMatrix2D CW = RotationMatrix2D.CLOCKWISE;
 
     @BeforeEach
     void setUp() {
-        tetromino1 = Tetromino.shapeLeftL;
-        tetromino2 = Tetromino.shapeLeftSkew;
-        tetromino3 = Tetromino.shapeLine;
-        tetromino4 = Tetromino.shapeRightL;
-        tetromino5 = Tetromino.shapeRightSkew;
-        tetromino6 = Tetromino.shapeSquare;
-        tetromino7 = Tetromino.shapeT;
+        tetromino1 = new LeftL();
+        tetromino2 = new LeftSkew();
+        tetromino3 = new Line();
+        tetromino4 = new RightL();
+        tetromino5 = new RightSkew();
+        tetromino6 = new Square();
+        tetromino7 = new TShape();
 
         tetromino1.setCentre(new Vector2D(0,0));
         tetromino2.setCentre(new Vector2D(0,0));
@@ -44,9 +45,9 @@ class TetrominoTest {
 
     @Test
     void getName() {
-        assertEquals("Left L", tetromino1.getName());
-        assertEquals("Right Skew", tetromino5.getName());
-        assertEquals("T Shape", tetromino7.getName());
+        assertEquals("LeftL", tetromino1.getName());
+        assertEquals("RightSkew", tetromino5.getName());
+        assertEquals("TShape", tetromino7.getName());
     }
 
     @Test
@@ -350,7 +351,7 @@ class TetrominoTest {
     }
 
     // EFFECTS  : Rotates the given Tetromino CW and checks if the rotation was complete
-    private void checkCWRotation(Tetromino t) {
+    private void checkCWRotation(NewTetromino t) {
         ArrayList<Vector2D> result = new ArrayList<>();
         for (Vector2D vec : t.getTemplate()) {
             result.add(CW.matrixVectorProductGetNewVec(vec));
@@ -360,7 +361,7 @@ class TetrominoTest {
     }
 
     // EFFECTS  : Rotates the given Tetromino CCW and checks if the rotation was complete
-    private void checkCCWRotation(Tetromino t) {
+    private void checkCCWRotation(NewTetromino t) {
         ArrayList<Vector2D> result = new ArrayList<>();
         for (Vector2D vec : t.getTemplate()) {
             result.add(CCW.matrixVectorProductGetNewVec(vec));

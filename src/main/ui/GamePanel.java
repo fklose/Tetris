@@ -43,12 +43,6 @@ public class GamePanel extends JPanel {
         NewTetromino t = tetrisGame.getCurrentTetro();
         drawBlocks(g, t.getBlocks());
     }
-    /*
-    private void drawTetromino(Graphics g) {
-        Tetromino t = tetrisGame.getCurrentTetro();
-        drawBlocks(g, t.getBlocks());
-    }
-     */
 
     // modifies: g
     // effects : draws the board with all blocks currently on it. does nto draw the current tetromino

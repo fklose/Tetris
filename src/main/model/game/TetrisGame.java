@@ -20,11 +20,9 @@ public class TetrisGame {
     private static final int SPAWN_Y = 0;
 
     private TetrominoQueue tetroQueue;
-//    private Tetromino currentTetro;
     private NewTetromino currentTetro;
     private int score;
     private boolean isGameActive; // true if game is running, false if game is over
-//    private Tetromino savedTetromino;
     private NewTetromino savedTetromino;
 
     private Board board;
@@ -47,7 +45,6 @@ public class TetrisGame {
             resetGame();
         }
         savedTetromino = new SingleBlock();
-//        savedTetromino = Tetromino.nullShape;
     }
 
     /**
@@ -151,7 +148,6 @@ public class TetrisGame {
             } catch (Exception ignored) { }
         } else {
             // TODO: Test this branch
-//            Tetromino currentCopy = currentTetro.copy();
             NewTetromino currentCopy = currentTetro.copy();
             currentTetro = savedTetromino.copy();
             savedTetromino = currentCopy;
@@ -202,12 +198,6 @@ public class TetrisGame {
         this.currentTetro = t;
         this.currentTetro.setCentre(new Vector2D(SPAWN_X, SPAWN_Y));
     }
-    /*
-    private void spawnTetromino(Tetromino t) {
-        this.currentTetro = t;
-        this.currentTetro.setCentre(new Vector2D(SPAWN_X, SPAWN_Y));
-    }
-     */
 
     /**
      * Sets the game status to false, indicating that the game is over.
@@ -347,12 +337,6 @@ public class TetrisGame {
         return currentTetro;
     }
 
-    /*
-    public Tetromino getCurrentTetro() {
-        return currentTetro;
-    }
-     */
-
     /**
      * Resets the game. This sets the score to 0, makes a new empty board, a new queue and sets the isGameActiveField to
      * true.
@@ -365,7 +349,6 @@ public class TetrisGame {
         try {
             spawnNextTetromino();
         } catch (Exception ignored) { }
-//        this.savedTetromino = Tetromino.nullShape;
         this.savedTetromino = new SingleBlock();
 
     }
@@ -377,11 +360,6 @@ public class TetrisGame {
     public NewTetromino getSavedTetromino() {
         return savedTetromino;
     }
-    /*
-    public Tetromino getSavedTetromino() {
-        return savedTetromino;
-    }
-     */
 
     public int getTickRate() {
         return tickRate;

@@ -119,10 +119,7 @@ public abstract class NewTetromino {
             return false;
         }
         NewTetromino that = (NewTetromino) o;
-        return getTemplate().equals(that.getTemplate())
-                && center.equals(that.center)
-                && getName().equals(that.getName())
-                && getColor().equals(that.getColor());
+        return getName().equals(that.getName());
     }
 
     @Override

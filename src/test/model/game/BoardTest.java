@@ -32,17 +32,6 @@ class BoardTest {
         } catch (GameOverException goe) {
             fail();
         }
-
-        /*
-        Tetromino square = Tetromino.shapeSquare;
-        square.setCentre(new Vector2D(0, 18));
-        try {
-            board0.placeTetrominoOnBoard(square);
-            assertTrue(board0.getBoard().containsAll(square.getBlocks()));
-        } catch (GameOverException goe) {
-            fail();
-        }
-         */
     }
 
     @Test
@@ -55,16 +44,6 @@ class BoardTest {
         } catch (GameOverException goe) {
             assertFalse(board0.getBoard().containsAll(square.getBlocks()));
         }
-        /*
-        Tetromino square = Tetromino.shapeSquare;
-        square.setCentre(new Vector2D(4, -1));
-        try {
-            board0.placeTetrominoOnBoard(square);
-            fail();
-        } catch (GameOverException goe) {
-            assertFalse(board0.getBoard().containsAll(square.getBlocks()));
-        }
-         */
     }
 
     @Test
@@ -124,17 +103,6 @@ class BoardTest {
                 fail();
             }
         }
-        /*
-        for (int x = 0; x < board.getWidth(); x++) {
-            Tetromino nullShape = Tetromino.nullShape;
-            nullShape.setCentre(new Vector2D(x, lineNumber));
-            try {
-                board.placeTetrominoOnBoard(nullShape);
-            } catch (GameOverException goe) {
-                fail();
-            }
-        }
-         */
     }
 
     private NewTetromino placeNullShape(Board board, int x, int y) {
@@ -147,20 +115,8 @@ class BoardTest {
         }
         return nullShape;
     }
-    /*
-    private Tetromino placeNullShape(Board board, int x, int y) {
-        Tetromino nullShape = Tetromino.nullShape;
-        nullShape.setCentre(new Vector2D(x, y));
-        try {
-            board.placeTetrominoOnBoard(nullShape);
-        } catch (GameOverException goe) {
-            fail();
-        }
-        return nullShape;
-    }
-     */
 
-    private void moveDown(Tetromino t) {
+    private void moveDown(NewTetromino t) {
         t.move(Direction.DOWN);
     }
 }

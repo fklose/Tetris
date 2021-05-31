@@ -44,16 +44,6 @@ class TetrominoQueueTest {
         shape5 = new LeftL();
         shape6 = new RightL();
         shape7 = new SingleBlock();
-        /*
-        shape0 = Tetromino.shapeLine;
-        shape1 = Tetromino.shapeSquare;
-        shape2 = Tetromino.shapeT;
-        shape3 = Tetromino.shapeLeftSkew;
-        shape4 = Tetromino.shapeRightSkew;
-        shape5 = Tetromino.shapeLeftL;
-        shape6 = Tetromino.shapeRightL;
-        shape7 = Tetromino.nullShape;
-         */
 
         rng1 = new Random();
         rng2 = new Random();
@@ -120,19 +110,6 @@ class TetrominoQueueTest {
         assertEquals(t4, queue2.getNextTetromino());
         NewTetromino t5 = queue2.viewFirstTetromino();
         assertEquals(t5, queue2.getNextTetromino());
-        /*
-        Tetromino t1 = queue1.viewFirstTetromino();
-        assertEquals(t1, queue1.getNextTetromino());
-        Tetromino t2 = queue1.viewFirstTetromino();
-        assertEquals(t2, queue1.getNextTetromino());
-        Tetromino t3 = queue1.viewFirstTetromino();
-        assertEquals(t3, queue1.getNextTetromino());
-
-        Tetromino t4 = queue2.viewFirstTetromino();
-        assertEquals(t4, queue2.getNextTetromino());
-        Tetromino t5 = queue2.viewFirstTetromino();
-        assertEquals(t5, queue2.getNextTetromino());
-         */
     }
 
 }

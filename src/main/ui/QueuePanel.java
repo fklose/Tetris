@@ -33,11 +33,6 @@ public class QueuePanel extends JPanel {
         for (NewTetromino t : tetrominoQueue) {
             this.add(new PreviewPanel(t.getTemplate(), t.getColor()));
         }
-        /*
-        for (Tetromino t : tetrominoQueue) {
-            this.add(new PreviewPanel(t.getTemplate(), t.getColor()));
-        }
-         */
         JLabel jl = new JLabel("Saved Tetromino");
         jl.setBackground(Color.BLACK);
         jl.setForeground(Color.WHITE);
