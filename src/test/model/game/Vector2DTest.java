@@ -1,7 +1,5 @@
 package model.game;
 
-import model.game.Tetromino;
-import model.game.Vector2D;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
