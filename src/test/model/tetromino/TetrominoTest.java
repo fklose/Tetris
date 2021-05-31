@@ -1,6 +1,9 @@
-package model.game;
+package model.tetromino;
 
-import model.tetromino.*;
+import model.game.Block;
+import model.game.Direction;
+import model.game.RotationMatrix2D;
+import model.game.Vector2D;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
