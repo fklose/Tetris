@@ -85,6 +85,7 @@ public class TetrisGame {
         ArrayList<Integer> toBeCleared = new ArrayList<>();
         for (int i = 0; i < HEIGHT; i++) {
             if (board.getLineMap().get(i).size() >= WIDTH) {
+                // TODO: TEST THIS BRANCH
                 toBeCleared.add(i);
             }
         }
@@ -144,10 +145,10 @@ public class TetrisGame {
         if (savedTetromino.getName().equals("SingleBlock")) {
             savedTetromino = currentTetro.copy();
             try {
+                // TODO: TEST THIS BRANCH OR FIND BETTER WAY
                 spawnNextTetromino();
             } catch (Exception ignored) { }
         } else {
-            // TODO: Test this branch
             Tetromino currentCopy = currentTetro.copy();
             currentTetro = savedTetromino.copy();
             savedTetromino = currentCopy;
@@ -230,7 +231,7 @@ public class TetrisGame {
     private boolean isThereSpaceToRotate() {
         this.currentTetro.rotateCCW();
         if (areGivenPositionsOccupied(this.currentTetro.getPositions())) {
-            // TODO: Increase coverage
+            // TODO: Test this branch
             this.currentTetro.rotateCW();
             return false;
         }

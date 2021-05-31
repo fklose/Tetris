@@ -23,6 +23,15 @@ class BoardTest {
     }
 
     @Test
+    void getHeightAndWidth() {
+        assertEquals(20, board0.getHeight());
+        assertEquals(10, board0.getWidth());
+
+        assertEquals(20, board1.getHeight());
+        assertEquals(5, board1.getWidth());
+    }
+
+    @Test
     void placeTetrominoOnBoardNoGameOver() {
         Tetromino square = new Square();
         square.setCentre(new Vector2D(0, 18));
@@ -74,13 +83,8 @@ class BoardTest {
         makeLine(board0, 19);
 
         // Adding some nullShapes above the bottom row to check if lines are shifted properly
-        ArrayList<Vector2D> result = new ArrayList<>();
-        result.add(new Vector2D(0, 0));
-        result.add(new Vector2D(3, 3));
-
-        for (Vector2D v : result) {
-            v.addVectorInPlace(new Vector2D(0, 1));
-        }
+        placeNullShape(board0, 0, 0);
+        placeNullShape(board0, 5, 9);
 
         assertEquals(12, board0.getBoard().size());
         ArrayList<Integer> lineNumbers = new ArrayList<>();
@@ -88,9 +92,29 @@ class BoardTest {
         board0.clearLines(lineNumbers);
         assertEquals(2, board0.getBoard().size());
 
-        for (Vector2D pos : result) {
-            assertTrue(board0.getBlockPositions().contains(pos));
-        }
+        assertTrue(board0.getBlockPositions().contains(new Vector2D(0, 1)));
+        assertTrue(board0.getBlockPositions().contains(new Vector2D(5, 10)));
+    }
+
+    @Test
+    void clearLinesWithShifts() {
+        makeLine(board1, 15);
+        makeLine(board1, 10);
+
+        placeNullShape(board1, 1, 5);
+        placeNullShape(board1, 3, 12);
+        placeNullShape(board1, 4, 19);
+
+        assertEquals(13, board1.getBoard().size());
+        ArrayList<Integer> lineNumbers = new ArrayList<>();
+        lineNumbers.add(15);
+        lineNumbers.add(10);
+        board1.clearLines(lineNumbers);
+        assertEquals(3, board1.getBoard().size());
+
+        assertTrue(board1.getBlockPositions().contains(new Vector2D(1, 7)));
+        assertTrue(board1.getBlockPositions().contains(new Vector2D(3, 13)));
+        assertTrue(board1.getBlockPositions().contains(new Vector2D(4, 19)));
     }
 
     private void makeLine(Board board, int lineNumber) {
@@ -114,9 +138,5 @@ class BoardTest {
             fail();
         }
         return nullShape;
-    }
-
-    private void moveDown(Tetromino t) {
-        t.move(Direction.DOWN);
     }
 }
