@@ -1,5 +1,6 @@
-package model;
+package model.game;
 
+import model.tetromino.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,14 +36,14 @@ class TetrominoQueueTest {
         queue1.setSeed(SEED_ONE);
         queue2.setSeed(SEED_TWO);
 
-        shape0 = Tetromino.shapeLine;
-        shape1 = Tetromino.shapeSquare;
-        shape2 = Tetromino.shapeT;
-        shape3 = Tetromino.shapeLeftSkew;
-        shape4 = Tetromino.shapeRightSkew;
-        shape5 = Tetromino.shapeLeftL;
-        shape6 = Tetromino.shapeRightL;
-        shape7 = Tetromino.nullShape;
+        shape0 = new Line();
+        shape1 = new Square();
+        shape2 = new TShape();
+        shape3 = new LeftSkew();
+        shape4 = new RightSkew();
+        shape5 = new LeftL();
+        shape6 = new RightL();
+        shape7 = new SingleBlock();
 
         rng1 = new Random();
         rng2 = new Random();

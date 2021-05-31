@@ -1,4 +1,4 @@
-package model;
+package model.game;
 
 // Represents a matrix and its product with a vector to compute counterclockwise rotations
 public enum RotationMatrix2D {

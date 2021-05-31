@@ -1,5 +1,6 @@
-package model;
+package model.game;
 
+import model.tetromino.SingleBlock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -83,8 +84,8 @@ class Vector2DTest {
 
         // tests second conditional
         assertNotEquals(null, vec1);
-        assertNotEquals(Tetromino.nullShape, vec2);
-        assertFalse(vec1.equals(null) || vec2.equals(Tetromino.nullShape));
+        assertNotEquals(new SingleBlock(), vec2);
+        assertFalse(vec1.equals(null) || vec2.equals(new SingleBlock()));
 
         // tests return clause
         Vector2D vec1Copy = new Vector2D(0, 0);
@@ -108,5 +109,12 @@ class Vector2DTest {
         assertNotEquals(vec1.hashCode(), vec1CopyDiffX.hashCode());
         assertNotEquals(vec1.hashCode(), vec1CopyDiffY.hashCode());
         assertNotEquals(vec2.hashCode(), vec3.hashCode());
+    }
+
+    @Test
+    void testToString() {
+        assertEquals("Vector2D{"
+                + "x=" + 0
+                + ", y=" + 0 + "}", vec1.toString());
     }
 }

@@ -1,4 +1,4 @@
-package model;
+package model.game;
 
 import java.util.Objects;
 
@@ -62,5 +62,12 @@ public class Vector2D {
     @Override
     public int hashCode() {
         return Objects.hash(componentX, componentY);
+    }
+
+    @Override
+    public String toString() {
+        return "Vector2D{"
+                + "x=" + componentX
+                + ", y=" + componentY + "}";
     }
 }

@@ -1,5 +1,9 @@
-package model;
+package model.tetromino;
 
+import model.game.Block;
+import model.game.Direction;
+import model.game.RotationMatrix2D;
+import model.game.Vector2D;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,13 +28,13 @@ class TetrominoTest {
 
     @BeforeEach
     void setUp() {
-        tetromino1 = Tetromino.shapeLeftL;
-        tetromino2 = Tetromino.shapeLeftSkew;
-        tetromino3 = Tetromino.shapeLine;
-        tetromino4 = Tetromino.shapeRightL;
-        tetromino5 = Tetromino.shapeRightSkew;
-        tetromino6 = Tetromino.shapeSquare;
-        tetromino7 = Tetromino.shapeT;
+        tetromino1 = new LeftL();
+        tetromino2 = new LeftSkew();
+        tetromino3 = new Line();
+        tetromino4 = new RightL();
+        tetromino5 = new RightSkew();
+        tetromino6 = new Square();
+        tetromino7 = new TShape();
 
         tetromino1.setCentre(new Vector2D(0,0));
         tetromino2.setCentre(new Vector2D(0,0));
@@ -44,9 +48,9 @@ class TetrominoTest {
 
     @Test
     void getName() {
-        assertEquals("Left L", tetromino1.getName());
-        assertEquals("Right Skew", tetromino5.getName());
-        assertEquals("T Shape", tetromino7.getName());
+        assertEquals("LeftL", tetromino1.getName());
+        assertEquals("RightSkew", tetromino5.getName());
+        assertEquals("TShape", tetromino7.getName());
     }
 
     @Test
@@ -367,5 +371,25 @@ class TetrominoTest {
         }
         t.rotateCCW();
         checkVectorListEquals(result, t.getTemplate());
+    }
+
+    @Test
+    void getColor() {
+        assertEquals(Color.ORANGE, tetromino1.getColor());
+    }
+
+    @Test
+    // Not really satisfied with this test
+    void copy() {
+        Tetromino tetromino8 = new SingleBlock();
+
+        assertEquals(new LeftL(), tetromino1.copy());
+        assertEquals(new LeftSkew(), tetromino2.copy());
+        assertEquals(new Line(), tetromino3.copy());
+        assertEquals(new RightL(), tetromino4.copy());
+        assertEquals(new RightSkew(), tetromino5.copy());
+        assertEquals(new Square(), tetromino6.copy());
+        assertEquals(new TShape(), tetromino7.copy());
+        assertEquals(new SingleBlock(), tetromino8.copy());
     }
 }

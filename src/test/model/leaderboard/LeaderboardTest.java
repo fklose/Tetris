@@ -1,5 +1,7 @@
-package model;
+package model.leaderboard;
 
+import model.leaderboard.Leaderboard;
+import model.leaderboard.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

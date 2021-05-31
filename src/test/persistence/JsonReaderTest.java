@@ -1,6 +1,6 @@
 package persistence;
 
-import model.Leaderboard;
+import model.leaderboard.Leaderboard;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

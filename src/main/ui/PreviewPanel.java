@@ -1,7 +1,7 @@
 package ui;
 
-import model.Block;
-import model.Vector2D;
+import model.game.Block;
+import model.game.Vector2D;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,6 @@
-package model;
+package model.game;
+
+import model.tetromino.*;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -7,6 +9,7 @@ import java.util.Random;
 public class TetrominoQueue {
 
     private static final int SIZE = 5;
+//    private LinkedList<Tetromino> queue;
     private LinkedList<Tetromino> queue;
     private final Random rnd;
 
@@ -59,21 +62,21 @@ public class TetrominoQueue {
     public Tetromino getTetromino(int n) {
         switch (n) {
             case 0:
-                return Tetromino.shapeLine;
+                return new Line();
             case 1:
-                return Tetromino.shapeSquare;
+                return new Square();
             case 2:
-                return Tetromino.shapeT;
+                return new TShape();
             case 3:
-                return Tetromino.shapeLeftSkew;
+                return new LeftSkew();
             case 4:
-                return Tetromino.shapeRightSkew;
+                return new RightSkew();
             case 5:
-                return Tetromino.shapeLeftL;
+                return new LeftL();
             case 6:
-                return Tetromino.shapeRightL;
+                return new RightL();
         }
-        return Tetromino.nullShape;
+        return new SingleBlock();
     }
 
     // EFFECTS  : Generates a random integer in the interval [0, 6]

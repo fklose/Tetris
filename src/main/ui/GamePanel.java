@@ -1,8 +1,8 @@
 package ui;
 
-import model.Block;
-import model.TetrisGame;
-import model.Tetromino;
+import model.game.Block;
+import model.game.TetrisGame;
+import model.tetromino.Tetromino;
 
 import javax.swing.*;
 import java.awt.*;

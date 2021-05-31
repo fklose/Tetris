@@ -1,7 +1,7 @@
 package ui.old;
 
-import model.Tetromino;
-import model.TetrominoQueue;
+import model.game.TetrominoQueue;
+import model.tetromino.Tetromino;
 
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -33,6 +33,7 @@ public final class QueueInterface {
     private static void printNextItem() {
         System.out.println("------------------------------------");
         Tetromino nextTetromino = TETROMINO_QUEUE.getNextTetromino();
+//        Tetromino nextTetromino = TETROMINO_QUEUE.getNextTetromino();
         System.out.println("The current item is:    " + nextTetromino.getName());
     }
 
@@ -43,6 +44,10 @@ public final class QueueInterface {
         System.out.println("------------------------------------");
         System.out.print("The queue is:           ");
         LinkedList<Tetromino> tetrominos = TETROMINO_QUEUE.getQueue();
+//        LinkedList<Tetromino> tetrominos = TETROMINO_QUEUE.getQueue();
+//        for (Tetromino tetromino : tetrominos) {
+//            System.out.print(tetromino.getName() + "    ");
+//        }
         for (Tetromino tetromino : tetrominos) {
             System.out.print(tetromino.getName() + "    ");
         }

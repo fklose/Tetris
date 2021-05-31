@@ -1,7 +1,7 @@
 package ui;
 
-import model.TetrisGame;
-import model.Tetromino;
+import model.game.TetrisGame;
+import model.tetromino.Tetromino;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +12,7 @@ import java.util.LinkedList;
 public class QueuePanel extends JPanel {
 
     TetrisGame tetrisGame;
+//    LinkedList<Tetromino> tetrominoQueue;
     LinkedList<Tetromino> tetrominoQueue;
 
     // MODIFIES : this
