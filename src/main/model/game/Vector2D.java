@@ -34,16 +34,16 @@ public class Vector2D {
         return this.componentX;
     }
 
+    public int getY() {
+        return this.componentY;
+    }
+
     public void setX(int x) {
         this.componentX = x;
     }
 
     public void setY(int y) {
         this.componentY = y;
-    }
-
-    public int getY() {
-        return this.componentY;
     }
 
     @Override
@@ -65,6 +65,7 @@ public class Vector2D {
     }
 
     @Override
+    // TODO: Why does this exist. It does not look like it is doing something
     public String toString() {
         return "Vector2D{"
                 + "x=" + componentX
