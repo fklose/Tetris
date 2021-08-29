@@ -13,6 +13,7 @@ class TetrominoQueueTest {
 
     private TetrominoQueue queue1;
     private TetrominoQueue queue2;
+    private TetrominoQueue queue3;
     private static final int SEED_ONE = 12345;
     private static final int SEED_TWO = 98765;
 
@@ -32,9 +33,12 @@ class TetrominoQueueTest {
     @BeforeEach
     void setUp() {
         queue1 = new TetrominoQueue();
-        queue2 = new TetrominoQueue();
         queue1.setSeed(SEED_ONE);
+        queue1.initializeQueue();
+        queue2 = new TetrominoQueue();
         queue2.setSeed(SEED_TWO);
+        queue2.initializeQueue();
+        queue3 = new TetrominoQueue();
 
         shape0 = new Line();
         shape1 = new Square();
@@ -53,12 +57,6 @@ class TetrominoQueueTest {
 
     @Test
     void getNextTetromino() {
-        TetrominoQueue queue3 = new TetrominoQueue();
-
-        queue1.initializeQueue();
-        queue2.initializeQueue();
-        queue3.initializeQueue();
-
         /*
          * Tried getting a second random number generator with the same seed so I can generate the same blocks
          * independently. I could not get it to work so I am simply checking that the nullShape is not returned
@@ -84,17 +82,8 @@ class TetrominoQueueTest {
         assertEquals(shape4, queue2.getTetromino(4));
         assertEquals(shape5, queue2.getTetromino(5));
         assertEquals(shape6, queue2.getTetromino(6));
-
         assertEquals(shape7, queue1.getTetromino(7));
         assertEquals(shape7, queue2.getTetromino(80));
-    }
-
-    @Test
-    void getRandomInteger() {
-        for (int i = 0; i < 10; i++) {
-            assertEquals(rng1.nextInt(7), queue1.getRandomInteger());
-            assertEquals(rng2.nextInt(7), queue2.getRandomInteger());
-        }
     }
 
     @Test

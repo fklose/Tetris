@@ -8,8 +8,9 @@ import java.util.Random;
 // Used to store Tetrominos and generate random Tetrominos
 public class TetrominoQueue {
 
-    private static final int SIZE = 5;
-//    private LinkedList<Tetromino> queue;
+    private static final int QUEUE_SIZE = 5;
+    private static final int NUMBER_OF_TETROMINOS = 7;
+
     private LinkedList<Tetromino> queue;
     private final Random rnd;
 
@@ -30,8 +31,8 @@ public class TetrominoQueue {
     // EFFECTS  : Initializes the queue by filling it with random Tetrominos
     public void initializeQueue() {
         queue = new LinkedList<>();
-        for (int i = 0; i < SIZE; i++) {
-            queue.addLast(getTetromino(getRandomInteger()));
+        for (int i = 0; i < QUEUE_SIZE; i++) {
+            queue.addLast(getTetromino(rnd.nextInt(NUMBER_OF_TETROMINOS)));
         }
     }
 
@@ -54,7 +55,7 @@ public class TetrominoQueue {
     // MODIFIES : this
     // EFFECTS  : Adds a random Tetromino to the end of the list
     public void addRandomTetromino() {
-        Tetromino tetromino = getTetromino(getRandomInteger());
+        Tetromino tetromino = getTetromino(rnd.nextInt(NUMBER_OF_TETROMINOS));
         this.queue.addLast(tetromino);
     }
 
@@ -75,12 +76,8 @@ public class TetrominoQueue {
                 return new LeftL();
             case 6:
                 return new RightL();
+            default:
+                return new SingleBlock();
         }
-        return new SingleBlock();
-    }
-
-    // EFFECTS  : Generates a random integer in the interval [0, 6]
-    public int getRandomInteger() {
-        return rnd.nextInt(7);
     }
 }
