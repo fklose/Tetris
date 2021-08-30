@@ -13,13 +13,13 @@ import java.util.HashSet;
 public class GamePanel extends JPanel {
 
     private final TetrisGame tetrisGame;
-    private static final int BLOCK_WIDTH = 40;
-    private static final int BLOCK_HEIGHT = 40;
+    private int blockSize;
 
     // MODIFIES : this
     // EFFECTS  : sets size and background colour of panel, updates this with the game to be displayed
-    public GamePanel(TetrisGame game) {
-        setPreferredSize(new Dimension(TetrisGame.WIDTH * BLOCK_WIDTH, TetrisGame.HEIGHT * BLOCK_HEIGHT));
+    public GamePanel(TetrisGame game, int blockSize) {
+        this.blockSize = blockSize;
+        setPreferredSize(new Dimension(TetrisGame.WIDTH * blockSize, TetrisGame.HEIGHT * blockSize));
         setBackground(Color.BLACK);
         this.tetrisGame = game;
     }
@@ -71,7 +71,7 @@ public class GamePanel extends JPanel {
     private void drawBlock(Graphics g, Block b) {
         Color savedCol = g.getColor();
         g.setColor(b.getColor());
-        g.fillRect(b.getX() * BLOCK_WIDTH, b.getY() * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+        g.fillRect(b.getX() * blockSize, b.getY() * blockSize, blockSize, blockSize);
         g.setColor(savedCol);
     }
 }

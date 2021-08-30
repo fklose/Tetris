@@ -14,6 +14,9 @@ import java.awt.event.KeyEvent;
 // UI for the game
 public class Tetris extends JFrame {
 
+    private static final int GAME_HEIGHT = 600;
+    private static final int GAME_WIDTH = 300;
+
     TetrisGame tetrisGame;
     JPanel centerPanel;
     StatusPanel statusPanel;
@@ -143,10 +146,9 @@ public class Tetris extends JFrame {
         JPanel gp = new JPanel();
         gp.setLayout(new BorderLayout());
         queuePanel = new QueuePanel(tetrisGame);
-        gamePanel = new GamePanel(tetrisGame);
+        gamePanel = new GamePanel(tetrisGame, 10);
         setFocusable(true);
-        gamePanel.setPreferredSize(new Dimension(400, 800));
-        queuePanel.setPreferredSize(new Dimension(200, 800));
+        queuePanel.setPreferredSize(new Dimension(GAME_WIDTH / 2, GAME_HEIGHT));
         gp.add(gamePanel, BorderLayout.CENTER);
         gp.add(queuePanel, BorderLayout.EAST);
         return gp;
@@ -161,7 +163,7 @@ public class Tetris extends JFrame {
     // EFFECTS  : location of frame is set so frame is centred on desktop
     private void centreOnScreen() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((screen.width - getWidth()) / 2 - 200, (screen.height - getHeight()) / 2 - 400);
+        setLocation((screen.width - getWidth()) / 2 - GAME_WIDTH / 2, (screen.height - getHeight()) / 2 - GAME_HEIGHT / 2);
     }
 
     // EFFECTS  : Handles user inputs
